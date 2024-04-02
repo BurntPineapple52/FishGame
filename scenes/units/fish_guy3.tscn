@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp4f40grjhffn"]
+
+[ext_resource type="Texture2D" uid="uid://dm17xc88nb3i5" path="res://assets/sprites/player/fish_head.png" id="1_l86el"]
+[ext_resource type="Texture2D" uid="uid://sqtde38re8q2" path="res://assets/sprites/player/fish_tail.png" id="2_2nk2k"]
+[ext_resource type="Texture2D" uid="uid://bmhn1a3adcqm3" path="res://assets/sprites/player/fish_center.png" id="3_j8o66"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th8sa"]
+size = Vector2(50, 20)
+
+[node name="FishGuy" type="Node2D"]
+
+[node name="FishHead" type="RigidBody2D" parent="."]
+position = Vector2(55, 0)
+mass = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishHead"]
+shape = SubResource("RectangleShape2D_th8sa")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishHead"]
+texture = ExtResource("1_l86el")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="FishHead"]
+position = Vector2(-28, 0)
+node_a = NodePath("../../FishBody")
+node_b = NodePath("..")
+bias = 0.9
+disable_collision = false
+angular_limit_enabled = true
+angular_limit_lower = -0.436332
+angular_limit_upper = 0.436332
+motor_enabled = true
+
+[node name="FishTail" type="RigidBody2D" parent="."]
+position = Vector2(-59, 0)
+mass = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishTail"]
+position = Vector2(3, 0)
+shape = SubResource("RectangleShape2D_th8sa")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishTail"]
+texture = ExtResource("2_2nk2k")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="FishTail"]
+position = Vector2(31, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../FishBody")
+bias = 0.789
+disable_collision = false
+angular_limit_enabled = true
+angular_limit_lower = -0.436332
+angular_limit_upper = 0.436332
+
+[node name="FishBody" type="RigidBody2D" parent="."]
+mass = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishBody"]
+shape = SubResource("RectangleShape2D_th8sa")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishBody"]
+texture = ExtResource("3_j8o66")
