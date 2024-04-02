@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://deiin0bi61ug2"]
+[gd_scene load_steps=6 format=3 uid="uid://deiin0bi61ug2"]
 
 [ext_resource type="Texture2D" uid="uid://t087xbgaaapk" path="res://icon.svg" id="1_tbhgc"]
 [ext_resource type="PackedScene" uid="uid://dp4f40grjhffn" path="res://scenes/units/fish_guy3.tscn" id="2_1cou5"]
+[ext_resource type="Script" path="res://scripts/RigidBody2DTest.gd" id="2_rhcjw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thbab"]
 size = Vector2(128, 128)
@@ -24,6 +25,7 @@ texture = ExtResource("1_tbhgc")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(309, 369)
+script = ExtResource("2_rhcjw")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
@@ -33,4 +35,4 @@ shape = SubResource("RectangleShape2D_wgud8")
 texture = ExtResource("1_tbhgc")
 
 [node name="FishGuy" parent="." instance=ExtResource("2_1cou5")]
-position = Vector2(373, 221)
+position = Vector2(580, 247)

@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dp4f40grjhffn"]
+[gd_scene load_steps=8 format=3 uid="uid://dp4f40grjhffn"]
 
+[ext_resource type="Script" path="res://scripts/FishHead.gd" id="1_2odq8"]
 [ext_resource type="Texture2D" uid="uid://dm17xc88nb3i5" path="res://assets/sprites/player/fish_head.png" id="1_l86el"]
 [ext_resource type="Texture2D" uid="uid://sqtde38re8q2" path="res://assets/sprites/player/fish_tail.png" id="2_2nk2k"]
+[ext_resource type="Script" path="res://scripts/FishTail.gd" id="3_ef1nn"]
 [ext_resource type="Texture2D" uid="uid://bmhn1a3adcqm3" path="res://assets/sprites/player/fish_center.png" id="3_j8o66"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ifhmt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_th8sa"]
 size = Vector2(50, 20)
@@ -10,17 +14,20 @@ size = Vector2(50, 20)
 [node name="FishGuy" type="Node2D"]
 
 [node name="FishHead" type="RigidBody2D" parent="."]
-position = Vector2(55, 0)
+position = Vector2(26, 0)
 mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_ifhmt")
+script = ExtResource("1_2odq8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishHead"]
+position = Vector2(29, 0)
 shape = SubResource("RectangleShape2D_th8sa")
 
 [node name="Sprite2D" type="Sprite2D" parent="FishHead"]
+position = Vector2(29, 0)
 texture = ExtResource("1_l86el")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="FishHead"]
-position = Vector2(-28, 0)
 node_a = NodePath("../../FishBody")
 node_b = NodePath("..")
 bias = 0.9
@@ -33,6 +40,7 @@ motor_enabled = true
 [node name="FishTail" type="RigidBody2D" parent="."]
 position = Vector2(-59, 0)
 mass = 5.0
+script = ExtResource("3_ef1nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishTail"]
 position = Vector2(3, 0)
