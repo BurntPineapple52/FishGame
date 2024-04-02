@@ -38,19 +38,19 @@ angular_limit_upper = 0.436332
 motor_enabled = true
 
 [node name="FishTail" type="RigidBody2D" parent="."]
-position = Vector2(-59, 0)
+position = Vector2(-28, 0)
 mass = 5.0
 script = ExtResource("3_ef1nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishTail"]
-position = Vector2(3, 0)
+position = Vector2(-26, 0)
 shape = SubResource("RectangleShape2D_th8sa")
 
 [node name="Sprite2D" type="Sprite2D" parent="FishTail"]
+position = Vector2(-29, 0)
 texture = ExtResource("2_2nk2k")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="FishTail"]
-position = Vector2(31, 0)
 node_a = NodePath("..")
 node_b = NodePath("../../FishBody")
 bias = 0.789
