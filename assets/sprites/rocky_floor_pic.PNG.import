@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c72t1vfyicj86"
-path="res://.godot/imported/water_background.png-87314a969dfd36b84c3d498e1eb8f7ff.ctex"
+uid="uid://bygfk0u7pdhho"
+path="res://.godot/imported/rocky_floor_pic.PNG-7775461ccad84557463f4b10b8efaf24.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/water_background.png"
-dest_files=["res://.godot/imported/water_background.png-87314a969dfd36b84c3d498e1eb8f7ff.ctex"]
+source_file="res://assets/sprites/rocky_floor_pic.PNG"
+dest_files=["res://.godot/imported/rocky_floor_pic.PNG-7775461ccad84557463f4b10b8efaf24.ctex"]
 
 [params]
 
