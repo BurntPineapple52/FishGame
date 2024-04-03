@@ -1,12 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://deiin0bi61ug2"]
+[gd_scene load_steps=9 format=3 uid="uid://deiin0bi61ug2"]
 
 [ext_resource type="Texture2D" uid="uid://t087xbgaaapk" path="res://icon.svg" id="1_tbhgc"]
 [ext_resource type="PackedScene" uid="uid://dp4f40grjhffn" path="res://scenes/units/fish_guy3.tscn" id="2_1cou5"]
 [ext_resource type="Script" path="res://scripts/RigidBody2DTest.gd" id="2_rhcjw"]
 [ext_resource type="Script" path="res://scripts/gravflip.gd" id="4_gcxyr"]
-[ext_resource type="Texture2D" uid="uid://bqviqm8vnne3y" path="res://assets/sprites/enemies/eagle.png" id="5_reibu"]
-[ext_resource type="Script" path="res://scripts/TempEagle.gd" id="6_ukwau"]
-[ext_resource type="AudioStream" uid="uid://5bgvektiwdc" path="res://assets/audio/eagle_scream.mp3" id="7_ovpui"]
+[ext_resource type="Script" path="res://scripts/Water.gd" id="8_o8yqd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thbab"]
 size = Vector2(128, 128)
@@ -14,8 +12,8 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgud8"]
 size = Vector2(128, 126)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kuasl"]
-size = Vector2(286, 210)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdf5b"]
+size = Vector2(1282, 276)
 
 [node name="TestStage" type="Node2D"]
 
@@ -30,6 +28,17 @@ shape = SubResource("RectangleShape2D_thbab")
 [node name="Sprite2D" type="Sprite2D" parent="Floor"]
 texture = ExtResource("1_tbhgc")
 
+[node name="Floor2" type="StaticBody2D" parent="."]
+position = Vector2(1842, 625)
+scale = Vector2(10, 1)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
+shape = SubResource("RectangleShape2D_thbab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor2"]
+texture = ExtResource("1_tbhgc")
+
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(309, 369)
 script = ExtResource("2_rhcjw")
@@ -42,25 +51,24 @@ shape = SubResource("RectangleShape2D_wgud8")
 texture = ExtResource("1_tbhgc")
 
 [node name="FishGuy" parent="." instance=ExtResource("2_1cou5")]
-position = Vector2(580, 247)
+position = Vector2(1435, 298)
 
 [node name="gravflip" type="Node2D" parent="."]
 script = ExtResource("4_gcxyr")
 
-[node name="RigidBody2D2" type="RigidBody2D" parent="."]
-position = Vector2(628, -1686)
-gravity_scale = 0.5
+[node name="Water" type="Area2D" parent="." groups=["water"]]
+position = Vector2(4843, 931)
+scale = Vector2(6, 6)
+script = ExtResource("8_o8yqd")
 metadata/_edit_group_ = true
 
-[node name="TempEagle" type="Sprite2D" parent="RigidBody2D2"]
-scale = Vector2(1.8, 1.8)
-texture = ExtResource("5_reibu")
-script = ExtResource("6_ukwau")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
+shape = SubResource("RectangleShape2D_fdf5b")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="RigidBody2D2/TempEagle"]
-scale = Vector2(0.5, 0.5)
-stream = ExtResource("7_ovpui")
+[node name="Sprite2D" type="Sprite2D" parent="Water"]
+modulate = Color(0.113725, 0.352941, 1, 0.462745)
+scale = Vector2(10, 2.21875)
+texture = ExtResource("1_tbhgc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_kuasl")
+[connection signal="body_entered" from="Water" to="Water" method="_on_body_entered"]
+[connection signal="body_exited" from="Water" to="Water" method="_on_body_exited"]

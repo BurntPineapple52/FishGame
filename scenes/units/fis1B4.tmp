@@ -60,7 +60,7 @@ angular_limit_lower = -0.436332
 angular_limit_upper = 0.436332
 
 [node name="FishBody" type="RigidBody2D" parent="." groups=["physics"]]
-mass = 5.0
+mass = 7.0
 physics_material_override = SubResource("PhysicsMaterial_orw0k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishBody"]
@@ -70,4 +70,6 @@ shape = SubResource("RectangleShape2D_th8sa")
 texture = ExtResource("3_j8o66")
 
 [node name="Camera2D" type="Camera2D" parent="FishBody"]
+limit_top = 0
+limit_bottom = 648
 limit_smoothed = true
