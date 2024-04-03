@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bk0gpedy60y2p"]
 
-[ext_resource type="Script" path="res://Log.gd" id="1_sa65x"]
+[ext_resource type="Script" path="res://scripts/Log.gd" id="1_ijaxd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjd24"]
 size = Vector2(40, 40)
@@ -18,10 +18,7 @@ color = Color(0, 0.337255, 0.337255, 1)
 
 [node name="Log" type="RigidBody2D" parent="."]
 position = Vector2(-21, -20)
-script = ExtResource("1_sa65x")
-float_force = 10.0
-water_drag = 0.0
-water_angular_drag = 0.0
+script = ExtResource("1_ijaxd")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
