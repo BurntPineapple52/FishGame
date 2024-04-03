@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8ol5bv3fodw6"
+path="res://.godot/imported/Thriller 16-bit.mp3-47410f34d051aa0476e02ffae7dcf5c2.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Thriller 16-bit.mp3"
+dest_files=["res://.godot/imported/Thriller 16-bit.mp3-47410f34d051aa0476e02ffae7dcf5c2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
