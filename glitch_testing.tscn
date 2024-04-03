@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk0gpedy60y2p"]
+
+[ext_resource type="Script" path="res://Log.gd" id="1_sa65x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjd24"]
+size = Vector2(40, 40)
+
+[node name="glitch_testing" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 324.0
+color = Color(0, 0.337255, 0.337255, 1)
+
+[node name="Log" type="RigidBody2D" parent="."]
+position = Vector2(-21, -20)
+script = ExtResource("1_sa65x")
+float_force = 10.0
+water_drag = 0.0
+water_angular_drag = 0.0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_jjd24")
+
+[node name="ColorRect" type="ColorRect" parent="Log"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.247059, 0.176471, 0.12549, 1)
