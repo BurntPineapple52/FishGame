@@ -4,21 +4,21 @@
 [ext_resource type="Texture2D" uid="uid://bygfk0u7pdhho" path="res://assets/sprites/rocky_floor_pic.PNG" id="1_o28c1"]
 [ext_resource type="Script" path="res://scripts/RigidBody2DTest.gd" id="2_77t2g"]
 [ext_resource type="Texture2D" uid="uid://c72t1vfyicj86" path="res://assets/sprites/water_background.png" id="2_g2774"]
-[ext_resource type="PackedScene" uid="uid://dp4f40grjhffn" path="res://scenes/units/fish_guy3.tscn" id="3_3q2mp"]
 [ext_resource type="Texture2D" uid="uid://njclc4w42c0v" path="res://assets/sprites/tree_background.png" id="3_l8tin"]
 [ext_resource type="Script" path="res://scripts/gravflip.gd" id="4_dl8n5"]
-[ext_resource type="Texture2D" uid="uid://bqviqm8vnne3y" path="res://assets/sprites/enemies/eagle.png" id="5_4cu8i"]
-[ext_resource type="Script" path="res://scripts/TempEagle.gd" id="6_fy6sr"]
-[ext_resource type="AudioStream" uid="uid://5bgvektiwdc" path="res://assets/audio/eagle_scream.mp3" id="7_f0yd8"]
+[ext_resource type="Texture2D" uid="uid://p2jdcek120l0" path="res://assets/sprites/rock.png" id="6_5d6ke"]
+[ext_resource type="Texture2D" uid="uid://dop6s4b16773c" path="res://assets/sprites/log.png" id="7_30xtx"]
+[ext_resource type="PackedScene" uid="uid://bk61lyub7ka4e" path="res://scenes/units/fish_guysTutorial.tscn" id="8_7dvx8"]
+[ext_resource type="Script" path="res://scripts/Water.gd" id="11_2axot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thbab"]
-size = Vector2(128, 128)
+size = Vector2(114.8, 122)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgud8"]
-size = Vector2(128, 126)
+size = Vector2(101, 109.032)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kuasl"]
-size = Vector2(286, 210)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_au64w"]
+size = Vector2(1146, 388)
 
 [node name="TestStage" type="Node2D"]
 
@@ -27,6 +27,7 @@ position = Vector2(577, 625)
 scale = Vector2(10, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(-0.400002, 0)
 shape = SubResource("RectangleShape2D_thbab")
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor"]
@@ -45,41 +46,99 @@ position = Vector2(-0.25, -534.5)
 scale = Vector2(0.0798197, 0.512894)
 texture = ExtResource("3_l8tin")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(309, 369)
+[node name="Log" type="RigidBody2D" parent="."]
+z_index = 1
+position = Vector2(1955.31, 251.896)
+gravity_scale = 0.568
 script = ExtResource("2_77t2g")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
+z_index = 1
+position = Vector2(108, -44.5)
 shape = SubResource("RectangleShape2D_wgud8")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-texture = ExtResource("1_ckqrl")
+[node name="Sprite2D" type="Sprite2D" parent="Log"]
+z_index = 1
+position = Vector2(110, -44.5)
+scale = Vector2(0.563492, 0.550505)
+texture = ExtResource("7_30xtx")
 
-[node name="FishGuy" parent="." instance=ExtResource("3_3q2mp")]
-position = Vector2(580, 247)
+[node name="Rock" type="RigidBody2D" parent="."]
+z_index = 1
+position = Vector2(1339.51, 574.032)
+mass = 1000.0
+gravity_scale = 8.0
+script = ExtResource("2_77t2g")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock"]
+z_index = 1
+position = Vector2(109.993, -45.5161)
+shape = SubResource("RectangleShape2D_wgud8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Rock"]
+z_index = 1
+position = Vector2(110, -44.5)
+scale = Vector2(0.563492, 0.550505)
+texture = ExtResource("6_5d6ke")
+
+[node name="Water" type="Area2D" parent="." groups=["water"]]
+position = Vector2(653, 144)
+script = ExtResource("11_2axot")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
+position = Vector2(-77, 229)
+shape = SubResource("RectangleShape2D_au64w")
+
+[node name="Sprite2D" type="Sprite2D" parent="Water"]
+visible = false
+modulate = Color(0.113725, 0.352941, 1, 0.462745)
+scale = Vector2(10, 2.21875)
+texture = ExtResource("1_ckqrl")
 
 [node name="gravflip" type="Node2D" parent="."]
 script = ExtResource("4_dl8n5")
 
-[node name="RigidBody2D2" type="RigidBody2D" parent="."]
-visible = false
-position = Vector2(628, -1686)
-gravity_scale = 0.5
+[node name="Floor2" type="StaticBody2D" parent="."]
+position = Vector2(1725, 624)
+scale = Vector2(10, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
+position = Vector2(-0.199997, 3)
+shape = SubResource("RectangleShape2D_thbab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor2"]
+z_index = 1
+position = Vector2(-0.149999, -18.5)
+scale = Vector2(0.0841224, 0.334646)
+texture = ExtResource("1_o28c1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Floor2"]
+position = Vector2(-0.199988, -246.719)
+scale = Vector2(0.082235, 0.393867)
+texture = ExtResource("2_g2774")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Floor2"]
+position = Vector2(-0.25, -534.5)
+scale = Vector2(0.0798197, 0.512894)
+texture = ExtResource("3_l8tin")
+
+[node name="FishGuyTutorial" parent="." instance=ExtResource("8_7dvx8")]
+position = Vector2(577, 325)
+
+[node name="Water2" type="Area2D" parent="." groups=["water"]]
+z_as_relative = false
+position = Vector2(1799, 145)
+script = ExtResource("11_2axot")
 metadata/_edit_group_ = true
 
-[node name="TempEagle" type="Sprite2D" parent="RigidBody2D2"]
-visible = false
-scale = Vector2(1.8, 1.8)
-texture = ExtResource("5_4cu8i")
-script = ExtResource("6_fy6sr")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water2"]
+position = Vector2(-77, 229)
+shape = SubResource("RectangleShape2D_au64w")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="RigidBody2D2/TempEagle"]
-visible = false
-scale = Vector2(0.5, 0.5)
-stream = ExtResource("7_f0yd8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
-visible = false
-position = Vector2(-1, 0)
-shape = SubResource("RectangleShape2D_kuasl")
+[connection signal="body_entered" from="Water" to="Water" method="_on_body_entered"]
+[connection signal="body_exited" from="Water" to="Water" method="_on_body_exited"]
+[connection signal="body_entered" from="Water2" to="Water2" method="_on_body_entered"]
+[connection signal="body_exited" from="Water2" to="Water2" method="_on_body_exited"]
