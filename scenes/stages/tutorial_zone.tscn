@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/gravflip.gd" id="4_dl8n5"]
 [ext_resource type="Texture2D" uid="uid://p2jdcek120l0" path="res://assets/sprites/rock.png" id="6_5d6ke"]
 [ext_resource type="Texture2D" uid="uid://dop6s4b16773c" path="res://assets/sprites/log.png" id="7_30xtx"]
-[ext_resource type="PackedScene" uid="uid://bk61lyub7ka4e" path="res://scenes/units/fish_guysTutorial.tscn" id="8_7dvx8"]
+[ext_resource type="PackedScene" path="res://scenes/units/fish_guysTutorial.tscn" id="8_7dvx8"]
 [ext_resource type="Script" path="res://scripts/Water.gd" id="11_2axot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thbab"]
