@@ -40,7 +40,7 @@ shape = SubResource("RectangleShape2D_thbab")
 texture = ExtResource("1_tbhgc")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(309, 369)
+position = Vector2(32, 333)
 script = ExtResource("2_rhcjw")
 metadata/_edit_group_ = true
 
@@ -51,7 +51,7 @@ shape = SubResource("RectangleShape2D_wgud8")
 texture = ExtResource("1_tbhgc")
 
 [node name="FishGuy" parent="." instance=ExtResource("2_1cou5")]
-position = Vector2(1435, 298)
+position = Vector2(274, 480)
 
 [node name="gravflip" type="Node2D" parent="."]
 script = ExtResource("4_gcxyr")
