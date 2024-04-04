@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk0gpedy60y2p"]
+
+[ext_resource type="Script" path="res://scripts/Log.gd" id="1_ijaxd"]
+[ext_resource type="Script" path="res://scenes/stages/WaterTest.gd" id="2_3oysk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxicb"]
+size = Vector2(1151, 323)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjd24"]
+size = Vector2(118, 29)
+
+[node name="glitch_testing" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="WaterTest" type="Area2D" parent="."]
+script = ExtResource("2_3oysk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterTest"]
+position = Vector2(0.5, 162.5)
+shape = SubResource("RectangleShape2D_cxicb")
+
+[node name="ColorRect" type="ColorRect" parent="WaterTest"]
+show_behind_parent = true
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 324.0
+color = Color(0, 0.337255, 0.337255, 1)
+
+[node name="Log" type="RigidBody2D" parent="."]
+position = Vector2(6, -77)
+script = ExtResource("1_ijaxd")
+water_drag = 0.07
+water_angular_drag = 0.07
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
+position = Vector2(59, 14.5)
+shape = SubResource("RectangleShape2D_jjd24")
+
+[node name="ColorRect" type="ColorRect" parent="Log"]
+offset_right = 118.0
+offset_bottom = 29.0
+color = Color(0.247059, 0.176471, 0.12549, 1)

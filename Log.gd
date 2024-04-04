@@ -24,9 +24,9 @@ func _physics_process(delta):
 	if depth > 0:
 		submerged = true
 		apply_central_force(Vector2.UP * float_force * gravity/100 * depth)
-		
+
 func _integrate_forces(state: PhysicsDirectBodyState2D):
 	if submerged:
-		#1 means no drag, 0 means max drag
+		#0 means no drag, 1 means max drag
 		state.linear_velocity *= 1 - water_drag
-		state.angular_velocity *= 1 - water_angular_drag
+		state.angular_velocity *= (1 - water_angular_drag) * 0.1
