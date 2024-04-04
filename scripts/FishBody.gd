@@ -8,8 +8,5 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	#apply_central_force(Vector2(0,-1100))
-	#apply_torque(20000)
-	#apply_force(Vector2(0,100), position)
+func _process(delta):
 	pass
