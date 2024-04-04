@@ -18,8 +18,15 @@ var bottom = target_height + depth
 
 @onready var water_polygon = $Water_Polygon
 
+@onready var water_border = $Water_Border
+@export var border_thickness = 1.1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	water_border.width = border_thickness
+	
+	spread = spread / 1000
+	
 	for i in range(spring_number):
 		var x_position = distance_between_springs * i
 		var w = water_spring.instantiate()
@@ -29,7 +36,6 @@ func _ready():
 		w.initialize(x_position)
 	
 	splash(2,5)
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -52,6 +58,7 @@ func _physics_process(delta):
 				right_deltas[i] = spread * (springs[i].height - springs[i+1].height)
 				springs[i +1].velocity+= right_deltas[i]
 	
+	new_border()
 	draw_water_body()
 
 func splash(index, speed):
@@ -75,3 +82,17 @@ func draw_water_body():
 	
 	water_polygon.set_polygon(water_polygon_points)
 	
+func new_border():
+	var curve = Curve2D.new().duplicate()
+	
+	var surface_points = []
+	for i in range(springs.size()):
+		surface_points.append(springs[i].position)
+	
+	for i in range(surface_points.size()):
+		curve.add_point(surface_points[i])
+	
+	water_border.curve = curve
+	water_border.smooth(true)
+	water_border.queue_redraw()
+	pass
