@@ -1,31 +1,67 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk0gpedy60y2p"]
+[gd_scene load_steps=5 format=3 uid="uid://bk0gpedy60y2p"]
 
+<<<<<<< Updated upstream:glitch_testing.tscn
+[ext_resource type="Script" path="res://Log.gd" id="1_sa65x"]
+=======
 [ext_resource type="Script" path="res://scripts/Log.gd" id="1_ijaxd"]
+[ext_resource type="Script" path="res://scripts/Spring_Container.gd" id="1_qns1b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxicb"]
+size = Vector2(1151, 327.5)
+>>>>>>> Stashed changes:scenes/stages/glitch_testing.tscn
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjd24"]
-size = Vector2(40, 40)
+size = Vector2(118, 29)
 
 [node name="glitch_testing" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Spring_Container" type="Node2D" parent="."]
+position = Vector2(0, -8)
+script = ExtResource("1_qns1b")
+
+[node name="Water_Polygon" type="Polygon2D" parent="Spring_Container"]
+color = Color(0, 0.317647, 0.317647, 1)
+
+[node name="WaterTest" type="Area2D" parent="."]
+visible = false
 show_behind_parent = true
-offset_left = -576.0
-offset_right = 576.0
-offset_bottom = 324.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterTest"]
+position = Vector2(2, 163.75)
+shape = SubResource("RectangleShape2D_cxicb")
+
+[node name="ColorRect" type="ColorRect" parent="WaterTest"]
+show_behind_parent = true
+offset_right = 1152.0
+offset_bottom = 329.0
 color = Color(0, 0.337255, 0.337255, 1)
 
 [node name="Log" type="RigidBody2D" parent="."]
+<<<<<<< Updated upstream:glitch_testing.tscn
 position = Vector2(-21, -20)
+script = ExtResource("1_sa65x")
+float_force = 10.0
+water_drag = 0.0
+water_angular_drag = 0.0
+=======
+visible = false
+position = Vector2(11, -112)
 script = ExtResource("1_ijaxd")
+float_force = 21.0
+water_drag = 0.08
+water_angular_drag = 0.08
+>>>>>>> Stashed changes:scenes/stages/glitch_testing.tscn
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
-position = Vector2(20, 20)
 shape = SubResource("RectangleShape2D_jjd24")
+debug_color = Color(0.478431, 0.584314, 0.188235, 0.419608)
 
 [node name="ColorRect" type="ColorRect" parent="Log"]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(0.247059, 0.176471, 0.12549, 1)
+offset_left = -59.0
+offset_top = -15.0
+offset_right = 59.0
+offset_bottom = 15.0
+color = Color(0.258824, 0.164706, 0.0705882, 1)

@@ -5,22 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://sqtde38re8q2" path="res://assets/sprites/player/fish_tail.png" id="2_2nk2k"]
 [ext_resource type="Script" path="res://scripts/FishTail.gd" id="3_ef1nn"]
 [ext_resource type="Texture2D" uid="uid://bmhn1a3adcqm3" path="res://assets/sprites/player/fish_center.png" id="3_j8o66"]
+[ext_resource type="Script" path="res://scripts/FishBody.gd" id="5_pvkrf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_th8sa"]
-size = Vector2(50, 20)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_orw0k"]
-bounce = 0.75
+size = Vector2(48, 20)
 
 [node name="FishGuy" type="Node2D"]
 
-[node name="FishHead" type="RigidBody2D" parent="." groups=["physics"]]
-position = Vector2(26, 0)
+[node name="FishHead" type="RigidBody2D" parent="." groups=["physics", "player"]]
+position = Vector2(28, 0)
 mass = 5.0
+angular_damp = 25.0
 script = ExtResource("1_2odq8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishHead"]
-position = Vector2(29, 0)
+position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_th8sa")
 
 [node name="Sprite2D" type="Sprite2D" parent="FishHead"]
@@ -33,17 +32,17 @@ node_b = NodePath("..")
 bias = 0.9
 disable_collision = false
 angular_limit_enabled = true
-angular_limit_lower = -0.436332
-angular_limit_upper = 0.436332
-motor_enabled = true
+angular_limit_lower = -0.785398
+angular_limit_upper = 0.785398
 
-[node name="FishTail" type="RigidBody2D" parent="." groups=["physics"]]
+[node name="FishTail" type="RigidBody2D" parent="." groups=["physics", "player"]]
 position = Vector2(-28, 0)
 mass = 5.0
+angular_damp = 25.0
 script = ExtResource("3_ef1nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishTail"]
-position = Vector2(-26, 0)
+position = Vector2(-28, 0)
 shape = SubResource("RectangleShape2D_th8sa")
 
 [node name="Sprite2D" type="Sprite2D" parent="FishTail"]
@@ -53,15 +52,16 @@ texture = ExtResource("2_2nk2k")
 [node name="PinJoint2D" type="PinJoint2D" parent="FishTail"]
 node_a = NodePath("..")
 node_b = NodePath("../../FishBody")
-bias = 0.789
+bias = 0.9
 disable_collision = false
 angular_limit_enabled = true
-angular_limit_lower = -0.436332
-angular_limit_upper = 0.436332
+angular_limit_lower = -0.785398
+angular_limit_upper = 0.785398
 
-[node name="FishBody" type="RigidBody2D" parent="." groups=["physics"]]
+[node name="FishBody" type="RigidBody2D" parent="." groups=["physics", "player"]]
 mass = 5.0
-physics_material_override = SubResource("PhysicsMaterial_orw0k")
+angular_damp = 25.0
+script = ExtResource("5_pvkrf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishBody"]
 shape = SubResource("RectangleShape2D_th8sa")

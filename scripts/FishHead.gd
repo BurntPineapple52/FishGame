@@ -2,8 +2,8 @@ extends RigidBody2D
 
 var axis
 var torque = 530000
-var thrust = 10000/2
-var ldamp = 10
+var thrust = 50000
+#var ldamp = 10
 
 var con_force = 0	#constaht force, built up to a cap from swimming, redirected based on direction of head
 var min_cf = 0
@@ -17,14 +17,14 @@ var in_water = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	linear_damp = ldamp
-	var temp
+	#linear_damp = ldamp
+	#var temp
 	
 	pass # Replace with function body.
 
-func _integrate_forces(s:PhysicsDirectBodyState2D):
-	
-	pass
+#func _integrate_forces(s:PhysicsDirectBodyState2D):
+	#
+	#pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -32,12 +32,15 @@ func _physics_process(delta):
 	axis = Input.get_axis('l','o')
 	if abs(ang_dif) < PI/9 or sign(ang_dif) == axis:
 		apply_torque(torque*axis)
+		
 		#apply_central_force(Vector2(thrust*abs(angular_velocity)*abs(axis)/8,0).rotated(fish_head.rotation))
-	con_force += -speed_decay + thrust*abs(fish_tail.angular_velocity)/8
-	con_force = clamp(con_force,min_cf,max_cf)
-	set_constant_force(Vector2(0,0))
-	add_constant_central_force(Vector2(con_force,0).rotated(rotation*1.6))
-	print(rotation + fish_body.rotation)
+	#con_force += -speed_decay + thrust*abs(fish_tail.angular_velocity)/8
+	#con_force = clamp(con_force,min_cf,max_cf)
+	#set_constant_force(Vector2(0,0))
+	#add_central_force(Vector2(con_force,0).rotated(rotation*1.6))
+	if in_water:
+		apply_central_force(Vector2(thrust*abs(fish_tail.angular_velocity)/8,0).rotated(rotation))
+		print(rotation + fish_body.rotation)
 		
 		#if sign(ang_dif) != axis:
 			#print(axis)
