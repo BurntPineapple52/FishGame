@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/RigidBody2DTest.gd" id="2_rhcjw"]
 [ext_resource type="Texture2D" uid="uid://ci8v3cv5s3eoy" path="res://assets/sprites/environment/rock_2.png" id="3_k1l7m"]
 [ext_resource type="Script" path="res://scripts/gravflip.gd" id="4_gcxyr"]
-[ext_resource type="PackedScene" uid="uid://b4772rljlfy6t" path="res://scenes/units/fish_guy5.tscn" id="5_vn8be"]
+[ext_resource type="PackedScene" path="res://scenes/units/fish_guy5.tscn" id="5_vn8be"]
 [ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="7_j84xb"]
 [ext_resource type="Script" path="res://scripts/Water.gd" id="8_o8yqd"]
 [ext_resource type="PackedScene" uid="uid://cbpofa8b3hcku" path="res://scenes/environment/leaf1.tscn" id="8_y72k8"]
