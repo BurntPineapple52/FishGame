@@ -11,6 +11,8 @@ var index = 0
 
 var motion_factor = 0.2
 
+#var collided_with = null
+
 signal splash
 
 func water_update(spring_constant, dampening):
@@ -38,5 +40,9 @@ func set_collision_width(value):
 	collision.shape.set_size(new_size)
 
 func _on_area_2d_body_entered(body):
+	#if body == collided_with:
+		#return
+	#collided_with = body
+	
 	var speed = body.global_position.y * motion_factor
 	emit_signal("splash", index, speed)

@@ -21,6 +21,9 @@ var bottom = target_height + depth
 @onready var water_border = $Water_Border
 @export var border_thickness = 1.1
 
+@onready var collisionShape = $Water_Area/CollisionShape2D
+@onready var water_area = $Water_Area
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	water_border.width = border_thickness
@@ -36,6 +39,15 @@ func _ready():
 		w.initialize(x_position, i)
 		w.set_collision_width(distance_between_springs)
 		w.connect("splash", splash)
+		
+	var total_length = distance_between_springs * (spring_number - 1)
+	var rectangle = RectangleShape2D.new().duplicate()
+	var rectangle_position = Vector2(total_length/2,depth/2)
+	var rectangle_size = Vector2(total_length,depth)
+	
+	water_area.position = rectangle_position
+	rectangle.set_size(rectangle_size)
+	collisionShape.set_shape(rectangle)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
