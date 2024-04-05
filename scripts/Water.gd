@@ -25,7 +25,6 @@ func _on_body_entered(body:RigidBody2D):
 			body.in_water = true
 		print("nul gravity")
 
-
 func _on_body_exited(body:RigidBody2D):
 	body.add_constant_central_force(Vector2(0,-buoyancy))
 	body.set_constant_force(Vector2(0,0))
@@ -33,3 +32,5 @@ func _on_body_exited(body:RigidBody2D):
 	body.set_linear_damp(land_l_damp)
 	if body.is_in_group("player"):
 		body.in_water = false
+
+
