@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbpofa8b3hcku"]
+
+[ext_resource type="Texture2D" uid="uid://dbeg31tl0i6ry" path="res://assets/sprites/environment/leaf2.png" id="1_3bg7a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4n2kh"]
+
+[node name="Leaf" type="RigidBody2D" groups=["litter", "physics"]]
+z_index = -1
+mass = 1.5
+physics_material_override = SubResource("PhysicsMaterial_4n2kh")
+gravity_scale = 0.3
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3bg7a")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+rotation = 1.5708
+polygon = PackedVector2Array(-5, -18, 5, -6, 8, 7, 6, 16, -0.999999, 19, -6, 14, -7, 2)

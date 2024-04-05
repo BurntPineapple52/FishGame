@@ -30,8 +30,9 @@ func _ready():
 func _physics_process(delta):
 	var ang_dif = angle_difference(self.transform.get_rotation(), fish_body.transform.get_rotation())
 	axis = Input.get_axis('l','o')
-	if abs(ang_dif) < PI/9 or sign(ang_dif) == axis:
+	if !in_water:
 		apply_torque(torque*axis)
+		pass
 		
 		#apply_central_force(Vector2(thrust*abs(angular_velocity)*abs(axis)/8,0).rotated(fish_head.rotation))
 	#con_force += -speed_decay + thrust*abs(fish_tail.angular_velocity)/8
@@ -39,6 +40,9 @@ func _physics_process(delta):
 	#set_constant_force(Vector2(0,0))
 	#add_central_force(Vector2(con_force,0).rotated(rotation*1.6))
 	if in_water:
+		if abs(ang_dif) < PI/9 or sign(ang_dif) == axis:
+			apply_torque(torque*axis)
+		
 		apply_central_force(Vector2(thrust*abs(fish_tail.angular_velocity)/8,0).rotated(rotation))
 		#print(rotation + fish_body.rotation)
 		print(linear_velocity)

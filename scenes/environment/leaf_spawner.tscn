@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://duv0ks6s1u71c"]
+
+[ext_resource type="Script" path="res://scripts/LeafSpawner.gd" id="1_vsj1g"]
+
+[node name="LeafSpawner" type="Node2D"]
+position = Vector2(7745, -585)
+script = ExtResource("1_vsj1g")
+metadata/_edit_group_ = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
