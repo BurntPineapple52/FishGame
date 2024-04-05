@@ -10,6 +10,8 @@ const water_height = 0.0
 
 var submerged = false
 
+#-----------------------
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -23,10 +25,10 @@ func _physics_process(delta):
 	var depth = water_height + global_position.y
 	if depth > 0:
 		submerged = true
-		apply_central_force(Vector2.UP * float_force * gravity/100 * depth)
+		apply_central_force(Vector2.UP * float_force * gravity * depth)
 
 func _integrate_forces(state: PhysicsDirectBodyState2D):
 	if submerged:
 		#0 means no drag, 1 means max drag
 		state.linear_velocity *= 1 - water_drag
-		state.angular_velocity *= (1 - water_angular_drag) * 0.1
+		state.angular_velocity *= 1 - water_angular_drag
