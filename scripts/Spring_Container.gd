@@ -33,9 +33,9 @@ func _ready():
 		
 		add_child(w)
 		springs.append(w)
-		w.initialize(x_position)
-	
-	splash(2,5)
+		w.initialize(x_position, i)
+		w.set_collision_width(distance_between_springs)
+		w.connect("splash", splash)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -66,17 +66,16 @@ func splash(index, speed):
 		springs[index].velocity += speed
 		
 func draw_water_body():
-	var surface_points = []
-	for i in range(springs.size()):
-		surface_points.append(springs[i].position)
+	var curve = water_border.curve
+	var points = Array(curve.get_baked_points())
+	
+	var water_polygon_points = points
 	
 	var first_index = 0
-	var last_index = surface_points.size()-1
+	var last_index = water_polygon_points.size()-1
 	
-	var water_polygon_points = surface_points
-	
-	water_polygon_points.append(Vector2(surface_points[last_index].x, bottom))
-	water_polygon_points.append(Vector2(surface_points[first_index].x, bottom))
+	water_polygon_points.append(Vector2(water_polygon_points[last_index].x, bottom))
+	water_polygon_points.append(Vector2(water_polygon_points[first_index].x, bottom))
 	
 	water_polygon_points = PackedVector2Array(water_polygon_points)
 	
