@@ -50,8 +50,9 @@ func _on_body_entered(body: Node):
 
 		# Calculate and apply damage based on the speed of impact
 		var damage: float = speed_of_impact * damage_multiplier
-		health -= damage
-		print("damaged! " + str(damage))
+		if damage >= 1:
+			health -= damage
+			print("damaged! " + str(damage))
 
 		
 		
@@ -65,20 +66,6 @@ func _on_body_entered(body: Node):
 			
 			# Set the face smash
 			sprite_node.texture = new_sprite_texture
-		#   
-			# Hide the original tail.
-			var tail = get_parent().get_node("FishTail/Sprite2D")
-			tail.visible = false
-			
-			# Instance the detached tail scene.
-			var detached_tail_instance = detached_tail.instantiate()
-			
-			# Set the position of the detached tail to the current position of the original tail.
-			# You may want to adjust the position to match exactly where your tail sprite is.
-			detached_tail_instance.global_position = tail.global_position
-
-			# Add the detached tail instance to the current scene.
-			get_parent().get_parent().add_child(detached_tail_instance)
 			
 		if health <= 0.0:
 			print("Player defeated")
