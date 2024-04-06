@@ -10,6 +10,9 @@ var min_cf = 0
 var max_cf = 150000
 var speed_decay = 2222
 
+var health = 100
+var speed_threshold = 1 # Speed threshold for applying damage
+
 var in_water = false
 
 @onready var fish_body = $"../FishBody"
@@ -37,10 +40,41 @@ func _physics_process(delta):
 	con_force = clamp(con_force,min_cf,max_cf)
 	set_constant_force(Vector2(0,0))
 	add_constant_central_force(Vector2(con_force,0).rotated(rotation*1.6))
+	print('fish body rotation')
 	print(rotation + fish_body.rotation)
 		
 		#if sign(ang_dif) != axis:
 			#print(axis)
+			
+			# Assuming this script is attached to the RigidBody or KinematicBody of the salmon
+
+
+
+func _on_body_entered(body):
+	var speed = get_constant_force()
+	print('Speed!')
+	print(speed)
+	if speed > speed_threshold:
+		var damage = speed # Simplified damage calculation
+		apply_damage(damage)
+
+func apply_damage(damage):
+	health -= damage
+	if health <= 75: # Check for specific health thresholds
+		$AnimationPlayer.play("lightly_damaged")
+	if health <= 50:
+		break_off_part("Fin") # Example function call to break off a part
+	if health <= 0:
+		$AnimationPlayer.play("dead")
+
+func break_off_part(part_name):
+	var part = find_child(part_name)
+	if part:
+		part.hide() # Hide the original part
+		var broken_part = load("res://path/to/broken_part_scene.tscn").instance()
+		get_parent().add_child(broken_part)
+		broken_part.global_position = part.global_position # Position the broken part
+
 
 
 #extends RigidBody2D
