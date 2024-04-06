@@ -46,7 +46,6 @@ position = Vector2(-29, 0)
 texture = ExtResource("4_yaojl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FishTail"]
-visible = false
 position = Vector2(-26, 0)
 shape = SubResource("RectangleShape2D_th8sa")
 

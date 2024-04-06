@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbpofa8b3hcku"]
+[gd_scene load_steps=4 format=3 uid="uid://cbpofa8b3hcku"]
 
 [ext_resource type="Texture2D" uid="uid://dbeg31tl0i6ry" path="res://assets/sprites/environment/leaf2.png" id="1_3bg7a"]
+[ext_resource type="Script" path="res://scripts/leaf.gd" id="1_w83sy"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4n2kh"]
 
@@ -9,6 +10,7 @@ z_index = -1
 mass = 1.5
 physics_material_override = SubResource("PhysicsMaterial_4n2kh")
 gravity_scale = 0.3
+script = ExtResource("1_w83sy")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

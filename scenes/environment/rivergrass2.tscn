@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://de725vgxevvsw"]
+
+[ext_resource type="Texture2D" uid="uid://h6fkbo5ho8fx" path="res://assets/sprites/environment/riverweed_segment_1.png" id="2_3ci6w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2v5xy"]
+size = Vector2(2, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whkek"]
+size = Vector2(4, 36)
+
+[node name="Rivergrass" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2v5xy")
+
+[node name="RivergrassSegment" type="RigidBody2D" parent="." groups=["litter", "physics"]]
+position = Vector2(0, -18)
+mass = 0.9
+gravity_scale = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RivergrassSegment"]
+shape = SubResource("RectangleShape2D_whkek")
+
+[node name="Sprite2D" type="Sprite2D" parent="RivergrassSegment"]
+texture = ExtResource("2_3ci6w")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="RivergrassSegment"]
+position = Vector2(0, 18)
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias = 0.9
+angular_limit_enabled = true
+angular_limit_lower = -1.5708
+angular_limit_upper = 1.5708
+
+[node name="RivergrassSegment2" type="RigidBody2D" parent="." groups=["litter", "physics"]]
+position = Vector2(0, -54)
+mass = 0.8
+gravity_scale = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RivergrassSegment2"]
+shape = SubResource("RectangleShape2D_whkek")
+
+[node name="Sprite2D" type="Sprite2D" parent="RivergrassSegment2"]
+texture = ExtResource("2_3ci6w")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="RivergrassSegment2"]
+position = Vector2(0, 18)
+node_a = NodePath("..")
+node_b = NodePath("../../RivergrassSegment")
+bias = 0.9
+angular_limit_enabled = true
+angular_limit_lower = -0.785398
+angular_limit_upper = 0.785398
+
+[node name="RivergrassSegment3" type="RigidBody2D" parent="." groups=["litter", "physics"]]
+position = Vector2(0, -90)
+mass = 0.7
+gravity_scale = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RivergrassSegment3"]
+shape = SubResource("RectangleShape2D_whkek")
+
+[node name="Sprite2D" type="Sprite2D" parent="RivergrassSegment3"]
+texture = ExtResource("2_3ci6w")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="RivergrassSegment3"]
+position = Vector2(0, 18)
+node_a = NodePath("..")
+node_b = NodePath("../../RivergrassSegment2")
+bias = 0.9
+angular_limit_enabled = true
+angular_limit_lower = -0.785398
+angular_limit_upper = 0.785398
+
+[node name="RivergrassSegment4" type="RigidBody2D" parent="." groups=["litter", "physics"]]
+position = Vector2(0, -126)
+mass = 0.6
+gravity_scale = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RivergrassSegment4"]
+shape = SubResource("RectangleShape2D_whkek")
+
+[node name="Sprite2D" type="Sprite2D" parent="RivergrassSegment4"]
+texture = ExtResource("2_3ci6w")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="RivergrassSegment4"]
+position = Vector2(0, 18)
+node_a = NodePath("..")
+node_b = NodePath("../../RivergrassSegment3")
+bias = 0.9
+angular_limit_enabled = true
+angular_limit_lower = -0.785398
+angular_limit_upper = 0.785398
