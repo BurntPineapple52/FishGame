@@ -6,6 +6,7 @@
 size = Vector2(10, 10)
 
 [node name="Water_Spring" type="Node2D"]
+visible = false
 script = ExtResource("1_wxjfq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
