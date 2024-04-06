@@ -26,20 +26,22 @@ func _ready():
 func _physics_process(delta):
 	var ang_dif = angle_difference(self.transform.get_rotation(), fish_body.transform.get_rotation())
 	axis = Input.get_axis('f','p')
-	if abs(ang_dif) < PI/9 or sign(ang_dif) == axis:
+	if !in_water:
 		apply_torque(torque*axis)
-		#always apply this?
-		#print(angular_velocity)
-		#apply_central_force(Vector2(thrust*abs(angular_velocity)*abs(axis)/8,0).rotated(fish_head.rotation))
-	elif sign(ang_dif) != last_dir:
-		fish_body.apply_central_impulse(Vector2(flop_thrust,0).rotated(fish_body.rotation))
-		last_dir = sign(ang_dif)
-	#con_force += -speed_decay + thrust*abs(angular_velocity)*abs(axis)/8
-	#con_force = clamp(con_force,min_cf,max_cf)
-	#set_constant_force(Vector2(0,0))
-	#add_constant_central_force(Vector2(con_force,0).rotated(fish_head.rotation*2 + fish_body.rotation))
+	if in_water:
+		if abs(ang_dif) < PI/9 or sign(ang_dif) == axis:
+			apply_torque(torque*axis)
+			#always apply this?
+			#apply_central_force(Vector2(thrust*abs(angular_velocity)*abs(axis)/8,0).rotated(fish_head.rotation))
+		elif sign(ang_dif) != last_dir:
+			fish_body.apply_central_impulse(Vector2(flop_thrust,0).rotated(fish_body.rotation))
+			last_dir = sign(ang_dif)
+		#con_force += -speed_decay + thrust*abs(angular_velocity)*abs(axis)/8
+		#con_force = clamp(con_force,min_cf,max_cf)
+		#set_constant_force(Vector2(0,0))
+		#add_constant_central_force(Vector2(con_force,0).rotated(fish_head.rotation*2 + fish_body.rotation))
 
-		
+			
 		#if sign(ang_dif) != axis:
 			#print(axis)
 

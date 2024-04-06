@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/Spring_Container.gd" id="1_qns1b"]
 [ext_resource type="Script" path="res://Log.gd" id="2_320d8"]
-[ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="2_bdowc"]
 [ext_resource type="Script" path="res://scripts/smooth_path.gd" id="3_f1w8n"]
 [ext_resource type="Shader" path="res://assets/shaders/testing_water_shader.gdshader" id="3_mgmpp"]
 
@@ -19,29 +18,15 @@ size = Vector2(1151, 327.5)
 shader = ExtResource("3_mgmpp")
 shader_parameter/tint = Color(0, 1, 1, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjd24"]
+size = Vector2(118, 29)
+
 [node name="glitch_testing" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Log" type="RigidBody2D" parent="."]
-position = Vector2(257, -77)
-script = ExtResource("2_320d8")
-water_drag = 0.2
-water_angular_drag = 0.2
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Log"]
-texture = ExtResource("2_bdowc")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Log"]
-polygon = PackedVector2Array(153, -29, 158, -12, 158, 24, 155, 34, 147, 37, 104, 38, 97, 37, 89, 42, 83, 41, 32, 32, -18, 31, -58, 30, -80, 29, -108, 28, -126, 27, -142, 18, -159, 1, -158, -4, -149, -14, -143, -14, -142, -29, -135, -33, -124, -40, 20, -37, 58, -36, 86, -39)
-
 [node name="Spring_Container" type="Node2D" parent="."]
-position = Vector2(-574, -1)
 script = ExtResource("1_qns1b")
-spread = 1.0
-spring_number = 50
-border_thickness = 0.0
 
 [node name="Water_Polygon" type="Polygon2D" parent="Spring_Container"]
 material = SubResource("ShaderMaterial_3m2e2")
@@ -50,11 +35,6 @@ color = Color(0, 0.737255, 0.737255, 0)
 [node name="Water_Border" type="Path2D" parent="Spring_Container"]
 curve = SubResource("Curve2D_ja6sm")
 script = ExtResource("3_f1w8n")
-_smooth = true
-
-[node name="Water_Area" type="Area2D" parent="Spring_Container"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring_Container/Water_Area"]
 
 [node name="WaterTest" type="Area2D" parent="."]
 visible = false
@@ -73,3 +53,21 @@ offset_right = 577.0
 offset_bottom = 325.0
 color = Color(0, 0.258824, 0.258824, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="Log" type="RigidBody2D" parent="."]
+visible = false
+position = Vector2(8, -140)
+script = ExtResource("2_320d8")
+float_force = 21.0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Log"]
+shape = SubResource("RectangleShape2D_jjd24")
+debug_color = Color(0.478431, 0.584314, 0.188235, 0.419608)
+
+[node name="ColorRect" type="ColorRect" parent="Log"]
+offset_left = -59.0
+offset_top = -15.0
+offset_right = 59.0
+offset_bottom = 15.0
+color = Color(0.258824, 0.164706, 0.0705882, 1)
