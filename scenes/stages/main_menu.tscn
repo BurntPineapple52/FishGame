@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://qcwsahpkfsoq"]
+[gd_scene load_steps=13 format=3 uid="uid://qcwsahpkfsoq"]
 
 [ext_resource type="Script" path="res://Main_Menu.gd" id="1_d68cc"]
 [ext_resource type="Texture2D" uid="uid://cx0m5mllndlyk" path="res://assets/sprites/ui/keycap_f.png" id="2_7h0fq"]
@@ -12,34 +12,41 @@
 [ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="10_mclgp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6ipo"]
-size = Vector2(1160, 25)
+size = Vector2(1732, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8sgwp"]
+size = Vector2(822, 760)
 
 [node name="Main_Menu" type="Node2D"]
 script = ExtResource("1_d68cc")
 
 [node name="KeycapF" type="Sprite2D" parent="."]
-position = Vector2(444, 265)
-scale = Vector2(1.4375, 1.3125)
+position = Vector2(455, 265)
+rotation = -0.174533
+scale = Vector2(1.35, 1.35)
 texture = ExtResource("2_7h0fq")
 script = ExtResource("3_a6lnf")
 
 [node name="KeycapL" type="Sprite2D" parent="."]
-position = Vector2(525, 266)
-scale = Vector2(1.46875, 1.34375)
+position = Vector2(530, 256)
+rotation = -0.0872665
+scale = Vector2(1.35, 1.35)
 texture = ExtResource("3_4lpdh")
 script = ExtResource("3_a6lnf")
 keybind = 76
 
 [node name="KeycapO" type="Sprite2D" parent="."]
-position = Vector2(601, 267)
-scale = Vector2(1.3125, 1.3125)
+position = Vector2(606, 256)
+rotation = 0.0872665
+scale = Vector2(1.35, 1.35)
 texture = ExtResource("4_cgv2e")
 script = ExtResource("3_a6lnf")
 keybind = 79
 
 [node name="KeycapP" type="Sprite2D" parent="."]
-position = Vector2(674, 267)
-scale = Vector2(1.35938, 1.34375)
+position = Vector2(681, 265)
+rotation = 0.174533
+scale = Vector2(1.35, 1.35)
 texture = ExtResource("5_fwx38")
 script = ExtResource("3_a6lnf")
 keybind = 80
@@ -58,20 +65,35 @@ texture = ExtResource("6_8do8m")
 position = Vector2(1002, 685)
 texture = ExtResource("6_8do8m")
 
+[node name="BackgroundSandtoland4" type="Sprite2D" parent="Background_Container"]
+position = Vector2(1508, 684)
+texture = ExtResource("6_8do8m")
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(4, 507)
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(570, -2.5)
+position = Vector2(589, 7.5)
 shape = SubResource("RectangleShape2D_r6ipo")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(-296, 513)
+rotation = 1.5708
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(-759, -7.99998)
+shape = SubResource("RectangleShape2D_r6ipo")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(574, 475)
 
 [node name="Water_Container" parent="." instance=ExtResource("7_ib2gt")]
 position = Vector2(-4, 574)
-
-[node name="Camera2D" type="Camera2D" parent="Water_Container"]
-position = Vector2(582, -99)
+water_direction = Vector2(1, 0)
 
 [node name="Rivergrass_Container" type="Node2D" parent="."]
 
@@ -135,3 +157,14 @@ grass_length = 3
 [node name="FishGuy" parent="." instance=ExtResource("9_sl8aq")]
 position = Vector2(420, -195)
 rotation = 2.87281
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1733, 930)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8sgwp")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

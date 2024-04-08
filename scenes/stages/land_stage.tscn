@@ -1,14 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://dbmmoob7a1x0g"]
+[gd_scene load_steps=14 format=3 uid="uid://csc1cjh6lpwmd"]
 
-[ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="1_agss0"]
-[ext_resource type="Script" path="res://scripts/stage.gd" id="1_wcgdu"]
-[ext_resource type="Texture2D" uid="uid://djc1n8rph0jtd" path="res://assets/sprites/environment/sand.png" id="2_myq22"]
-[ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="3_mcyys"]
-[ext_resource type="PackedScene" uid="uid://cc7bjaots1ccs" path="res://scenes/units/bear_base.tscn" id="4_8i5gg"]
-[ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="4_iniw8"]
-[ext_resource type="PackedScene" uid="uid://bkvawogb7j42q" path="res://scenes/environment/rock.tscn" id="4_j26nt"]
-[ext_resource type="PackedScene" uid="uid://b4772rljlfy6t" path="res://scenes/units/fish_guy5.tscn" id="5_g0e2s"]
-[ext_resource type="PackedScene" uid="uid://cd5wim6nib44o" path="res://scenes/environment/log_spawner.tscn" id="7_v16uq"]
+[ext_resource type="Script" path="res://scripts/stage.gd" id="1_kkann"]
+[ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="2_vdrc0"]
+[ext_resource type="Texture2D" uid="uid://djc1n8rph0jtd" path="res://assets/sprites/environment/sand.png" id="3_q5n3j"]
+[ext_resource type="PackedScene" uid="uid://bkvawogb7j42q" path="res://scenes/environment/rock.tscn" id="4_wyuc8"]
+[ext_resource type="PackedScene" uid="uid://cc7bjaots1ccs" path="res://scenes/units/bear_base.tscn" id="5_leqvk"]
+[ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="6_t37s3"]
+[ext_resource type="PackedScene" uid="uid://b4772rljlfy6t" path="res://scenes/units/fish_guy5.tscn" id="7_i4q70"]
+[ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="8_gei4t"]
+[ext_resource type="PackedScene" uid="uid://cd5wim6nib44o" path="res://scenes/environment/log_spawner.tscn" id="9_xveef"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_pnnwq"]
 rough = true
@@ -24,444 +24,444 @@ size = Vector2(8742, 342)
 size = Vector2(1722, 495.679)
 
 [node name="BearStage" type="Node2D"]
-script = ExtResource("1_wcgdu")
+script = ExtResource("1_kkann")
 
 [node name="Background" type="Node2D" parent="."]
 
 [node name="BackgroundSandtoland" type="Sprite2D" parent="Background"]
 position = Vector2(256, 256)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland2" type="Sprite2D" parent="Background"]
 position = Vector2(766, 256)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="Sand" type="Sprite2D" parent="Background"]
 position = Vector2(256, 755)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand9" type="Sprite2D" parent="Background"]
 position = Vector2(4335, 758)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand10" type="Sprite2D" parent="Background"]
 position = Vector2(4845, 761)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand11" type="Sprite2D" parent="Background"]
 position = Vector2(5357, 758)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand12" type="Sprite2D" parent="Background"]
 position = Vector2(5867, 761)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand13" type="Sprite2D" parent="Background"]
 position = Vector2(6370, 762)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand14" type="Sprite2D" parent="Background"]
 position = Vector2(6880, 765)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand15" type="Sprite2D" parent="Background"]
 position = Vector2(7392, 762)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand7" type="Sprite2D" parent="Background"]
 position = Vector2(3313, 759)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand8" type="Sprite2D" parent="Background"]
 position = Vector2(3823, 762)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand6" type="Sprite2D" parent="Background"]
 position = Vector2(2801, 762)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand5" type="Sprite2D" parent="Background"]
 position = Vector2(2291, 759)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand4" type="Sprite2D" parent="Background"]
 position = Vector2(1788, 758)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand3" type="Sprite2D" parent="Background"]
 position = Vector2(1278, 755)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand42" type="Sprite2D" parent="Background"]
 position = Vector2(3595, 1181)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand2" type="Sprite2D" parent="Background"]
 position = Vector2(766, 758)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand17" type="Sprite2D" parent="Background"]
 position = Vector2(256, 1143)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand18" type="Sprite2D" parent="Background"]
 position = Vector2(766, 1146)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand19" type="Sprite2D" parent="Background"]
 position = Vector2(256, 1551)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand20" type="Sprite2D" parent="Background"]
 position = Vector2(766, 1554)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand21" type="Sprite2D" parent="Background"]
 position = Vector2(256, 1859)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand22" type="Sprite2D" parent="Background"]
 position = Vector2(766, 1862)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand25" type="Sprite2D" parent="Background"]
 position = Vector2(1238, 1150)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand26" type="Sprite2D" parent="Background"]
 position = Vector2(1748, 1153)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand27" type="Sprite2D" parent="Background"]
 position = Vector2(1238, 1558)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand28" type="Sprite2D" parent="Background"]
 position = Vector2(1748, 1561)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand29" type="Sprite2D" parent="Background"]
 position = Vector2(1238, 1866)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand30" type="Sprite2D" parent="Background"]
 position = Vector2(1748, 1869)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand33" type="Sprite2D" parent="Background"]
 position = Vector2(2104, 1151)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand34" type="Sprite2D" parent="Background"]
 position = Vector2(2614, 1154)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand35" type="Sprite2D" parent="Background"]
 position = Vector2(2104, 1559)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand36" type="Sprite2D" parent="Background"]
 position = Vector2(2614, 1562)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand37" type="Sprite2D" parent="Background"]
 position = Vector2(2104, 1867)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand38" type="Sprite2D" parent="Background"]
 position = Vector2(2614, 1870)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand41" type="Sprite2D" parent="Background"]
 position = Vector2(3086, 1158)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand43" type="Sprite2D" parent="Background"]
 position = Vector2(3086, 1566)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand44" type="Sprite2D" parent="Background"]
 position = Vector2(3596, 1569)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand45" type="Sprite2D" parent="Background"]
 position = Vector2(3086, 1874)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand46" type="Sprite2D" parent="Background"]
 position = Vector2(3596, 1877)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand49" type="Sprite2D" parent="Background"]
 position = Vector2(7417, 1194)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand50" type="Sprite2D" parent="Background"]
 position = Vector2(4078, 1156)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand51" type="Sprite2D" parent="Background"]
 position = Vector2(4588, 1159)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand52" type="Sprite2D" parent="Background"]
 position = Vector2(4078, 1564)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand53" type="Sprite2D" parent="Background"]
 position = Vector2(4588, 1567)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand54" type="Sprite2D" parent="Background"]
 position = Vector2(4078, 1872)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand55" type="Sprite2D" parent="Background"]
 position = Vector2(4588, 1875)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand58" type="Sprite2D" parent="Background"]
 position = Vector2(5060, 1163)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand59" type="Sprite2D" parent="Background"]
 position = Vector2(5570, 1166)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand60" type="Sprite2D" parent="Background"]
 position = Vector2(5060, 1571)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand61" type="Sprite2D" parent="Background"]
 position = Vector2(5570, 1574)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand62" type="Sprite2D" parent="Background"]
 position = Vector2(5060, 1879)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand63" type="Sprite2D" parent="Background"]
 position = Vector2(5570, 1882)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand66" type="Sprite2D" parent="Background"]
 position = Vector2(5926, 1164)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand67" type="Sprite2D" parent="Background"]
 position = Vector2(6436, 1167)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand68" type="Sprite2D" parent="Background"]
 position = Vector2(5926, 1572)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand69" type="Sprite2D" parent="Background"]
 position = Vector2(6436, 1575)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand70" type="Sprite2D" parent="Background"]
 position = Vector2(5926, 1880)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand71" type="Sprite2D" parent="Background"]
 position = Vector2(6436, 1883)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand73" type="Sprite2D" parent="Background"]
 position = Vector2(6908, 1171)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand74" type="Sprite2D" parent="Background"]
 position = Vector2(6908, 1579)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand75" type="Sprite2D" parent="Background"]
 position = Vector2(7418, 1582)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand76" type="Sprite2D" parent="Background"]
 position = Vector2(6908, 1887)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="Sand77" type="Sprite2D" parent="Background"]
 position = Vector2(7418, 1890)
-texture = ExtResource("2_myq22")
+texture = ExtResource("3_q5n3j")
 
 [node name="BackgroundSandtoland3" type="Sprite2D" parent="Background"]
 position = Vector2(1278, 256)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland4" type="Sprite2D" parent="Background"]
 position = Vector2(1788, 256)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland5" type="Sprite2D" parent="Background"]
 position = Vector2(2291, 260)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland6" type="Sprite2D" parent="Background"]
 position = Vector2(2801, 260)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland7" type="Sprite2D" parent="Background"]
 position = Vector2(3313, 260)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland8" type="Sprite2D" parent="Background"]
 position = Vector2(3823, 260)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland9" type="Sprite2D" parent="Background"]
 position = Vector2(4335, 259)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland10" type="Sprite2D" parent="Background"]
 position = Vector2(4845, 259)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland11" type="Sprite2D" parent="Background"]
 position = Vector2(5357, 259)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland12" type="Sprite2D" parent="Background"]
 position = Vector2(5867, 259)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland13" type="Sprite2D" parent="Background"]
 position = Vector2(6370, 263)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland14" type="Sprite2D" parent="Background"]
 position = Vector2(6880, 263)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="BackgroundSandtoland15" type="Sprite2D" parent="Background"]
 position = Vector2(7392, 263)
-texture = ExtResource("1_agss0")
+texture = ExtResource("2_vdrc0")
 
 [node name="Environment" type="Node2D" parent="."]
 
-[node name="Rock" parent="Environment" instance=ExtResource("4_j26nt")]
+[node name="Rock" parent="Environment" instance=ExtResource("4_wyuc8")]
 position = Vector2(2829, 948)
 
-[node name="Rock2" parent="Environment" instance=ExtResource("4_j26nt")]
+[node name="Rock2" parent="Environment" instance=ExtResource("4_wyuc8")]
 position = Vector2(5032, 232)
 rotation = -0.507891
 physics_material_override = SubResource("PhysicsMaterial_pnnwq")
 
-[node name="Bear" parent="Environment" instance=ExtResource("4_8i5gg")]
+[node name="Bear" parent="Environment" instance=ExtResource("5_leqvk")]
 position = Vector2(6434, 160)
 
-[node name="Rivergrass" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(1609, 1093)
 grass_length = 5
 
-[node name="Rivergrass10" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass10" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(1525, 1094)
 
-[node name="Rivergrass2" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass2" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(1787, 1093)
 grass_length = 8
 
-[node name="Rivergrass3" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass3" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(1973, 1089)
 grass_length = 8
 
-[node name="Rivergrass4" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass4" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2122, 1090)
 grass_length = 6
 
-[node name="Rivergrass5" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass5" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(1692, 1088)
 grass_length = 7
 
-[node name="Rivergrass6" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass6" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(1870, 1088)
 grass_length = 7
 
-[node name="Rivergrass7" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass7" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2056, 1088)
 grass_length = 9
 
-[node name="Rivergrass8" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass8" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2235, 1091)
 grass_length = 5
 
-[node name="Rivergrass9" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass9" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2325, 1100)
 grass_length = 3
 
-[node name="Rivergrass11" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass11" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2282, 1097)
 grass_length = 5
 
-[node name="Rivergrass12" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass12" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2182, 1090)
 
-[node name="Rivergrass13" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass13" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2370, 1103)
 grass_length = 8
 
-[node name="Rivergrass14" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass14" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2424, 1101)
 grass_length = 8
 
-[node name="Rivergrass15" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass15" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2503, 1105)
 grass_length = 6
 
-[node name="Rivergrass19" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass19" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2558, 1098)
 grass_length = 5
 
-[node name="Rivergrass20" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass20" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(2641, 1103)
 grass_length = 3
 
-[node name="Rivergrass16" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass16" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3261, 1092)
 grass_length = 5
 
-[node name="Rivergrass18" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass18" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3029, 1092)
 grass_length = 2
 
-[node name="Rivergrass21" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass21" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3083, 1090)
 
-[node name="Rivergrass22" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass22" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3162, 1094)
 grass_length = 6
 
-[node name="Rivergrass23" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass23" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3217, 1087)
 grass_length = 6
 
-[node name="Rivergrass24" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass24" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3300, 1092)
 grass_length = 5
 
-[node name="Rivergrass25" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass25" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3369, 1088)
 grass_length = 8
 
-[node name="Rivergrass26" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass26" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3440, 1091)
 grass_length = 8
 
-[node name="Rivergrass27" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass27" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3502, 1090)
 grass_length = 6
 
-[node name="Rivergrass28" parent="Environment" instance=ExtResource("4_iniw8")]
+[node name="Rivergrass28" parent="Environment" instance=ExtResource("6_t37s3")]
 position = Vector2(3557, 1083)
 grass_length = 5
 
-[node name="FishGuy" parent="." instance=ExtResource("5_g0e2s")]
-position = Vector2(685, -574)
+[node name="FishGuy" parent="." instance=ExtResource("7_i4q70")]
+position = Vector2(195, 968)
 
-[node name="Water_Container" parent="." groups=["water"] instance=ExtResource("3_mcyys")]
+[node name="Water_Container" parent="." groups=["water"] instance=ExtResource("8_gei4t")]
 position = Vector2(0, 140)
 distance_between_springs = 64
 spring_number = 128
@@ -506,7 +506,7 @@ offset_right = 8367.0
 offset_bottom = 1821.0
 color = Color(0.568627, 0.494118, 0.376471, 1)
 
-[node name="LogSpawner" parent="." instance=ExtResource("7_v16uq")]
+[node name="LogSpawner" parent="." instance=ExtResource("9_xveef")]
 position = Vector2(4013, -496)
 spawn_rate = 2.0
 heights = [700, 150, 400, 10, 600, 200, 300, 200]

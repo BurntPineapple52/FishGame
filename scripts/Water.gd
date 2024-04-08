@@ -8,10 +8,13 @@ var land_l_damp = 0
 @export var is_current = true
 @export var water_speed = 6000
 @export var water_direction = Vector2(-1,0)
+@onready var water_container = $".."
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	is_current = water_container.is_current
+	water_direction = water_container.water_direction
+	water_speed = water_container.water_speed
 	
 	pass # Replace with function body.
 
