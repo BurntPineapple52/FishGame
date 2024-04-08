@@ -4,6 +4,8 @@ var axis
 @export var torque = 530000
 var thrust = 50000
 #var ldamp = 10
+var health = 100 # Example health variable
+var damage_multiplier = 0.1 # Adjusts how much damage is taken based on speed
 
 var con_force = 0	#constaht force, built up to a cap from swimming, redirected based on direction of head
 var min_cf = 0
@@ -12,19 +14,63 @@ var speed_decay = 2222
 
 var in_water = false
 
+
 @onready var fish_body = $"../FishBody"
 @onready var fish_tail = $"../FishTail"
+
+# preload the detached tail 
+var detached_tail = preload("res://scenes/units/fish_guy_tutorial_tail.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#linear_damp = ldamp
 	#var temp
+	# Connect the body_entered signal to a function that handles the collision
+	connect("body_entered", Callable(self, "_on_body_entered"))
 	
-	pass # Replace with function body.
+	
+	
+	
+
+
+
 
 #func _integrate_forces(s:PhysicsDirectBodyState2D):
 	#
 	#pass
+
+func _on_body_entered(body: Node):
+	print("DamageBodyRegistered1")
+	if body is RigidBody2D:
+		print("DamageBodyRegistered2")
+		# Assuming 'linear_velocity' is the velocity of the player
+		# Calculate the relative velocity between the player and the collided body
+		var relative_velocity: Vector2 = body.linear_velocity - linear_velocity
+		var speed_of_impact: float = relative_velocity.length()
+
+		# Calculate and apply damage based on the speed of impact
+		var damage: float = speed_of_impact * damage_multiplier
+		if damage >= 1:
+			health -= damage
+			print("damaged! " + str(damage))
+
+		
+		
+		# Check for player health
+		if health <= 90.0 && health >= 60.0:
+			#Get the sprite2d node
+			var sprite_node = get_node("Sprite2D")
+			
+			#load the sprite texture
+			var new_sprite_texture = load("res://assets/sprites/player/fish_head_smashed.png")
+			
+			# Set the face smash
+			sprite_node.texture = new_sprite_texture
+			
+		if health <= 0.0:
+			print("Player defeated")
+			# Handle player defeat here (restart level, show game over screen, etc.)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
