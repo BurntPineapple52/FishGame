@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://lvdtdcrkrmvc"]
 
-[ext_resource type="PackedScene" uid="uid://dyu7nwx3u80ug" path="res://scenes/environment/log.tscn" id="1_72nn7"]
-[ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="3_kxb08"]
+[ext_resource type="PackedScene" path="res://scenes/environment/log.tscn" id="1_72nn7"]
+[ext_resource type="PackedScene" path="res://scenes/environment/water_container.tscn" id="3_kxb08"]
 
 [node name="glitch_testing" type="Node2D"]
 
