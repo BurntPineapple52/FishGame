@@ -5,11 +5,12 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4n2kh"]
 
-[node name="Leaf" type="RigidBody2D" groups=["litter", "physics"]]
-z_index = -1
-mass = 1.5
+[node name="Leaf" type="RigidBody2D" groups=["buoyant", "litter", "physics"]]
+collision_layer = 2
+collision_mask = 2
+mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_4n2kh")
-gravity_scale = 0.3
+gravity_scale = 0.5
 script = ExtResource("1_w83sy")
 metadata/_edit_group_ = true
 

@@ -35,6 +35,7 @@ func _on_body_entered(body:RigidBody2D):
 		if is_current:
 			var spd_mult=1
 			if body.is_in_group("litter"):
+				print("litter")
 				spd_mult = .20
 			elif body.is_in_group("waterplant"):
 				spd_mult = .07

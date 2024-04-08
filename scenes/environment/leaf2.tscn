@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://1005rqnjiy5v"]
+[gd_scene load_steps=4 format=3 uid="uid://1005rqnjiy5v"]
 
+[ext_resource type="Script" path="res://scripts/leaf.gd" id="1_qk57i"]
 [ext_resource type="Texture2D" uid="uid://dfbv1fuysh3km" path="res://assets/sprites/environment/leaf1.png" id="1_xqyw4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4n2kh"]
 
-[node name="Leaf" type="RigidBody2D" groups=["litter", "physics"]]
-z_index = -1
-mass = 1.5
+[node name="Leaf" type="RigidBody2D" groups=["buoyant", "litter", "physics"]]
+collision_layer = 2
+collision_mask = 2
+mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_4n2kh")
+script = ExtResource("1_qk57i")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
