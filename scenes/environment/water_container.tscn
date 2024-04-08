@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://dbncqj58mr5r2"]
 
-[ext_resource type="Script" path="res://scripts/Water_Container.gd" id="1_y6hrq"]
+[ext_resource type="Script" path="res://scripts/Water_Container_efficiencyattempt.gd" id="1_y7ppl"]
 [ext_resource type="Script" path="res://scripts/Water.gd" id="3_7u2ch"]
 [ext_resource type="Script" path="res://scripts/smooth_path_modified.gd" id="3_u76ae"]
 
 [sub_resource type="Curve2D" id="Curve2D_12qur"]
 
 [node name="Water_Container" type="Node2D"]
-script = ExtResource("1_y6hrq")
+script = ExtResource("1_y7ppl")
 spring_number = 50
 border_thickness = 0.5
 

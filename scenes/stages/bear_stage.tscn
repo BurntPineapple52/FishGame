@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbmmoob7a1x0g"]
+[gd_scene load_steps=9 format=3 uid="uid://dbmmoob7a1x0g"]
 
 [ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="1_agss0"]
+[ext_resource type="Script" path="res://scripts/stage.gd" id="1_wcgdu"]
 [ext_resource type="Texture2D" uid="uid://djc1n8rph0jtd" path="res://assets/sprites/environment/sand.png" id="2_myq22"]
 [ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="3_mcyys"]
 [ext_resource type="Script" path="res://scripts/LogSpawner.gd" id="4_uhn56"]
@@ -10,9 +11,10 @@
 size = Vector2(652, 6876)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0om0"]
-size = Vector2(10594, 342)
+size = Vector2(8742, 342)
 
 [node name="BearStage" type="Node2D"]
+script = ExtResource("1_wcgdu")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -54,10 +56,6 @@ texture = ExtResource("2_myq22")
 
 [node name="Sand15" type="Sprite2D" parent="Background"]
 position = Vector2(7392, 762)
-texture = ExtResource("2_myq22")
-
-[node name="Sand16" type="Sprite2D" parent="Background"]
-position = Vector2(7902, 765)
 texture = ExtResource("2_myq22")
 
 [node name="Sand7" type="Sprite2D" parent="Background"]
@@ -116,14 +114,6 @@ texture = ExtResource("2_myq22")
 position = Vector2(766, 1862)
 texture = ExtResource("2_myq22")
 
-[node name="Sand23" type="Sprite2D" parent="Background"]
-position = Vector2(256, 2267)
-texture = ExtResource("2_myq22")
-
-[node name="Sand24" type="Sprite2D" parent="Background"]
-position = Vector2(766, 2270)
-texture = ExtResource("2_myq22")
-
 [node name="Sand25" type="Sprite2D" parent="Background"]
 position = Vector2(1238, 1150)
 texture = ExtResource("2_myq22")
@@ -148,14 +138,6 @@ texture = ExtResource("2_myq22")
 position = Vector2(1748, 1869)
 texture = ExtResource("2_myq22")
 
-[node name="Sand31" type="Sprite2D" parent="Background"]
-position = Vector2(1238, 2274)
-texture = ExtResource("2_myq22")
-
-[node name="Sand32" type="Sprite2D" parent="Background"]
-position = Vector2(1748, 2277)
-texture = ExtResource("2_myq22")
-
 [node name="Sand33" type="Sprite2D" parent="Background"]
 position = Vector2(2104, 1151)
 texture = ExtResource("2_myq22")
@@ -178,14 +160,6 @@ texture = ExtResource("2_myq22")
 
 [node name="Sand38" type="Sprite2D" parent="Background"]
 position = Vector2(2614, 1870)
-texture = ExtResource("2_myq22")
-
-[node name="Sand39" type="Sprite2D" parent="Background"]
-position = Vector2(2104, 2275)
-texture = ExtResource("2_myq22")
-
-[node name="Sand40" type="Sprite2D" parent="Background"]
-position = Vector2(2614, 2278)
 texture = ExtResource("2_myq22")
 
 [node name="Sand41" type="Sprite2D" parent="Background"]
@@ -236,14 +210,6 @@ texture = ExtResource("2_myq22")
 position = Vector2(4588, 1875)
 texture = ExtResource("2_myq22")
 
-[node name="Sand56" type="Sprite2D" parent="Background"]
-position = Vector2(4078, 2280)
-texture = ExtResource("2_myq22")
-
-[node name="Sand57" type="Sprite2D" parent="Background"]
-position = Vector2(4588, 2283)
-texture = ExtResource("2_myq22")
-
 [node name="Sand58" type="Sprite2D" parent="Background"]
 position = Vector2(5060, 1163)
 texture = ExtResource("2_myq22")
@@ -266,14 +232,6 @@ texture = ExtResource("2_myq22")
 
 [node name="Sand63" type="Sprite2D" parent="Background"]
 position = Vector2(5570, 1882)
-texture = ExtResource("2_myq22")
-
-[node name="Sand64" type="Sprite2D" parent="Background"]
-position = Vector2(5060, 2287)
-texture = ExtResource("2_myq22")
-
-[node name="Sand65" type="Sprite2D" parent="Background"]
-position = Vector2(5570, 2290)
 texture = ExtResource("2_myq22")
 
 [node name="Sand66" type="Sprite2D" parent="Background"]
@@ -300,10 +258,6 @@ texture = ExtResource("2_myq22")
 position = Vector2(6436, 1883)
 texture = ExtResource("2_myq22")
 
-[node name="Sand72" type="Sprite2D" parent="Background"]
-position = Vector2(5926, 2288)
-texture = ExtResource("2_myq22")
-
 [node name="Sand73" type="Sprite2D" parent="Background"]
 position = Vector2(6908, 1171)
 texture = ExtResource("2_myq22")
@@ -322,42 +276,6 @@ texture = ExtResource("2_myq22")
 
 [node name="Sand77" type="Sprite2D" parent="Background"]
 position = Vector2(7418, 1890)
-texture = ExtResource("2_myq22")
-
-[node name="Sand78" type="Sprite2D" parent="Background"]
-position = Vector2(6431, 2286)
-texture = ExtResource("2_myq22")
-
-[node name="Sand79" type="Sprite2D" parent="Background"]
-position = Vector2(6903, 2290)
-texture = ExtResource("2_myq22")
-
-[node name="Sand80" type="Sprite2D" parent="Background"]
-position = Vector2(7413, 2293)
-texture = ExtResource("2_myq22")
-
-[node name="Sand81" type="Sprite2D" parent="Background"]
-position = Vector2(7902, 1172)
-texture = ExtResource("2_myq22")
-
-[node name="Sand82" type="Sprite2D" parent="Background"]
-position = Vector2(7903, 1560)
-texture = ExtResource("2_myq22")
-
-[node name="Sand83" type="Sprite2D" parent="Background"]
-position = Vector2(7903, 1868)
-texture = ExtResource("2_myq22")
-
-[node name="Sand84" type="Sprite2D" parent="Background"]
-position = Vector2(7898, 2271)
-texture = ExtResource("2_myq22")
-
-[node name="Sand47" type="Sprite2D" parent="Background"]
-position = Vector2(3086, 2282)
-texture = ExtResource("2_myq22")
-
-[node name="Sand48" type="Sprite2D" parent="Background"]
-position = Vector2(3596, 2285)
 texture = ExtResource("2_myq22")
 
 [node name="BackgroundSandtoland3" type="Sprite2D" parent="Background"]
@@ -412,10 +330,6 @@ texture = ExtResource("1_agss0")
 position = Vector2(7392, 263)
 texture = ExtResource("1_agss0")
 
-[node name="BackgroundSandtoland16" type="Sprite2D" parent="Background"]
-position = Vector2(7902, 263)
-texture = ExtResource("1_agss0")
-
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="FishGuy" parent="." instance=ExtResource("5_g0e2s")]
@@ -442,11 +356,11 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapEdge2"]
-position = Vector2(5418, 3195)
+position = Vector2(4721, 2795)
 shape = SubResource("RectangleShape2D_j0om0")
 
 [node name="LogSpawner" type="Node2D" parent="."]
-position = Vector2(5147, -552)
+position = Vector2(6635, -214)
 script = ExtResource("4_uhn56")
 
 [node name="Timer" type="Timer" parent="LogSpawner"]

@@ -10,7 +10,7 @@ const LOG = preload("res://scenes/environment/log.tscn")
 @onready var water_container = $"../Water_Container"
 
 
-var heights = [300, 400, 300, 200, 500]
+var heights = [300, 150, 300, 10, 600, 200, 600, 200, 1000, 40]
 var current = 0
 
 var ff = .5
