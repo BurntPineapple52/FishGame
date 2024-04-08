@@ -1,14 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://w8smg63tiuor"]
+[gd_scene load_steps=12 format=3 uid="uid://qcwsahpkfsoq"]
 
 [ext_resource type="Script" path="res://Main_Menu.gd" id="1_d68cc"]
 [ext_resource type="Texture2D" uid="uid://cx0m5mllndlyk" path="res://assets/sprites/ui/keycap_f.png" id="2_7h0fq"]
 [ext_resource type="Texture2D" uid="uid://d0qcc3n7hkgcg" path="res://assets/sprites/ui/keycap_l.png" id="3_4lpdh"]
+[ext_resource type="Script" path="res://scripts/Keycap.gd" id="3_a6lnf"]
 [ext_resource type="Texture2D" uid="uid://b5xueqdphjwbe" path="res://assets/sprites/ui/keycap_o.png" id="4_cgv2e"]
 [ext_resource type="Texture2D" uid="uid://b6mxxr6imeq3x" path="res://assets/sprites/ui/keycap_p.png" id="5_fwx38"]
 [ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="6_8do8m"]
-[ext_resource type="PackedScene" path="res://scenes/environment/water_container.tscn" id="7_ib2gt"]
-[ext_resource type="PackedScene" uid="uid://dnrfk0xfu333l" path="res://scenes/units/fish_guy6.tscn" id="9_sl8aq"]
-[ext_resource type="PackedScene" path="res://scenes/environment/rivergrass.tscn" id="10_mclgp"]
+[ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="7_ib2gt"]
+[ext_resource type="PackedScene" path="res://scenes/units/fish_guy6.tscn" id="9_sl8aq"]
+[ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="10_mclgp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6ipo"]
 size = Vector2(1160, 25)
@@ -20,21 +21,28 @@ script = ExtResource("1_d68cc")
 position = Vector2(444, 265)
 scale = Vector2(1.4375, 1.3125)
 texture = ExtResource("2_7h0fq")
+script = ExtResource("3_a6lnf")
 
 [node name="KeycapL" type="Sprite2D" parent="."]
 position = Vector2(525, 266)
 scale = Vector2(1.46875, 1.34375)
 texture = ExtResource("3_4lpdh")
+script = ExtResource("3_a6lnf")
+keybind = 76
 
 [node name="KeycapO" type="Sprite2D" parent="."]
 position = Vector2(601, 267)
 scale = Vector2(1.3125, 1.3125)
 texture = ExtResource("4_cgv2e")
+script = ExtResource("3_a6lnf")
+keybind = 79
 
 [node name="KeycapP" type="Sprite2D" parent="."]
 position = Vector2(674, 267)
 scale = Vector2(1.35938, 1.34375)
 texture = ExtResource("5_fwx38")
+script = ExtResource("3_a6lnf")
+keybind = 80
 
 [node name="Background_Container" type="Node2D" parent="."]
 
