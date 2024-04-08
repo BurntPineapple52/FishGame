@@ -30,7 +30,7 @@ func _on_body_entered(body:RigidBody2D):
 		
 		if body.is_in_group("player"):
 			#print("body enterede")
-			print("player entered")
+		#print("player entered")
 			body.in_water = true
 		if is_current:
 			var spd_mult=1
@@ -39,7 +39,7 @@ func _on_body_entered(body:RigidBody2D):
 			elif body.is_in_group("waterplant"):
 				spd_mult = .07
 			elif body.get_mass() > 30:
-				spd_mult = body.get_mass()/3
+				spd_mult = body.get_mass()/2
 			#print("enable current")
 			#body.add_constant_central_force(water_speed*water_direction)
 			cf += water_speed*spd_mult*water_direction
@@ -55,7 +55,7 @@ func _on_body_exited(body:RigidBody2D):
 		body.set_angular_damp(land_a_damp)
 		body.set_linear_damp(land_l_damp)
 		if body.is_in_group("player"):
-			print("player exit")
+			#print("player exit")
 			body.in_water = false
 		if is_current:
 			var spd_mult=1
@@ -64,7 +64,7 @@ func _on_body_exited(body:RigidBody2D):
 			elif body.is_in_group("waterplant"):
 				spd_mult = .07
 			elif body.get_mass() > 30:
-				spd_mult = body.get_mass()/3
+				spd_mult = body.get_mass()/2
 			#print("negate current")
 			#body.add_constant_central_force(-water_speed*water_direction)
 			cf+=-water_speed*spd_mult*water_direction

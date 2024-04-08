@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd5wim6nib44o"]
+
+[ext_resource type="Script" path="res://scripts/LogSpawner.gd" id="1_6632p"]
+
+[node name="LogSpawner" type="Node2D"]
+position = Vector2(3559, -468)
+script = ExtResource("1_6632p")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="spawn_log"]

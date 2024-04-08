@@ -1,11 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://deiin0bi61ug2"]
+[gd_scene load_steps=26 format=3 uid="uid://deiin0bi61ug2"]
 
 [ext_resource type="PackedScene" uid="uid://cc7bjaots1ccs" path="res://scenes/units/bear_base.tscn" id="1_qfhcm"]
 [ext_resource type="Texture2D" uid="uid://t087xbgaaapk" path="res://icon.svg" id="1_tbhgc"]
 [ext_resource type="Script" path="res://scripts/obstacle_solid.gd" id="2_81f5r"]
 [ext_resource type="Script" path="res://scripts/RigidBody2DTest.gd" id="2_rhcjw"]
-[ext_resource type="Texture2D" uid="uid://ci8v3cv5s3eoy" path="res://assets/sprites/environment/rock_2.png" id="3_k1l7m"]
 [ext_resource type="Script" path="res://scripts/gravflip.gd" id="4_gcxyr"]
+[ext_resource type="PackedScene" uid="uid://bkvawogb7j42q" path="res://scenes/environment/rock.tscn" id="4_joews"]
 [ext_resource type="PackedScene" uid="uid://b4772rljlfy6t" path="res://scenes/units/fish_guy5.tscn" id="5_vn8be"]
 [ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="7_j84xb"]
 [ext_resource type="Script" path="res://scripts/Water.gd" id="8_o8yqd"]
@@ -31,9 +31,6 @@ bounce = 1.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qa2ko"]
 bounce = 1.0
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_74lb4"]
-friction = 0.57
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_div6g"]
 friction = 0.45
@@ -146,19 +143,7 @@ shape = SubResource("RectangleShape2D_thbab")
 [node name="Sprite2D" type="Sprite2D" parent="Floor6"]
 texture = ExtResource("1_tbhgc")
 
-[node name="Rock" type="RigidBody2D" parent="."]
-position = Vector2(5555, 1200)
-mass = 180.0
-physics_material_override = SubResource("PhysicsMaterial_74lb4")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Rock"]
-scale = Vector2(2, 2)
-texture = ExtResource("3_k1l7m")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rock"]
-scale = Vector2(2, 2)
-polygon = PackedVector2Array(93, 51.5, 69.5, 73, 45, 85.5, -57, 85.5, -75.5, 76.5, -88.5, 63.5, -102.5, 30, -106.5, 14.5, -101, -28.5, -88.5, -61, -67.5, -81.5, -41.5, -87.5, -6, -79.5, 36.5, -59, 51.5, -56.5, 79, -30, 105.5, 13, 102.5, 32.5)
+[node name="Rock" parent="." instance=ExtResource("4_joews")]
 
 [node name="test_log" type="RigidBody2D" parent="." groups=["physics"]]
 position = Vector2(2845, 34)
