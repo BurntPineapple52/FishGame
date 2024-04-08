@@ -1,5 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://deiin0bi61ug2"]
+[gd_scene load_steps=27 format=3 uid="uid://deiin0bi61ug2"]
 
+[ext_resource type="PackedScene" uid="uid://cc7bjaots1ccs" path="res://scenes/units/bear_base.tscn" id="1_qfhcm"]
 [ext_resource type="Texture2D" uid="uid://t087xbgaaapk" path="res://icon.svg" id="1_tbhgc"]
 [ext_resource type="Script" path="res://scripts/obstacle_solid.gd" id="2_81f5r"]
 [ext_resource type="Script" path="res://scripts/RigidBody2DTest.gd" id="2_rhcjw"]
@@ -68,6 +69,9 @@ shader = SubResource("Shader_wnnvu")
 
 [node name="TestStage" type="Node2D"]
 
+[node name="Bear" parent="." instance=ExtResource("1_qfhcm")]
+position = Vector2(6899, 68)
+
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(-82, 621)
 scale = Vector2(20, 1)
@@ -107,7 +111,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("1_tbhgc")
 
 [node name="Floor4" type="StaticBody2D" parent="."]
-position = Vector2(3650, 767)
+position = Vector2(3650, 926)
 scale = Vector2(2, 2)
 physics_material_override = SubResource("PhysicsMaterial_phwb1")
 metadata/_edit_group_ = true
@@ -119,7 +123,7 @@ shape = SubResource("RectangleShape2D_thbab")
 texture = ExtResource("1_tbhgc")
 
 [node name="Floor5" type="StaticBody2D" parent="."]
-position = Vector2(3657, 300)
+position = Vector2(3657, 459)
 scale = Vector2(2, 2)
 physics_material_override = SubResource("PhysicsMaterial_qa2ko")
 metadata/_edit_group_ = true
@@ -128,6 +132,18 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_thbab")
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor5"]
+texture = ExtResource("1_tbhgc")
+
+[node name="Floor6" type="StaticBody2D" parent="."]
+position = Vector2(3656, 669)
+scale = Vector2(2, 2)
+physics_material_override = SubResource("PhysicsMaterial_qa2ko")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor6"]
+shape = SubResource("RectangleShape2D_thbab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor6"]
 texture = ExtResource("1_tbhgc")
 
 [node name="Rock" type="RigidBody2D" parent="."]
@@ -194,7 +210,6 @@ script = ExtResource("4_gcxyr")
 position = Vector2(4843, 931)
 scale = Vector2(6, 6)
 script = ExtResource("8_o8yqd")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
 shape = SubResource("RectangleShape2D_fdf5b")

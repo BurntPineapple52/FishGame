@@ -104,4 +104,10 @@ self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("13_nqqat")
 
 [node name="Camera2D" type="Camera2D" parent="FishBody"]
+limit_top = -100
 limit_smoothed = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="timeout" from="Timer" to="." method="reset_cd"]

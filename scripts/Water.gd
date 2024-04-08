@@ -30,9 +30,9 @@ func _on_body_entered(body:RigidBody2D):
 		if is_current:
 			var spd_mult=1
 			if body.is_in_group("litter"):
-				spd_mult = .08
+				spd_mult = .20
 			if body.is_in_group("waterplant"):
-				spd_mult = .08
+				spd_mult = .07
 			#print("enable current")
 			#body.add_constant_central_force(water_speed*water_direction)
 			cf += water_speed*spd_mult*water_direction
@@ -51,9 +51,9 @@ func _on_body_exited(body:RigidBody2D):
 		if is_current:
 			var spd_mult=1
 			if body.is_in_group("litter"):
-				spd_mult = .25
+				spd_mult = .20
 			if body.is_in_group("waterplant"):
-				spd_mult = .13
+				spd_mult = .07
 			#print("negate current")
 			#body.add_constant_central_force(-water_speed*water_direction)
 			cf+=-water_speed*spd_mult*water_direction

@@ -5,6 +5,8 @@ var axis
 var thrust = 50000
 #var ldamp = 10
 
+
+
 var con_force = 0	#constaht force, built up to a cap from swimming, redirected based on direction of head
 var min_cf = 0
 var max_cf = 15000
@@ -14,6 +16,9 @@ var in_water = false
 
 @onready var fish_body = $"../FishBody"
 @onready var fish_tail = $"../FishTail"
+@onready var fish_guy = $".."
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,6 +53,13 @@ func _physics_process(delta):
 		#print(linear_velocity)
 		#if sign(ang_dif) != axis:
 			#print(axis)
+
+func smack(force, torque, damage=0):
+	apply_central_impulse(force)
+	apply_torque(torque)
+	if damage:
+		fish_guy.take_damage(damage)
+	
 
 
 #extends RigidBody2D

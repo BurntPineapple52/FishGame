@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc7bjaots1ccs"]
+
+[ext_resource type="Texture2D" uid="uid://c6t173lp0yvpf" path="res://assets/sprites/enemies/bear_legs.png" id="1_dti7r"]
+[ext_resource type="PackedScene" uid="uid://b5qwsjudikanh" path="res://scenes/units/bear.tscn" id="2_atdy5"]
+
+[node name="Bear" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-12.9999, -54)
+scale = Vector2(-1.219, 1.348)
+texture = ExtResource("1_dti7r")
+
+[node name="BearArm" parent="." instance=ExtResource("2_atdy5")]
+position = Vector2(127, -257)
+rotation = 3.14159

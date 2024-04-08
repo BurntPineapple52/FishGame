@@ -12,10 +12,13 @@ var speed_decay = 2222
 
 var in_water = false
 
+
+
 var last_dir = 0
 
 @onready var fish_body = $"../FishBody"
 @onready var fish_head = $"../FishHead"
+@onready var fish_guy = $".."
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,6 +48,11 @@ func _physics_process(delta):
 		#if sign(ang_dif) != axis:
 			#print(axis)
 
+func smack(force, torque, damage=0):
+	apply_central_impulse(force)
+	apply_torque(torque)
+	if damage:
+		fish_guy.take_damage(damage)
 
 #extends RigidBody2D
 #
