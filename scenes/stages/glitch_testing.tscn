@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://lvdtdcrkrmvc"]
 
-[ext_resource type="Script" path="res://Log.gd" id="2_320d8"]
+[ext_resource type="Script" path="res://scripts/Log.gd" id="1_xm5nu"]
 [ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="2_bdowc"]
 [ext_resource type="Shader" path="res://assets/shaders/testing_water_shader.gdshader" id="3_mgmpp"]
 [ext_resource type="Script" path="res://scripts/Spring_Container.gd" id="3_q1u6k"]
@@ -17,14 +17,10 @@ shader_parameter/tint = Color(0, 0.211765, 0.211765, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Log" type="RigidBody2D" parent="."]
-process_mode = 4
-visible = false
 position = Vector2(-191, -448)
 max_contacts_reported = 5
 contact_monitor = true
-script = ExtResource("2_320d8")
-water_drag = 0.08
-water_angular_drag = 0.08
+script = ExtResource("1_xm5nu")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Log"]
