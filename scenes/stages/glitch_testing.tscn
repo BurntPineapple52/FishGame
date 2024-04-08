@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/Log.gd" id="1_xm5nu"]
 [ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="2_bdowc"]
 [ext_resource type="Shader" path="res://assets/shaders/testing_water_shader.gdshader" id="3_mgmpp"]
-[ext_resource type="Script" path="res://scripts/Spring_Container.gd" id="3_q1u6k"]
-[ext_resource type="Script" path="res://scripts/smooth_path.gd" id="5_pgbpm"]
+[ext_resource type="Script" path="res://scripts/Water_Container.gd" id="3_q1u6k"]
+[ext_resource type="Script" path="res://scripts/smooth_path_modified.gd" id="5_pgbpm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncbc2"]
 shader = ExtResource("3_mgmpp")
@@ -29,22 +29,22 @@ texture = ExtResource("2_bdowc")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Log"]
 polygon = PackedVector2Array(153, -29, 158, -12, 158, 24, 155, 34, 147, 37, 104, 38, 97, 37, 89, 42, 83, 41, 32, 32, -18, 31, -58, 30, -80, 29, -108, 28, -126, 27, -142, 18, -159, 1, -158, -4, -149, -14, -143, -14, -142, -29, -135, -33, -124, -40, 20, -37, 58, -36, 86, -39)
 
-[node name="Spring_Container" type="Node2D" parent="."]
+[node name="Water_Container" type="Node2D" parent="."]
 position = Vector2(-574, -1)
 script = ExtResource("3_q1u6k")
 spring_number = 50
 border_thickness = 0.5
 
-[node name="Water_Polygon" type="Polygon2D" parent="Spring_Container"]
+[node name="Water_Polygon" type="Polygon2D" parent="Water_Container"]
 material = SubResource("ShaderMaterial_ncbc2")
 color = Color(1, 1, 1, 0)
 
-[node name="Water_Border" type="Path2D" parent="Spring_Container"]
+[node name="Water_Border" type="Path2D" parent="Water_Container"]
 curve = SubResource("Curve2D_12qur")
 script = ExtResource("5_pgbpm")
 spline_length = 15
 _smooth = true
 
-[node name="Water_Area" type="Area2D" parent="Spring_Container"]
+[node name="Water_Area" type="Area2D" parent="Water_Container"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring_Container/Water_Area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water_Container/Water_Area"]
