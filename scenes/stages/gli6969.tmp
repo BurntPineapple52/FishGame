@@ -1,25 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://lvdtdcrkrmvc"]
+[gd_scene load_steps=6 format=3 uid="uid://lvdtdcrkrmvc"]
 
 [ext_resource type="Script" path="res://Log.gd" id="2_320d8"]
 [ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="2_bdowc"]
 [ext_resource type="Shader" path="res://assets/shaders/testing_water_shader.gdshader" id="3_mgmpp"]
 [ext_resource type="Script" path="res://scripts/Spring_Container.gd" id="3_q1u6k"]
-[ext_resource type="Script" path="res://scripts/smooth_path.gd" id="5_pgbpm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncbc2"]
 shader = ExtResource("3_mgmpp")
 shader_parameter/tint = Color(0, 0.211765, 0.211765, 1)
-
-[sub_resource type="Curve2D" id="Curve2D_12qur"]
 
 [node name="glitch_testing" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Log" type="RigidBody2D" parent="."]
-process_mode = 4
-visible = false
-position = Vector2(-191, -448)
+position = Vector2(-215, -180)
 max_contacts_reported = 5
 contact_monitor = true
 script = ExtResource("2_320d8")
@@ -37,18 +32,11 @@ polygon = PackedVector2Array(153, -29, 158, -12, 158, 24, 155, 34, 147, 37, 104,
 position = Vector2(-574, -1)
 script = ExtResource("3_q1u6k")
 spring_number = 50
-border_thickness = 0.5
 
 [node name="Water_Polygon" type="Polygon2D" parent="Spring_Container"]
 material = SubResource("ShaderMaterial_ncbc2")
 color = Color(1, 1, 1, 0)
 
-[node name="Water_Border" type="Path2D" parent="Spring_Container"]
-curve = SubResource("Curve2D_12qur")
-script = ExtResource("5_pgbpm")
-spline_length = 15
-_smooth = true
-
 [node name="Water_Area" type="Area2D" parent="Spring_Container"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Spring_Container/Water_Area"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spring_Container/Water_Area"]

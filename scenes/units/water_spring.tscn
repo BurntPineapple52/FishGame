@@ -8,6 +8,7 @@ size = Vector2(10, 10)
 [node name="Water_Spring" type="Node2D"]
 visible = false
 script = ExtResource("1_wxjfq")
+metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 8
