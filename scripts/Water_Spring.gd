@@ -2,6 +2,7 @@ extends Node2D
 
 var velocity = 0
 var force = 0
+
 var height = 0
 var target_height = 0
 
@@ -15,23 +16,30 @@ var motion_factor = 0.2
 
 signal splash
 
+#This applies hooke's law
 func water_update(spring_constant, dampening):
 	height = position.y
+	#current extension
 	var x = height - target_height
+	
 	var loss = -dampening * velocity
 	
 	#hooke's law:
 	force = - spring_constant * x + loss
 	
+	#apply force to velocity
+ 	#velocity = velocity + force
 	velocity += force
-	position.y += velocity
-	pass
 	
-func initialize(x_postion, id):
+ 	#make's the spring move
+	position.y += velocity
+	
+	
+func initialize(x_position, id):
 	height = position.y
 	target_height = position.y
 	velocity = 0
-	position.x = x_postion
+	position.x = x_position
 	index = id
 	
 func set_collision_width(value):

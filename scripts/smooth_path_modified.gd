@@ -24,7 +24,6 @@ func smooth(value):
 			curve.set_point_out(i, spline)
 
 func _get_spline(i):
-	
 	var last_point = _get_point(i - 1)
 	var next_point = _get_point(i + 1)
 	var spline = last_point.direction_to(next_point) * spline_length

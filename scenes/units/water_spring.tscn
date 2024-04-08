@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0n52ejoynb34"]
 
-[ext_resource type="Script" path="res://Water_Spring.gd" id="1_wxjfq"]
+[ext_resource type="Script" path="res://scripts/Water_Spring.gd" id="1_duo1k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnqts"]
 size = Vector2(10, 10)
 
 [node name="Water_Spring" type="Node2D"]
-visible = false
-script = ExtResource("1_wxjfq")
+script = ExtResource("1_duo1k")
+metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 8
