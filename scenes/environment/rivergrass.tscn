@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqolaxj2d67av"]
+
+[ext_resource type="Script" path="res://scripts/rivergrass.gd" id="1_worc1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2v5xy"]
+size = Vector2(2, 2)
+
+[node name="Rivergrass" type="StaticBody2D"]
+script = ExtResource("1_worc1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2v5xy")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

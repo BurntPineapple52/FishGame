@@ -1,25 +1,81 @@
-[gd_scene load_steps=9 format=3 uid="uid://deiin0bi61ug2"]
+[gd_scene load_steps=27 format=3 uid="uid://deiin0bi61ug2"]
 
+[ext_resource type="PackedScene" uid="uid://cc7bjaots1ccs" path="res://scenes/units/bear_base.tscn" id="1_qfhcm"]
 [ext_resource type="Texture2D" uid="uid://t087xbgaaapk" path="res://icon.svg" id="1_tbhgc"]
-[ext_resource type="PackedScene" uid="uid://dp4f40grjhffn" path="res://scenes/units/fish_guy3.tscn" id="2_1cou5"]
+[ext_resource type="Script" path="res://scripts/obstacle_solid.gd" id="2_81f5r"]
 [ext_resource type="Script" path="res://scripts/RigidBody2DTest.gd" id="2_rhcjw"]
+[ext_resource type="Texture2D" uid="uid://ci8v3cv5s3eoy" path="res://assets/sprites/environment/rock_2.png" id="3_k1l7m"]
 [ext_resource type="Script" path="res://scripts/gravflip.gd" id="4_gcxyr"]
+[ext_resource type="PackedScene" uid="uid://b4772rljlfy6t" path="res://scenes/units/fish_guy5.tscn" id="5_vn8be"]
+[ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="7_j84xb"]
 [ext_resource type="Script" path="res://scripts/Water.gd" id="8_o8yqd"]
+[ext_resource type="PackedScene" uid="uid://cbpofa8b3hcku" path="res://scenes/environment/leaf1.tscn" id="8_y72k8"]
+[ext_resource type="Script" path="res://scripts/WaterColorRect.gd" id="10_i8w8t"]
+[ext_resource type="PackedScene" uid="uid://duv0ks6s1u71c" path="res://scenes/environment/leaf_spawner.tscn" id="11_ppojf"]
+[ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="12_e58qp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kja1j"]
+friction = 0.55
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thbab"]
 size = Vector2(128, 128)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ps74"]
+friction = 0.57
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpj1l"]
+size = Vector2(512, 512)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_phwb1"]
+bounce = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qa2ko"]
+bounce = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_74lb4"]
+friction = 0.57
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_div6g"]
+friction = 0.45
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_umevp"]
+size = Vector2(302, 68)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgud8"]
-size = Vector2(128, 126)
+size = Vector2(88, 88)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fdf5b"]
 size = Vector2(1282, 276)
 
+[sub_resource type="Shader" id="Shader_wnnvu"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_77coh"]
+shader = SubResource("Shader_wnnvu")
+
 [node name="TestStage" type="Node2D"]
 
+[node name="Bear" parent="." instance=ExtResource("1_qfhcm")]
+position = Vector2(6899, 68)
+
 [node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(577, 625)
-scale = Vector2(10, 1)
+position = Vector2(-82, 621)
+scale = Vector2(20, 1)
+physics_material_override = SubResource("PhysicsMaterial_kja1j")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
@@ -27,6 +83,95 @@ shape = SubResource("RectangleShape2D_thbab")
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor"]
 texture = ExtResource("1_tbhgc")
+
+[node name="Floor7" type="StaticBody2D" parent="."]
+position = Vector2(6301, 1559)
+scale = Vector2(30, 1)
+physics_material_override = SubResource("PhysicsMaterial_kja1j")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor7"]
+shape = SubResource("RectangleShape2D_thbab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor7"]
+texture = ExtResource("1_tbhgc")
+
+[node name="Floor3" type="RigidBody2D" parent="."]
+position = Vector2(7000, 700)
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_1ps74")
+script = ExtResource("2_81f5r")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor3"]
+shape = SubResource("RectangleShape2D_qpj1l")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor3"]
+scale = Vector2(4, 4)
+texture = ExtResource("1_tbhgc")
+
+[node name="Floor4" type="StaticBody2D" parent="."]
+position = Vector2(3650, 926)
+scale = Vector2(2, 2)
+physics_material_override = SubResource("PhysicsMaterial_phwb1")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor4"]
+shape = SubResource("RectangleShape2D_thbab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor4"]
+texture = ExtResource("1_tbhgc")
+
+[node name="Floor5" type="StaticBody2D" parent="."]
+position = Vector2(3657, 459)
+scale = Vector2(2, 2)
+physics_material_override = SubResource("PhysicsMaterial_qa2ko")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor5"]
+shape = SubResource("RectangleShape2D_thbab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor5"]
+texture = ExtResource("1_tbhgc")
+
+[node name="Floor6" type="StaticBody2D" parent="."]
+position = Vector2(3656, 669)
+scale = Vector2(2, 2)
+physics_material_override = SubResource("PhysicsMaterial_qa2ko")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor6"]
+shape = SubResource("RectangleShape2D_thbab")
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor6"]
+texture = ExtResource("1_tbhgc")
+
+[node name="Rock" type="RigidBody2D" parent="."]
+position = Vector2(5555, 1200)
+mass = 180.0
+physics_material_override = SubResource("PhysicsMaterial_74lb4")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Rock"]
+scale = Vector2(2, 2)
+texture = ExtResource("3_k1l7m")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rock"]
+scale = Vector2(2, 2)
+polygon = PackedVector2Array(93, 51.5, 69.5, 73, 45, 85.5, -57, 85.5, -75.5, 76.5, -88.5, 63.5, -102.5, 30, -106.5, 14.5, -101, -28.5, -88.5, -61, -67.5, -81.5, -41.5, -87.5, -6, -79.5, 36.5, -59, 51.5, -56.5, 79, -30, 105.5, 13, 102.5, 32.5)
+
+[node name="test_log" type="RigidBody2D" parent="." groups=["physics"]]
+position = Vector2(2845, 34)
+mass = 40.0
+physics_material_override = SubResource("PhysicsMaterial_div6g")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="test_log"]
+position = Vector2(7, -3)
+shape = SubResource("RectangleShape2D_umevp")
+
+[node name="Sprite2D" type="Sprite2D" parent="test_log"]
+texture = ExtResource("7_j84xb")
 
 [node name="Floor2" type="StaticBody2D" parent="."]
 position = Vector2(1842, 625)
@@ -39,8 +184,11 @@ shape = SubResource("RectangleShape2D_thbab")
 [node name="Sprite2D" type="Sprite2D" parent="Floor2"]
 texture = ExtResource("1_tbhgc")
 
+[node name="FishGuy2" parent="." instance=ExtResource("5_vn8be")]
+position = Vector2(2169, 72)
+
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(309, 369)
+position = Vector2(285, 491)
 script = ExtResource("2_rhcjw")
 metadata/_edit_group_ = true
 
@@ -48,27 +196,100 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_wgud8")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(0.685, 0.685)
 texture = ExtResource("1_tbhgc")
-
-[node name="FishGuy" parent="." instance=ExtResource("2_1cou5")]
-position = Vector2(1435, 298)
 
 [node name="gravflip" type="Node2D" parent="."]
 script = ExtResource("4_gcxyr")
+
+[node name="Leaf" parent="." instance=ExtResource("8_y72k8")]
+
+[node name="LeafSpawner" parent="." instance=ExtResource("11_ppojf")]
 
 [node name="Water" type="Area2D" parent="." groups=["water"]]
 position = Vector2(4843, 931)
 scale = Vector2(6, 6)
 script = ExtResource("8_o8yqd")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
 shape = SubResource("RectangleShape2D_fdf5b")
 
 [node name="Sprite2D" type="Sprite2D" parent="Water"]
+visible = false
 modulate = Color(0.113725, 0.352941, 1, 0.462745)
 scale = Vector2(10, 2.21875)
 texture = ExtResource("1_tbhgc")
+
+[node name="ColorRect" type="ColorRect" parent="Water"]
+material = SubResource("ShaderMaterial_77coh")
+offset_left = -640.0
+offset_top = -137.0
+offset_right = 642.0
+offset_bottom = 139.0
+color = Color(0, 0.160784, 0.309804, 0.411765)
+script = ExtResource("10_i8w8t")
+
+[node name="Rivergrass" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1738, 559)
+
+[node name="Rivergrass2" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1577, 558)
+grass_length = 3
+
+[node name="Rivergrass3" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(2063, 559)
+grass_length = 3
+
+[node name="Rivergrass4" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1902, 558)
+grass_length = 5
+
+[node name="Rivergrass5" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1820, 559)
+grass_length = 6
+
+[node name="Rivergrass6" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1659, 558)
+grass_length = 5
+
+[node name="Rivergrass7" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(2145, 559)
+grass_length = 7
+
+[node name="Rivergrass8" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1984, 558)
+grass_length = 9
+
+[node name="Rivergrass9" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1611, 559)
+
+[node name="Rivergrass10" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1450, 558)
+grass_length = 3
+
+[node name="Rivergrass11" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1936, 559)
+grass_length = 3
+
+[node name="Rivergrass12" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1775, 558)
+grass_length = 5
+
+[node name="Rivergrass13" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1693, 559)
+grass_length = 6
+
+[node name="Rivergrass14" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1532, 558)
+grass_length = 5
+
+[node name="Rivergrass15" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(2018, 559)
+grass_length = 7
+
+[node name="Rivergrass16" parent="." instance=ExtResource("12_e58qp")]
+position = Vector2(1857, 558)
+grass_length = 9
 
 [connection signal="body_entered" from="Water" to="Water" method="_on_body_entered"]
 [connection signal="body_exited" from="Water" to="Water" method="_on_body_exited"]

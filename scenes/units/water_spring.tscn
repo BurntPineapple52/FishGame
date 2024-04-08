@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0n52ejoynb34"]
+
+[ext_resource type="Script" path="res://scripts/Water_Spring.gd" id="1_duo1k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnqts"]
+size = Vector2(10, 10)
+
+[node name="Water_Spring" type="Node2D"]
+visible = false
+script = ExtResource("1_duo1k")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.843137, 1, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_vnqts")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

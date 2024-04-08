@@ -6,19 +6,19 @@
 [ext_resource type="Texture2D" uid="uid://c72t1vfyicj86" path="res://assets/sprites/water_background.png" id="2_g2774"]
 [ext_resource type="Texture2D" uid="uid://njclc4w42c0v" path="res://assets/sprites/tree_background.png" id="3_l8tin"]
 [ext_resource type="Script" path="res://scripts/gravflip.gd" id="4_dl8n5"]
+[ext_resource type="PackedScene" uid="uid://c2hgioua3cygm" path="res://scenes/units/fish_guy_tutorial.tscn" id="4_g63cw"]
 [ext_resource type="Texture2D" uid="uid://p2jdcek120l0" path="res://assets/sprites/rock.png" id="6_5d6ke"]
 [ext_resource type="Texture2D" uid="uid://dop6s4b16773c" path="res://assets/sprites/log.png" id="7_30xtx"]
-[ext_resource type="PackedScene" uid="uid://bk61lyub7ka4e" path="res://scenes/units/fish_guysTutorial.tscn" id="8_7dvx8"]
 [ext_resource type="Script" path="res://scripts/Water.gd" id="11_2axot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_thbab"]
-size = Vector2(114.8, 122)
+size = Vector2(114.9, 117)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wgud8"]
-size = Vector2(101, 109.032)
+size = Vector2(126, 138)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_au64w"]
-size = Vector2(1146, 388)
+size = Vector2(2289.5, 385)
 
 [node name="TestStage" type="Node2D"]
 
@@ -46,6 +46,10 @@ position = Vector2(-0.25, -534.5)
 scale = Vector2(0.0798197, 0.512894)
 texture = ExtResource("3_l8tin")
 
+[node name="FishGuy" parent="." instance=ExtResource("4_g63cw")]
+z_index = 1
+position = Vector2(617.568, 416.613)
+
 [node name="Log" type="RigidBody2D" parent="."]
 z_index = 1
 position = Vector2(1955.31, 251.896)
@@ -64,7 +68,7 @@ position = Vector2(110, -44.5)
 scale = Vector2(0.563492, 0.550505)
 texture = ExtResource("7_30xtx")
 
-[node name="Rock" type="RigidBody2D" parent="."]
+[node name="Rock" type="RigidBody2D" parent="." groups=["rock"]]
 z_index = 1
 position = Vector2(1339.51, 574.032)
 mass = 1000.0
@@ -74,7 +78,7 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rock"]
 z_index = 1
-position = Vector2(109.993, -45.5161)
+position = Vector2(107.49, -46.032)
 shape = SubResource("RectangleShape2D_wgud8")
 
 [node name="Sprite2D" type="Sprite2D" parent="Rock"]
@@ -84,12 +88,13 @@ scale = Vector2(0.563492, 0.550505)
 texture = ExtResource("6_5d6ke")
 
 [node name="Water" type="Area2D" parent="." groups=["water"]]
+z_as_relative = false
 position = Vector2(653, 144)
 script = ExtResource("11_2axot")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
-position = Vector2(-77, 229)
+position = Vector2(495.25, 230.5)
 shape = SubResource("RectangleShape2D_au64w")
 
 [node name="Sprite2D" type="Sprite2D" parent="Water"]
@@ -106,7 +111,7 @@ position = Vector2(1725, 624)
 scale = Vector2(10, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2"]
-position = Vector2(-0.199997, 3)
+position = Vector2(-0.25, 5.5)
 shape = SubResource("RectangleShape2D_thbab")
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor2"]
@@ -125,20 +130,6 @@ position = Vector2(-0.25, -534.5)
 scale = Vector2(0.0798197, 0.512894)
 texture = ExtResource("3_l8tin")
 
-[node name="FishGuyTutorial" parent="." instance=ExtResource("8_7dvx8")]
-position = Vector2(577, 325)
-
-[node name="Water2" type="Area2D" parent="." groups=["water"]]
-z_as_relative = false
-position = Vector2(1799, 145)
-script = ExtResource("11_2axot")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Water2"]
-position = Vector2(-77, 229)
-shape = SubResource("RectangleShape2D_au64w")
-
+[connection signal="body_entered" from="Rock" to="Rock" method="_on_body_entered"]
 [connection signal="body_entered" from="Water" to="Water" method="_on_body_entered"]
 [connection signal="body_exited" from="Water" to="Water" method="_on_body_exited"]
-[connection signal="body_entered" from="Water2" to="Water2" method="_on_body_entered"]
-[connection signal="body_exited" from="Water2" to="Water2" method="_on_body_exited"]

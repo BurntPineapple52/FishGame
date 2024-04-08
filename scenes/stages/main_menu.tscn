@@ -1,0 +1,135 @@
+[gd_scene load_steps=12 format=3 uid="uid://qcwsahpkfsoq"]
+
+[ext_resource type="Script" path="res://Main_Menu.gd" id="1_d68cc"]
+[ext_resource type="Texture2D" uid="uid://cx0m5mllndlyk" path="res://assets/sprites/ui/keycap_f.png" id="2_7h0fq"]
+[ext_resource type="Texture2D" uid="uid://d0qcc3n7hkgcg" path="res://assets/sprites/ui/keycap_l.png" id="3_4lpdh"]
+[ext_resource type="Script" path="res://scripts/Keycap.gd" id="3_a6lnf"]
+[ext_resource type="Texture2D" uid="uid://b5xueqdphjwbe" path="res://assets/sprites/ui/keycap_o.png" id="4_cgv2e"]
+[ext_resource type="Texture2D" uid="uid://b6mxxr6imeq3x" path="res://assets/sprites/ui/keycap_p.png" id="5_fwx38"]
+[ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="6_8do8m"]
+[ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="7_ib2gt"]
+[ext_resource type="PackedScene" path="res://scenes/units/fish_guy6.tscn" id="9_sl8aq"]
+[ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="10_mclgp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r6ipo"]
+size = Vector2(1160, 25)
+
+[node name="Main_Menu" type="Node2D"]
+script = ExtResource("1_d68cc")
+
+[node name="KeycapF" type="Sprite2D" parent="."]
+position = Vector2(444, 265)
+scale = Vector2(1.4375, 1.3125)
+texture = ExtResource("2_7h0fq")
+script = ExtResource("3_a6lnf")
+
+[node name="KeycapL" type="Sprite2D" parent="."]
+position = Vector2(525, 266)
+scale = Vector2(1.46875, 1.34375)
+texture = ExtResource("3_4lpdh")
+script = ExtResource("3_a6lnf")
+keybind = 76
+
+[node name="KeycapO" type="Sprite2D" parent="."]
+position = Vector2(601, 267)
+scale = Vector2(1.3125, 1.3125)
+texture = ExtResource("4_cgv2e")
+script = ExtResource("3_a6lnf")
+keybind = 79
+
+[node name="KeycapP" type="Sprite2D" parent="."]
+position = Vector2(674, 267)
+scale = Vector2(1.35938, 1.34375)
+texture = ExtResource("5_fwx38")
+script = ExtResource("3_a6lnf")
+keybind = 80
+
+[node name="Background_Container" type="Node2D" parent="."]
+
+[node name="BackgroundSandtoland" type="Sprite2D" parent="Background_Container"]
+position = Vector2(-21, 685)
+texture = ExtResource("6_8do8m")
+
+[node name="BackgroundSandtoland2" type="Sprite2D" parent="Background_Container"]
+position = Vector2(490, 685)
+texture = ExtResource("6_8do8m")
+
+[node name="BackgroundSandtoland3" type="Sprite2D" parent="Background_Container"]
+position = Vector2(1002, 685)
+texture = ExtResource("6_8do8m")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(4, 507)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(570, -2.5)
+shape = SubResource("RectangleShape2D_r6ipo")
+
+[node name="Water_Container" parent="." instance=ExtResource("7_ib2gt")]
+position = Vector2(-4, 574)
+
+[node name="Camera2D" type="Camera2D" parent="Water_Container"]
+position = Vector2(582, -99)
+
+[node name="Rivergrass_Container" type="Node2D" parent="."]
+
+[node name="Rivergrass2" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(107, 820)
+
+[node name="Rivergrass3" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(181, 820)
+grass_length = 2
+
+[node name="Rivergrass4" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(144, 820)
+grass_length = 3
+
+[node name="Rivergrass5" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(66, 820)
+grass_length = 3
+
+[node name="Rivergrass11" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(1041, 821)
+
+[node name="Rivergrass12" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(1115, 821)
+grass_length = 2
+
+[node name="Rivergrass13" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(1078, 821)
+grass_length = 3
+
+[node name="Rivergrass14" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(1000, 821)
+grass_length = 3
+
+[node name="Rivergrass6" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(265, 844)
+grass_length = 2
+
+[node name="Rivergrass7" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(292, 820)
+grass_length = 2
+
+[node name="Rivergrass15" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(767, 836)
+grass_length = 2
+
+[node name="Rivergrass16" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(794, 812)
+grass_length = 2
+
+[node name="Rivergrass8" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(382, 820)
+grass_length = 3
+
+[node name="Rivergrass9" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(415, 820)
+
+[node name="Rivergrass10" parent="Rivergrass_Container" instance=ExtResource("10_mclgp")]
+position = Vector2(456, 820)
+grass_length = 3
+
+[node name="FishGuy" parent="." instance=ExtResource("9_sl8aq")]
+position = Vector2(420, -195)
+rotation = 2.87281

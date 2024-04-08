@@ -1,0 +1,369 @@
+[gd_scene load_steps=9 format=3 uid="uid://dbmmoob7a1x0g"]
+
+[ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="1_agss0"]
+[ext_resource type="Script" path="res://scripts/stage.gd" id="1_wcgdu"]
+[ext_resource type="Texture2D" uid="uid://djc1n8rph0jtd" path="res://assets/sprites/environment/sand.png" id="2_myq22"]
+[ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="3_mcyys"]
+[ext_resource type="Script" path="res://scripts/LogSpawner.gd" id="4_uhn56"]
+[ext_resource type="PackedScene" uid="uid://b4772rljlfy6t" path="res://scenes/units/fish_guy5.tscn" id="5_g0e2s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07gy8"]
+size = Vector2(652, 6876)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0om0"]
+size = Vector2(8742, 342)
+
+[node name="BearStage" type="Node2D"]
+script = ExtResource("1_wcgdu")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="BackgroundSandtoland" type="Sprite2D" parent="Background"]
+position = Vector2(256, 256)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland2" type="Sprite2D" parent="Background"]
+position = Vector2(766, 256)
+texture = ExtResource("1_agss0")
+
+[node name="Sand" type="Sprite2D" parent="Background"]
+position = Vector2(256, 755)
+texture = ExtResource("2_myq22")
+
+[node name="Sand9" type="Sprite2D" parent="Background"]
+position = Vector2(4335, 758)
+texture = ExtResource("2_myq22")
+
+[node name="Sand10" type="Sprite2D" parent="Background"]
+position = Vector2(4845, 761)
+texture = ExtResource("2_myq22")
+
+[node name="Sand11" type="Sprite2D" parent="Background"]
+position = Vector2(5357, 758)
+texture = ExtResource("2_myq22")
+
+[node name="Sand12" type="Sprite2D" parent="Background"]
+position = Vector2(5867, 761)
+texture = ExtResource("2_myq22")
+
+[node name="Sand13" type="Sprite2D" parent="Background"]
+position = Vector2(6370, 762)
+texture = ExtResource("2_myq22")
+
+[node name="Sand14" type="Sprite2D" parent="Background"]
+position = Vector2(6880, 765)
+texture = ExtResource("2_myq22")
+
+[node name="Sand15" type="Sprite2D" parent="Background"]
+position = Vector2(7392, 762)
+texture = ExtResource("2_myq22")
+
+[node name="Sand7" type="Sprite2D" parent="Background"]
+position = Vector2(3313, 759)
+texture = ExtResource("2_myq22")
+
+[node name="Sand8" type="Sprite2D" parent="Background"]
+position = Vector2(3823, 762)
+texture = ExtResource("2_myq22")
+
+[node name="Sand6" type="Sprite2D" parent="Background"]
+position = Vector2(2801, 762)
+texture = ExtResource("2_myq22")
+
+[node name="Sand5" type="Sprite2D" parent="Background"]
+position = Vector2(2291, 759)
+texture = ExtResource("2_myq22")
+
+[node name="Sand4" type="Sprite2D" parent="Background"]
+position = Vector2(1788, 758)
+texture = ExtResource("2_myq22")
+
+[node name="Sand3" type="Sprite2D" parent="Background"]
+position = Vector2(1278, 755)
+texture = ExtResource("2_myq22")
+
+[node name="Sand42" type="Sprite2D" parent="Background"]
+position = Vector2(3595, 1181)
+texture = ExtResource("2_myq22")
+
+[node name="Sand2" type="Sprite2D" parent="Background"]
+position = Vector2(766, 758)
+texture = ExtResource("2_myq22")
+
+[node name="Sand17" type="Sprite2D" parent="Background"]
+position = Vector2(256, 1143)
+texture = ExtResource("2_myq22")
+
+[node name="Sand18" type="Sprite2D" parent="Background"]
+position = Vector2(766, 1146)
+texture = ExtResource("2_myq22")
+
+[node name="Sand19" type="Sprite2D" parent="Background"]
+position = Vector2(256, 1551)
+texture = ExtResource("2_myq22")
+
+[node name="Sand20" type="Sprite2D" parent="Background"]
+position = Vector2(766, 1554)
+texture = ExtResource("2_myq22")
+
+[node name="Sand21" type="Sprite2D" parent="Background"]
+position = Vector2(256, 1859)
+texture = ExtResource("2_myq22")
+
+[node name="Sand22" type="Sprite2D" parent="Background"]
+position = Vector2(766, 1862)
+texture = ExtResource("2_myq22")
+
+[node name="Sand25" type="Sprite2D" parent="Background"]
+position = Vector2(1238, 1150)
+texture = ExtResource("2_myq22")
+
+[node name="Sand26" type="Sprite2D" parent="Background"]
+position = Vector2(1748, 1153)
+texture = ExtResource("2_myq22")
+
+[node name="Sand27" type="Sprite2D" parent="Background"]
+position = Vector2(1238, 1558)
+texture = ExtResource("2_myq22")
+
+[node name="Sand28" type="Sprite2D" parent="Background"]
+position = Vector2(1748, 1561)
+texture = ExtResource("2_myq22")
+
+[node name="Sand29" type="Sprite2D" parent="Background"]
+position = Vector2(1238, 1866)
+texture = ExtResource("2_myq22")
+
+[node name="Sand30" type="Sprite2D" parent="Background"]
+position = Vector2(1748, 1869)
+texture = ExtResource("2_myq22")
+
+[node name="Sand33" type="Sprite2D" parent="Background"]
+position = Vector2(2104, 1151)
+texture = ExtResource("2_myq22")
+
+[node name="Sand34" type="Sprite2D" parent="Background"]
+position = Vector2(2614, 1154)
+texture = ExtResource("2_myq22")
+
+[node name="Sand35" type="Sprite2D" parent="Background"]
+position = Vector2(2104, 1559)
+texture = ExtResource("2_myq22")
+
+[node name="Sand36" type="Sprite2D" parent="Background"]
+position = Vector2(2614, 1562)
+texture = ExtResource("2_myq22")
+
+[node name="Sand37" type="Sprite2D" parent="Background"]
+position = Vector2(2104, 1867)
+texture = ExtResource("2_myq22")
+
+[node name="Sand38" type="Sprite2D" parent="Background"]
+position = Vector2(2614, 1870)
+texture = ExtResource("2_myq22")
+
+[node name="Sand41" type="Sprite2D" parent="Background"]
+position = Vector2(3086, 1158)
+texture = ExtResource("2_myq22")
+
+[node name="Sand43" type="Sprite2D" parent="Background"]
+position = Vector2(3086, 1566)
+texture = ExtResource("2_myq22")
+
+[node name="Sand44" type="Sprite2D" parent="Background"]
+position = Vector2(3596, 1569)
+texture = ExtResource("2_myq22")
+
+[node name="Sand45" type="Sprite2D" parent="Background"]
+position = Vector2(3086, 1874)
+texture = ExtResource("2_myq22")
+
+[node name="Sand46" type="Sprite2D" parent="Background"]
+position = Vector2(3596, 1877)
+texture = ExtResource("2_myq22")
+
+[node name="Sand49" type="Sprite2D" parent="Background"]
+position = Vector2(7417, 1194)
+texture = ExtResource("2_myq22")
+
+[node name="Sand50" type="Sprite2D" parent="Background"]
+position = Vector2(4078, 1156)
+texture = ExtResource("2_myq22")
+
+[node name="Sand51" type="Sprite2D" parent="Background"]
+position = Vector2(4588, 1159)
+texture = ExtResource("2_myq22")
+
+[node name="Sand52" type="Sprite2D" parent="Background"]
+position = Vector2(4078, 1564)
+texture = ExtResource("2_myq22")
+
+[node name="Sand53" type="Sprite2D" parent="Background"]
+position = Vector2(4588, 1567)
+texture = ExtResource("2_myq22")
+
+[node name="Sand54" type="Sprite2D" parent="Background"]
+position = Vector2(4078, 1872)
+texture = ExtResource("2_myq22")
+
+[node name="Sand55" type="Sprite2D" parent="Background"]
+position = Vector2(4588, 1875)
+texture = ExtResource("2_myq22")
+
+[node name="Sand58" type="Sprite2D" parent="Background"]
+position = Vector2(5060, 1163)
+texture = ExtResource("2_myq22")
+
+[node name="Sand59" type="Sprite2D" parent="Background"]
+position = Vector2(5570, 1166)
+texture = ExtResource("2_myq22")
+
+[node name="Sand60" type="Sprite2D" parent="Background"]
+position = Vector2(5060, 1571)
+texture = ExtResource("2_myq22")
+
+[node name="Sand61" type="Sprite2D" parent="Background"]
+position = Vector2(5570, 1574)
+texture = ExtResource("2_myq22")
+
+[node name="Sand62" type="Sprite2D" parent="Background"]
+position = Vector2(5060, 1879)
+texture = ExtResource("2_myq22")
+
+[node name="Sand63" type="Sprite2D" parent="Background"]
+position = Vector2(5570, 1882)
+texture = ExtResource("2_myq22")
+
+[node name="Sand66" type="Sprite2D" parent="Background"]
+position = Vector2(5926, 1164)
+texture = ExtResource("2_myq22")
+
+[node name="Sand67" type="Sprite2D" parent="Background"]
+position = Vector2(6436, 1167)
+texture = ExtResource("2_myq22")
+
+[node name="Sand68" type="Sprite2D" parent="Background"]
+position = Vector2(5926, 1572)
+texture = ExtResource("2_myq22")
+
+[node name="Sand69" type="Sprite2D" parent="Background"]
+position = Vector2(6436, 1575)
+texture = ExtResource("2_myq22")
+
+[node name="Sand70" type="Sprite2D" parent="Background"]
+position = Vector2(5926, 1880)
+texture = ExtResource("2_myq22")
+
+[node name="Sand71" type="Sprite2D" parent="Background"]
+position = Vector2(6436, 1883)
+texture = ExtResource("2_myq22")
+
+[node name="Sand73" type="Sprite2D" parent="Background"]
+position = Vector2(6908, 1171)
+texture = ExtResource("2_myq22")
+
+[node name="Sand74" type="Sprite2D" parent="Background"]
+position = Vector2(6908, 1579)
+texture = ExtResource("2_myq22")
+
+[node name="Sand75" type="Sprite2D" parent="Background"]
+position = Vector2(7418, 1582)
+texture = ExtResource("2_myq22")
+
+[node name="Sand76" type="Sprite2D" parent="Background"]
+position = Vector2(6908, 1887)
+texture = ExtResource("2_myq22")
+
+[node name="Sand77" type="Sprite2D" parent="Background"]
+position = Vector2(7418, 1890)
+texture = ExtResource("2_myq22")
+
+[node name="BackgroundSandtoland3" type="Sprite2D" parent="Background"]
+position = Vector2(1278, 256)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland4" type="Sprite2D" parent="Background"]
+position = Vector2(1788, 256)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland5" type="Sprite2D" parent="Background"]
+position = Vector2(2291, 260)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland6" type="Sprite2D" parent="Background"]
+position = Vector2(2801, 260)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland7" type="Sprite2D" parent="Background"]
+position = Vector2(3313, 260)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland8" type="Sprite2D" parent="Background"]
+position = Vector2(3823, 260)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland9" type="Sprite2D" parent="Background"]
+position = Vector2(4335, 259)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland10" type="Sprite2D" parent="Background"]
+position = Vector2(4845, 259)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland11" type="Sprite2D" parent="Background"]
+position = Vector2(5357, 259)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland12" type="Sprite2D" parent="Background"]
+position = Vector2(5867, 259)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland13" type="Sprite2D" parent="Background"]
+position = Vector2(6370, 263)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland14" type="Sprite2D" parent="Background"]
+position = Vector2(6880, 263)
+texture = ExtResource("1_agss0")
+
+[node name="BackgroundSandtoland15" type="Sprite2D" parent="Background"]
+position = Vector2(7392, 263)
+texture = ExtResource("1_agss0")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="FishGuy" parent="." instance=ExtResource("5_g0e2s")]
+position = Vector2(463, -288)
+
+[node name="Water_Container" parent="." groups=["water"] instance=ExtResource("3_mcyys")]
+position = Vector2(0, 140)
+distance_between_springs = 64
+spring_number = 120
+depth = 1786
+
+[node name="MapEdge" type="StaticBody2D" parent="."]
+position = Vector2(-642, -491)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapEdge"]
+position = Vector2(316, 492)
+shape = SubResource("RectangleShape2D_07gy8")
+
+[node name="MapEdge2" type="StaticBody2D" parent="."]
+position = Vector2(-642, -491)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapEdge2"]
+position = Vector2(4647, 1786)
+shape = SubResource("RectangleShape2D_j0om0")
+
+[node name="LogSpawner" type="Node2D" parent="."]
+position = Vector2(6635, -214)
+script = ExtResource("4_uhn56")
+
+[node name="Timer" type="Timer" parent="LogSpawner"]
+autostart = true
+
+[connection signal="timeout" from="LogSpawner/Timer" to="LogSpawner" method="spawn_log"]

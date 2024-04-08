@@ -1,0 +1,121 @@
+[gd_scene load_steps=15 format=3 uid="uid://b4772rljlfy6t"]
+
+[ext_resource type="Script" path="res://scripts/testing_damage_animations.gd" id="1_nfon4"]
+[ext_resource type="Script" path="res://scripts/FishHeadOnLandTweaking.gd" id="1_w7t3b"]
+[ext_resource type="Texture2D" uid="uid://dm17xc88nb3i5" path="res://assets/sprites/player/fish_head.png" id="2_eqnmf"]
+[ext_resource type="Script" path="res://scripts/FishTailOnLandTweaking.gd" id="3_hr74e"]
+[ext_resource type="Texture2D" uid="uid://bvxm3mawbbig8" path="res://assets/sprites/player/fish_head_zombified1v2.png" id="4_se2f0"]
+[ext_resource type="Texture2D" uid="uid://sqtde38re8q2" path="res://assets/sprites/player/fish_tail.png" id="4_yaojl"]
+[ext_resource type="Texture2D" uid="uid://imraeuhvy303" path="res://assets/sprites/player/fish_head_damage_flash.png" id="5_bfnqy"]
+[ext_resource type="Script" path="res://scripts/FishBody.gd" id="5_f3pbp"]
+[ext_resource type="Texture2D" uid="uid://bmhn1a3adcqm3" path="res://assets/sprites/player/fish_center.png" id="6_wk5hc"]
+[ext_resource type="Texture2D" uid="uid://c238qwfy2v2fi" path="res://assets/sprites/player/fish_tail_zombified1.png" id="7_qrr16"]
+[ext_resource type="Texture2D" uid="uid://tkwuuibu3hqw" path="res://assets/sprites/player/fish_tail_damageflash.png" id="9_014jl"]
+[ext_resource type="Texture2D" uid="uid://bqqayg2jsewxa" path="res://assets/sprites/player/fish_center_zombified1v2.png" id="10_6vvdf"]
+[ext_resource type="Texture2D" uid="uid://beohv346psxrv" path="res://assets/sprites/player/fish_center_damage_flash.png" id="13_nqqat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th8sa"]
+size = Vector2(48, 20)
+
+[node name="FishGuy" type="Node2D"]
+script = ExtResource("1_nfon4")
+
+[node name="FishHead" type="RigidBody2D" parent="." groups=["physics", "player"]]
+position = Vector2(26, 0)
+collision_layer = 3
+collision_mask = 3
+mass = 5.0
+angular_damp = 25.0
+script = ExtResource("1_w7t3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishHead"]
+position = Vector2(29, 0)
+texture = ExtResource("2_eqnmf")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishHead/Sprite2D"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("4_se2f0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishHead"]
+position = Vector2(26, 0)
+shape = SubResource("RectangleShape2D_th8sa")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="FishHead"]
+node_a = NodePath("../../FishBody")
+node_b = NodePath("..")
+bias = 0.9
+disable_collision = false
+angular_limit_enabled = true
+angular_limit_lower = -0.523599
+angular_limit_upper = 0.523599
+
+[node name="DamageFlash" type="Sprite2D" parent="FishHead"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(29, 0)
+texture = ExtResource("5_bfnqy")
+
+[node name="FishTail" type="RigidBody2D" parent="." groups=["physics", "player"]]
+position = Vector2(-26, 0)
+collision_layer = 3
+collision_mask = 3
+mass = 5.0
+angular_damp = 25.0
+script = ExtResource("3_hr74e")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishTail"]
+position = Vector2(-29, 0)
+texture = ExtResource("4_yaojl")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishTail/Sprite2D"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("7_qrr16")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishTail"]
+position = Vector2(-26, 0)
+shape = SubResource("RectangleShape2D_th8sa")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="FishTail"]
+node_a = NodePath("..")
+node_b = NodePath("../../FishBody")
+bias = 0.9
+disable_collision = false
+angular_limit_enabled = true
+angular_limit_lower = -0.523599
+angular_limit_upper = 0.523599
+
+[node name="DamageFlash" type="Sprite2D" parent="FishTail"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-29, 0)
+texture = ExtResource("9_014jl")
+
+[node name="FishBody" type="RigidBody2D" parent="." groups=["physics", "player"]]
+collision_layer = 3
+collision_mask = 3
+mass = 5.0
+angular_damp = 25.0
+script = ExtResource("5_f3pbp")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishBody"]
+texture = ExtResource("6_wk5hc")
+
+[node name="Sprite2D" type="Sprite2D" parent="FishBody/Sprite2D"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("10_6vvdf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FishBody"]
+shape = SubResource("RectangleShape2D_th8sa")
+
+[node name="DamageFlash" type="Sprite2D" parent="FishBody"]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("13_nqqat")
+
+[node name="Camera2D" type="Camera2D" parent="FishBody"]
+limit_left = 0
+limit_top = -100
+limit_bottom = 3027
+limit_smoothed = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+
+[connection signal="timeout" from="Timer" to="." method="reset_cd"]

@@ -1,0 +1,111 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5qwsjudikanh"]
+
+[ext_resource type="Script" path="res://scripts/Bear.gd" id="1_3fbgq"]
+[ext_resource type="Texture2D" uid="uid://dasjhkqdkjn2y" path="res://assets/sprites/enemies/bearclaw_paw.png" id="1_dgkjw"]
+[ext_resource type="Texture2D" uid="uid://3h4egcflnusq" path="res://assets/sprites/enemies/bearclaw_arm.png" id="2_5ew2n"]
+[ext_resource type="Script" path="res://scripts/BearPaw.gd" id="2_yeys6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b2ocp"]
+rough = true
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qg2uu"]
+size = Vector2(86, 25)
+
+[node name="BearArm" type="StaticBody2D" groups=["knockback"]]
+position = Vector2(339, 264)
+rotation = -3.14159
+script = ExtResource("1_3fbgq")
+metadata/_edit_group_ = true
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="."]
+position = Vector2(0, 3)
+node_a = NodePath("..")
+node_b = NodePath("../Arm")
+disable_collision = false
+
+[node name="Arm" type="RigidBody2D" parent="." groups=["smacker"]]
+position = Vector2(0, 83)
+scale = Vector2(1, 1)
+mass = 60.0
+max_contacts_reported = 10
+contact_monitor = true
+
+[node name="BearPaw" type="RigidBody2D" parent="Arm" groups=["smacker"]]
+position = Vector2(8.93483, 241.919)
+scale = Vector2(1, 1)
+mass = 80.0
+physics_material_override = SubResource("PhysicsMaterial_b2ocp")
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("2_yeys6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Arm/BearPaw"]
+scale = Vector2(-1, 1)
+texture = ExtResource("1_dgkjw")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Arm/BearPaw"]
+polygon = PackedVector2Array(-23.9348, -43.9188, -26.9348, -25.9188, -36.9348, 12.0812, -37.9348, 40.0812, -31.9348, 56.0812, -32.9348, 75.0812, -27.9348, 92.0812, -12.9348, 98.0812, -0.93483, 94.0812, 18.0652, 76.0812, 32.0652, 49.0812, 45.0652, -7.91876, 44.0652, -32.9188, 36.0652, -51.9188, 24.0652, -58.9188, 9.06517, -61.9188, -5.93483, -58.9188)
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Arm"]
+position = Vector2(17.8741, 206.61)
+scale = Vector2(1, 1)
+node_a = NodePath("..")
+node_b = NodePath("../BearPaw")
+bias = 0.9
+disable_collision = false
+angular_limit_lower = -0.0872665
+angular_limit_upper = 0.349066
+motor_target_velocity = -5235.99
+
+[node name="Sprite2D2" type="Sprite2D" parent="Arm"]
+position = Vector2(7.58639, 241.201)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_5ew2n")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Arm"]
+position = Vector2(11, 194)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_5ew2n")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Arm"]
+position = Vector2(19, 145)
+rotation = -0.118682
+scale = Vector2(-1, 1)
+texture = ExtResource("2_5ew2n")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Arm"]
+position = Vector2(17.0001, 98)
+rotation = -0.118682
+scale = Vector2(-1, 1)
+texture = ExtResource("2_5ew2n")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Arm"]
+position = Vector2(15.0001, 55)
+rotation = -0.118682
+scale = Vector2(-1, 1)
+texture = ExtResource("2_5ew2n")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Arm"]
+position = Vector2(13.0001, 8)
+rotation = -0.118682
+scale = Vector2(-1, 1)
+texture = ExtResource("2_5ew2n")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Arm"]
+position = Vector2(1.52588e-05, 141)
+scale = Vector2(1, 1)
+polygon = PackedVector2Array(-48, 79, -34, 63, -22, 51, -4.00002, 40, 21, 32, 41, 38, 56, 59, 59, 86, 56, 115, 72, 105, 75, 71, 62, 26, 60, -28, 53, -166, 55, -219, -47, -219, -17, -181, -14, -66, -21, 8.00002, -56, 73)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_qg2uu")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="body_shape_entered" from="Arm" to="Arm/BearPaw" method="_on_body_entered"]
+[connection signal="body_entered" from="Arm/BearPaw" to="Arm/BearPaw" method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="attack_off_cd"]

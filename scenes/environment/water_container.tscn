@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbncqj58mr5r2"]
+
+[ext_resource type="Script" path="res://scripts/Water_Container_efficiencyattempt.gd" id="1_y7ppl"]
+[ext_resource type="Script" path="res://scripts/Water.gd" id="3_7u2ch"]
+[ext_resource type="Script" path="res://scripts/smooth_path_modified.gd" id="3_u76ae"]
+
+[sub_resource type="Curve2D" id="Curve2D_12qur"]
+
+[node name="Water_Container" type="Node2D"]
+script = ExtResource("1_y7ppl")
+spring_number = 50
+border_thickness = 0.5
+
+[node name="Water_Polygon" type="Polygon2D" parent="."]
+color = Color(0.027451, 0.172549, 0.34902, 0.698039)
+
+[node name="Water_Border" type="Path2D" parent="."]
+curve = SubResource("Curve2D_12qur")
+script = ExtResource("3_u76ae")
+spline_length = 15
+_smooth = true
+
+[node name="Water_Area" type="Area2D" parent="."]
+script = ExtResource("3_7u2ch")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water_Area"]
+
+[connection signal="body_entered" from="Water_Area" to="Water_Area" method="_on_body_entered"]
+[connection signal="body_exited" from="Water_Area" to="Water_Area" method="_on_body_exited"]
