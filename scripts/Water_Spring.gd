@@ -51,6 +51,6 @@ func _on_area_2d_body_entered(body):
 	if body == collided_with: # or (body.is_in_group("player") and body.in_water):
 		return
 	collided_with = body
-	print(clamp(clamp(body.linear_velocity.y,0,1000)/30,10,80))
+	#print(clamp(clamp(body.linear_velocity.y,0,1000)/30,10,80))
 	var speed = clamp(clamp(body.linear_velocity.y,0,1000)/30,10,80)*motion_factor #body.global_position.y * motion_factor
 	emit_signal("splash", index, speed)

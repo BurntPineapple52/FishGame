@@ -339,7 +339,7 @@ position = Vector2(463, -288)
 position = Vector2(0, 140)
 distance_between_springs = 64
 spring_number = 120
-depth = 3000
+depth = 1786
 
 [node name="MapEdge" type="StaticBody2D" parent="."]
 position = Vector2(-642, -491)
@@ -356,7 +356,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapEdge2"]
-position = Vector2(4721, 2795)
+position = Vector2(4647, 1786)
 shape = SubResource("RectangleShape2D_j0om0")
 
 [node name="LogSpawner" type="Node2D" parent="."]
