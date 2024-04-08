@@ -46,3 +46,4 @@ p={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.227451, 0.54902, 0.835294, 1)

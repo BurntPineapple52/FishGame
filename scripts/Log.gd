@@ -6,15 +6,25 @@ extends RigidBody2D
 
 @onready var gravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-const water_height = 0.0
+var water_height = 0.0
 
 var submerged = false
 
 #-----------------------
 
+#modified mass from 1 - 50. may alter 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+
+func initialize(height,ff,drag):
+	print("init")
+	water_height = height
+	float_force = ff
+	water_drag = drag
+	
+	#float_force = water_height + 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -22,7 +32,7 @@ func _process(delta):
 	
 func _physics_process(delta):
 	submerged = false
-	var depth = water_height + global_position.y
+	var depth = global_position.y - water_height
 	if depth > 0:
 		submerged = true
 		apply_central_force(Vector2.UP * float_force * gravity * depth)
