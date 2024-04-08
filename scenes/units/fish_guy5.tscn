@@ -22,6 +22,8 @@ script = ExtResource("1_nfon4")
 
 [node name="FishHead" type="RigidBody2D" parent="." groups=["physics", "player"]]
 position = Vector2(26, 0)
+collision_layer = 3
+collision_mask = 3
 mass = 5.0
 angular_damp = 25.0
 script = ExtResource("1_w7t3b")
@@ -54,6 +56,8 @@ texture = ExtResource("5_bfnqy")
 
 [node name="FishTail" type="RigidBody2D" parent="." groups=["physics", "player"]]
 position = Vector2(-26, 0)
+collision_layer = 3
+collision_mask = 3
 mass = 5.0
 angular_damp = 25.0
 script = ExtResource("3_hr74e")
@@ -85,6 +89,8 @@ position = Vector2(-29, 0)
 texture = ExtResource("9_014jl")
 
 [node name="FishBody" type="RigidBody2D" parent="." groups=["physics", "player"]]
+collision_layer = 3
+collision_mask = 3
 mass = 5.0
 angular_damp = 25.0
 script = ExtResource("5_f3pbp")
@@ -104,7 +110,9 @@ self_modulate = Color(1, 1, 1, 0)
 texture = ExtResource("13_nqqat")
 
 [node name="Camera2D" type="Camera2D" parent="FishBody"]
+limit_left = 0
 limit_top = -100
+limit_bottom = 3027
 limit_smoothed = true
 
 [node name="Timer" type="Timer" parent="."]

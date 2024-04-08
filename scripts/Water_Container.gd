@@ -27,6 +27,11 @@ var bottom = target_height + depth
 @onready var collisionShape = $Water_Area/CollisionShape2D
 @onready var water_area = $Water_Area
 
+@export var is_current = true
+@export var water_speed = 6000
+@export var water_direction = Vector2(-1,0)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spread = spread / 1000
@@ -91,8 +96,8 @@ func draw_water_body():
 	var first_index = 0
 	var last_index = water_polygon_points.size()-1
 
-	water_polygon_points.append(Vector2(water_polygon_points[last_index].x, bottom))
-	water_polygon_points.append(Vector2(water_polygon_points[first_index].x, bottom))
+	water_polygon_points.append(Vector2(water_polygon_points[last_index].x, depth))
+	water_polygon_points.append(Vector2(water_polygon_points[first_index].x, depth))
 
 	water_polygon.polygon = PackedVector2Array(water_polygon_points)
 

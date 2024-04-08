@@ -12,7 +12,7 @@ var index = 0
 
 var motion_factor = 0.2
 
-#var collided_with = null
+var collided_with = null
 
 signal splash
 
@@ -48,9 +48,9 @@ func set_collision_width(value):
 	collision.shape.set_size(new_size)
 
 func _on_area_2d_body_entered(body):
-	#if body == collided_with:
-		#return
-	#collided_with = body
-	
-	var speed = body.global_position.y * motion_factor
+	if body == collided_with: # or (body.is_in_group("player") and body.in_water):
+		return
+	collided_with = body
+	print(clamp(clamp(body.linear_velocity.y,0,1000)/30,10,80))
+	var speed = clamp(clamp(body.linear_velocity.y,0,1000)/30,10,80)*motion_factor #body.global_position.y * motion_factor
 	emit_signal("splash", index, speed)

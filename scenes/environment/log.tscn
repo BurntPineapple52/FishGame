@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyu7nwx3u80ug"]
+
+[ext_resource type="Script" path="res://scripts/Log.gd" id="1_lh8q7"]
+[ext_resource type="Texture2D" uid="uid://vaf7xwjx6cik" path="res://assets/sprites/environment/log_4.png" id="2_lqfxn"]
+
+[node name="Log" type="RigidBody2D" groups=["buoyant", "physics"]]
+position = Vector2(-191, -448)
+mass = 55.0
+max_contacts_reported = 5
+contact_monitor = true
+script = ExtResource("1_lh8q7")
+water_drag = 0.08
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_lqfxn")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(153, -29, 158, -12, 158, 24, 155, 34, 147, 37, 104, 38, 97, 37, 89, 42, 83, 41, 32, 32, -18, 31, -58, 30, -80, 29, -108, 28, -126, 27, -142, 18, -159, 1, -158, -4, -149, -14, -143, -14, -142, -29, -135, -33, -124, -40, 20, -37, 58, -36, 86, -39)
