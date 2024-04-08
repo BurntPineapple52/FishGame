@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dbmmoob7a1x0g"]
+[gd_scene load_steps=14 format=3 uid="uid://dbmmoob7a1x0g"]
 
 [ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="1_agss0"]
 [ext_resource type="Script" path="res://scripts/stage.gd" id="1_wcgdu"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cc7bjaots1ccs" path="res://scenes/units/bear_base.tscn" id="4_8i5gg"]
 [ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="4_iniw8"]
 [ext_resource type="PackedScene" uid="uid://bkvawogb7j42q" path="res://scenes/environment/rock.tscn" id="4_j26nt"]
-[ext_resource type="PackedScene" uid="uid://duv0ks6s1u71c" path="res://scenes/environment/leaf_spawner.tscn" id="4_n6ji4"]
 [ext_resource type="PackedScene" uid="uid://b4772rljlfy6t" path="res://scenes/units/fish_guy5.tscn" id="5_g0e2s"]
 [ext_resource type="PackedScene" uid="uid://cd5wim6nib44o" path="res://scenes/environment/log_spawner.tscn" id="7_v16uq"]
 
@@ -342,9 +341,6 @@ position = Vector2(7392, 263)
 texture = ExtResource("1_agss0")
 
 [node name="Environment" type="Node2D" parent="."]
-
-[node name="LeafSpawner" parent="Environment" instance=ExtResource("4_n6ji4")]
-position = Vector2(4246, -1389)
 
 [node name="Rock" parent="Environment" instance=ExtResource("4_j26nt")]
 position = Vector2(2829, 948)

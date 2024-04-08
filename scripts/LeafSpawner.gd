@@ -20,7 +20,7 @@ func _on_timer_timeout():
 	environment.add_child(temp)
 	temp.position = position
 	#print(water_container.get_global_position().y)
-	temp.initialize(water_container.get_global_position().y+2)
+	temp.initialize(water_container.get_global_position().y+1,.07)
 	
 	timer.set_wait_time(timer_length+randf_range(0,timer_rng))
 	pass # Replace with function body.
