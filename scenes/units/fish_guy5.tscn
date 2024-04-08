@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4772rljlfy6t"]
+[gd_scene load_steps=16 format=3 uid="uid://b4772rljlfy6t"]
 
 [ext_resource type="Script" path="res://scripts/testing_damage_animations.gd" id="1_nfon4"]
 [ext_resource type="Script" path="res://scripts/FishHeadOnLandTweaking.gd" id="1_w7t3b"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://tkwuuibu3hqw" path="res://assets/sprites/player/fish_tail_damageflash.png" id="9_014jl"]
 [ext_resource type="Texture2D" uid="uid://bqqayg2jsewxa" path="res://assets/sprites/player/fish_center_zombified1v2.png" id="10_6vvdf"]
 [ext_resource type="Texture2D" uid="uid://beohv346psxrv" path="res://assets/sprites/player/fish_center_damage_flash.png" id="13_nqqat"]
+[ext_resource type="Script" path="res://scripts/fishcamera.gd" id="14_tequp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_th8sa"]
 size = Vector2(48, 20)
@@ -114,6 +115,7 @@ limit_left = 0
 limit_top = -100
 limit_bottom = 3027
 limit_smoothed = true
+script = ExtResource("14_tequp")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

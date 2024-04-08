@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b6mxxr6imeq3x" path="res://assets/sprites/ui/keycap_p.png" id="5_fwx38"]
 [ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="6_8do8m"]
 [ext_resource type="PackedScene" uid="uid://dbncqj58mr5r2" path="res://scenes/environment/water_container.tscn" id="7_ib2gt"]
-[ext_resource type="PackedScene" path="res://scenes/units/fish_guy6.tscn" id="9_sl8aq"]
+[ext_resource type="PackedScene" uid="uid://dcfon2mbupdxj" path="res://scenes/units/fish_guy6.tscn" id="9_sl8aq"]
 [ext_resource type="PackedScene" uid="uid://bqolaxj2d67av" path="res://scenes/environment/rivergrass.tscn" id="10_mclgp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r6ipo"]

@@ -4,6 +4,10 @@ extends Node2D
 @onready var transitioner = $"../Transitioner"
 var start_pos
 
+@export var stage_xbounds = Vector2(-200,7600)
+@export var camera_xbounds = Vector2(0,7600)
+@export var camera_ybounds = Vector2(-20,1000)
+
 func _ready():
 	start_pos = camera_2d.position
 	transitioner.color = Color(0,0,0,0)
