@@ -2,7 +2,7 @@ extends Node2D
 
 @export var stage_xbounds = Vector2(-200,7600)
 @export var camera_xbounds = Vector2(0,7600)
-@export var camera_ybounds = Vector2(-20,1000)
+@export var camera_ybounds = Vector2(-20,1300)
 @onready var game = $".."
 
 # Called when the node enters the scene tree for the first time.

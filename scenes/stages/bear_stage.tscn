@@ -18,7 +18,7 @@ absorbent = true
 size = Vector2(652, 6876)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0om0"]
-size = Vector2(8742, 342)
+size = Vector2(8742, 340)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qemr"]
 size = Vector2(1722, 495.679)
@@ -354,108 +354,108 @@ physics_material_override = SubResource("PhysicsMaterial_pnnwq")
 position = Vector2(6434, 160)
 
 [node name="Rivergrass" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(1609, 1093)
+position = Vector2(1609, 1130)
 grass_length = 5
 
 [node name="Rivergrass10" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(1525, 1094)
+position = Vector2(1525, 1130)
 
 [node name="Rivergrass2" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(1787, 1093)
+position = Vector2(1787, 1130)
 grass_length = 8
 
 [node name="Rivergrass3" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(1973, 1089)
+position = Vector2(1973, 1130)
 grass_length = 8
 
 [node name="Rivergrass4" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2122, 1090)
+position = Vector2(2122, 1130)
 grass_length = 6
 
 [node name="Rivergrass5" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(1692, 1088)
+position = Vector2(1692, 1130)
 grass_length = 7
 
 [node name="Rivergrass6" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(1870, 1088)
+position = Vector2(1870, 1123)
 grass_length = 7
 
 [node name="Rivergrass7" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2056, 1088)
+position = Vector2(2056, 1130)
 grass_length = 9
 
 [node name="Rivergrass8" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2235, 1091)
+position = Vector2(2235, 1130)
 grass_length = 5
 
 [node name="Rivergrass9" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2325, 1100)
+position = Vector2(2325, 1130)
 grass_length = 3
 
 [node name="Rivergrass11" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2282, 1097)
+position = Vector2(2282, 1130)
 grass_length = 5
 
 [node name="Rivergrass12" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2182, 1090)
+position = Vector2(2182, 1130)
 
 [node name="Rivergrass13" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2370, 1103)
+position = Vector2(2370, 1130)
 grass_length = 8
 
 [node name="Rivergrass14" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2424, 1101)
+position = Vector2(2424, 1130)
 grass_length = 8
 
 [node name="Rivergrass15" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2503, 1105)
+position = Vector2(2503, 1130)
 grass_length = 6
 
 [node name="Rivergrass19" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2558, 1098)
+position = Vector2(2558, 1130)
 grass_length = 5
 
 [node name="Rivergrass20" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(2641, 1103)
+position = Vector2(2641, 1130)
 grass_length = 3
 
 [node name="Rivergrass16" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3261, 1092)
+position = Vector2(3261, 1130)
 grass_length = 5
 
 [node name="Rivergrass18" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3029, 1092)
+position = Vector2(3029, 1130)
 grass_length = 2
 
 [node name="Rivergrass21" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3083, 1090)
+position = Vector2(3083, 1130)
 
 [node name="Rivergrass22" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3162, 1094)
+position = Vector2(3162, 1130)
 grass_length = 6
 
 [node name="Rivergrass23" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3217, 1087)
+position = Vector2(3217, 1130)
 grass_length = 6
 
 [node name="Rivergrass24" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3300, 1092)
+position = Vector2(3300, 1130)
 grass_length = 5
 
 [node name="Rivergrass25" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3369, 1088)
+position = Vector2(3369, 1130)
 grass_length = 8
 
 [node name="Rivergrass26" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3440, 1091)
+position = Vector2(3440, 1130)
 grass_length = 8
 
 [node name="Rivergrass27" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3502, 1090)
+position = Vector2(3502, 1130)
 grass_length = 6
 
 [node name="Rivergrass28" parent="Environment" instance=ExtResource("4_iniw8")]
-position = Vector2(3557, 1083)
+position = Vector2(3557, 1130)
 grass_length = 5
 
 [node name="FishGuy" parent="." instance=ExtResource("5_g0e2s")]
@@ -466,6 +466,7 @@ position = Vector2(0, 140)
 distance_between_springs = 64
 spring_number = 128
 depth = 1400
+water_speed = 4500
 
 [node name="MapEdge" type="StaticBody2D" parent="."]
 position = Vector2(-642, -491)
@@ -482,7 +483,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapEdge2"]
-position = Vector2(4647, 1786)
+position = Vector2(4647, 1796)
 shape = SubResource("RectangleShape2D_j0om0")
 
 [node name="ColorRect" type="ColorRect" parent="MapEdge2"]
