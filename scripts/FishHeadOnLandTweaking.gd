@@ -48,7 +48,7 @@ func _physics_process(delta):
 		if abs(ang_dif) < PI/9 or sign(ang_dif) == axis:
 			apply_torque(torque*axis)
 		
-		apply_central_force(Vector2(thrust*abs(fish_tail.angular_velocity)/8,0).rotated(rotation))
+		apply_central_force(Vector2(thrust*abs(fish_tail.angular_velocity)/7,0).rotated(rotation))
 		#print(rotation + fish_body.rotation)
 		#print(linear_velocity)
 		#if sign(ang_dif) != axis:

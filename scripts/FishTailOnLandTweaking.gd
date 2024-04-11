@@ -3,7 +3,7 @@ extends RigidBody2D
 var axis
 @export var torque = 600000
 var thrust = 10000/2
-var flop_thrust = 2000
+var flop_thrust = 2800#2000
 
 var con_force = 0	#constaht force, built up to a cap from swimming, redirected based on direction of head
 var min_cf = 0
@@ -32,7 +32,7 @@ func _physics_process(delta):
 	if !in_water:
 		apply_torque(torque*axis)
 	if in_water:
-		if abs(ang_dif) < PI/9 or sign(ang_dif) == axis:
+		if abs(ang_dif) < PI/8 or sign(ang_dif) == axis:
 			apply_torque(torque*axis)
 			#always apply this?
 			#apply_central_force(Vector2(thrust*abs(angular_velocity)*abs(axis)/8,0).rotated(fish_head.rotation))

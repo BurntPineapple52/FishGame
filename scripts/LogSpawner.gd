@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var spawn_rate = 3
+@export var spawn_rate = 3.0
 @export var spawn_variability = .4
 
 const LOG = preload("res://scenes/environment/log.tscn")
@@ -10,7 +10,7 @@ const LOG = preload("res://scenes/environment/log.tscn")
 @onready var water_container = $"../Water_Container"
 
 
-var heights = [300, 150, 300, 10, 600, 200, 600, 200, 1000, 40]
+@export var heights = [300, 150, 300, 10, 600, 200, 600, 200, 1000, 40]
 var current = 0
 
 var ff = .5

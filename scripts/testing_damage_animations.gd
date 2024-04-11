@@ -29,10 +29,18 @@ const tail_zomb2 = preload("res://assets/sprites/player/fish_tail_zombified2.png
 @onready var tail_damage_flash = $FishTail/DamageFlash
 
 @onready var timer = $Timer
+@onready var stage = $".."
+@onready var camera_2d = $FishBody/Camera2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	camera_2d.limit_top = stage.camera_ybounds.x
+	camera_2d.limit_bottom = stage.camera_ybounds.y
+	camera_2d.limit_left = stage.camera_xbounds.x
+	camera_2d.limit_right = stage.camera_xbounds.y
+
+func _init():
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -82,6 +90,14 @@ func take_damage(damage : float):
 		create_tween().tween_property(head_damage_flash,"self_modulate",Color(1,1,1,0),.3).set_ease(Tween.EASE_IN)
 		create_tween().tween_property(body_damage_flash,"self_modulate",Color(1,1,1,0),.3).set_ease(Tween.EASE_IN)
 		await create_tween().tween_property(tail_damage_flash,"self_modulate",Color(1,1,1,0),.3).set_ease(Tween.EASE_IN).finished
+		if hp<=0:
+			stage.restart_stage()
 
 func reset_cd():
 	invuln = false
+
+
+func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		stage.restart_stage()
+	pass

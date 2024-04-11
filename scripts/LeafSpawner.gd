@@ -2,7 +2,9 @@ extends Node2D
 
 var leaf_array = [preload("res://scenes/environment/leaf1.tscn"),preload("res://scenes/environment/leaf2.tscn")]
 @onready var timer = $Timer
-@onready var test_stage = $".."
+@onready var environment = $".."
+@onready var bear_stage = $"../.."
+@onready var water_container = $"../../Water_Container"
 
 var timer_length = 1
 var timer_rng = .5
@@ -13,10 +15,12 @@ func _ready():
 	timer.set_wait_time(timer_length+randf_range(0,timer_rng))
 
 func _on_timer_timeout():
-	print("bing")
 	var temp = leaf_array[randi_range(0,leaf_array.size()-1)].instantiate()
-	test_stage.add_child(temp)
+	#temp.stage = bear_stage
+	environment.add_child(temp)
 	temp.position = position
+	#print(water_container.get_global_position().y)
+	temp.initialize(water_container.get_global_position().y+1,.07)
 	
 	timer.set_wait_time(timer_length+randf_range(0,timer_rng))
 	pass # Replace with function body.

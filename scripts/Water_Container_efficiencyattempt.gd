@@ -8,7 +8,8 @@ var dt = 1
 @export var spread = 0.0002
 
 var springs = []
-var passes = 8
+var passes = 1#4#8
+var old_passes = 12
 
 @export var distance_between_springs = 32
 @export var spring_number = 6
@@ -51,6 +52,7 @@ func _ready():
 	var rectangle = RectangleShape2D.new().duplicate()
 	var rectangle_position = Vector2(total_length/2,depth/2)
 	var rectangle_size = Vector2(total_length,depth)
+	#print(total_length)
 	
 	water_area.position = rectangle_position
 	rectangle.set_size(rectangle_size)
@@ -61,25 +63,47 @@ func _ready():
 func _physics_process(delta):
 	
 	#change to update only springs within range.
-	var camera = get_viewport().get_camera_2d()
+	#var camera = get_viewport().get_camera_2d()
+	#var width = 1200
+	#var boundl = clamp(camera.get_screen_center_position().x-width/2,get_global_position().x,get_global_position().x+distance_between_springs*spring_number)
+	#var boundr = clamp(camera.get_screen_center_position().x-width/2,get_global_position().x,get_global_position().x+distance_between_springs*spring_number)
+	##camera.get_screen_center_position().x+width/2
+	#
+	#var start_pin = floor((boundl - get_global_position().x)/distance_between_springs)
+	#var end_pin = ceil((boundr - get_global_position().x)/distance_between_springs)
+	#
 	
-	
-	for i in springs:
+	for i in springs: #range(start_pin,end_pin):
 		i.water_update(k,d)
+		#springs[start_pin+i].water_update(k,d)
 	
 	var left_deltas = []
 	var right_deltas = []
 	
-	for i in range(springs.size()):
+		#might have to leave this one
+	for i in range(springs.size()): #range(start_pin,end_pin):#
 		left_deltas.append(0)
 		right_deltas.append(0)
 		
+			
+	#for j in range(passes):
+		#for i in range(start_pin,end_pin):
+			#springs[start_pin+i].position.y += 0.2 * sin(2 * i + t)
+			#springs[start_pin+i].position.y += 0.3 * sin(1 * i + 2 * t)
+			#springs[start_pin+i].position.y += 0.2 * sin(0.5 * i + 1.5 * t)
+			#springs[start_pin+i].position.y += 0.1 * sin(2 * i + 0.5 * t)
+			#if start_pin+i > start_pin:#0:
+				#left_deltas[start_pin+i] = spread * (springs[start_pin+i].height - springs[start_pin+i-1].height)
+				#springs[start_pin+i-1].velocity += left_deltas[start_pin+i]
+			#if start_pin+i < end_pin-1:#springs.size()-1:
+				#right_deltas[start_pin+i] = spread * (springs[start_pin+i].height - springs[start_pin+i+1].height)
+				#springs[start_pin+i +1].velocity+= right_deltas[start_pin+i]
 	for j in range(passes):
 		for i in range(springs.size()):
-			springs[i].position.y += 0.2 * sin(2 * i + t)
-			springs[i].position.y += 0.3 * sin(1 * i + 2 * t)
-			springs[i].position.y += 0.2 * sin(0.5 * i + 1.5 * t)
-			springs[i].position.y += 0.1 * sin(2 * i + 0.5 * t)
+			springs[i].position.y += 0.2 * old_passes * sin(2 * i + t)
+			springs[i].position.y += 0.3 * old_passes * sin(1 * i + 2 * t)
+			springs[i].position.y += 0.2 * old_passes * sin(0.5 * i + 1.5 * t)
+			#springs[i].position.y += 0.1 * old_passes * sin(2 * i + 0.5 * t)
 			if i > 0:
 				left_deltas[i] = spread * (springs[i].height - springs[i-1].height)
 				springs[i-1].velocity += left_deltas[i]
