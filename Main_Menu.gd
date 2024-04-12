@@ -27,8 +27,9 @@ func _input(event):
 
 	#player over edge
 func _on_area_2d_body_entered(body):
-	get_tree().create_tween().tween_property(camera_2d,"position",camera_2d.position+Vector2(2000,2000),1).set_ease(Tween.EASE_OUT)
-	await get_tree().create_tween().tween_property(transitioner,"color",Color(0,0,0,1),1).set_ease(Tween.EASE_IN).finished
-	get_tree().create_tween().tween_property(transitioner,"color",Color(0,0,0,0),1).set_ease(Tween.EASE_OUT).finished
-	game.next_stage()
-	process_mode=Node.PROCESS_MODE_DISABLED
+	if body.is_in_group("player"):
+		get_tree().create_tween().tween_property(camera_2d,"position",camera_2d.position+Vector2(2000,2000),1).set_ease(Tween.EASE_OUT)
+		await get_tree().create_tween().tween_property(transitioner,"color",Color(0,0,0,1),1).set_ease(Tween.EASE_IN).finished
+		get_tree().create_tween().tween_property(transitioner,"color",Color(0,0,0,0),1).set_ease(Tween.EASE_OUT).finished
+		game.next_stage()
+		process_mode=Node.PROCESS_MODE_DISABLED

@@ -159,7 +159,7 @@ position = Vector2(420, -195)
 rotation = 2.87281
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(1733, 930)
+position = Vector2(1657, 503)
 collision_layer = 2
 collision_mask = 2
 metadata/_edit_group_ = true
