@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dbmmoob7a1x0g"]
+[gd_scene load_steps=15 format=3 uid="uid://dbmmoob7a1x0g"]
 
 [ext_resource type="Texture2D" uid="uid://be0qpcvu2ngvd" path="res://assets/sprites/environment/background_sandtoland.png" id="1_agss0"]
 [ext_resource type="Script" path="res://scripts/stage.gd" id="1_wcgdu"]
@@ -22,6 +22,9 @@ size = Vector2(8742, 340)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3qemr"]
 size = Vector2(1722, 495.679)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yj2fc"]
+size = Vector2(195.84, 652.874)
 
 [node name="BearStage" type="Node2D"]
 script = ExtResource("1_wcgdu")
@@ -561,3 +564,10 @@ offset_top = -249.0
 offset_right = 864.0
 offset_bottom = 242.0
 color = Color(0.568627, 0.494118, 0.376471, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(7758.84, 14.1261)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-53.8398, 9.8739)
+shape = SubResource("RectangleShape2D_yj2fc")

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var stages = [preload("res://scenes/stages/main_menu.tscn"),preload("res://scenes/stages/bear_stage.tscn")]
+@export var stages = [preload("res://scenes/stages/main_menu.tscn"), preload("res://scenes/stages/bear_stage.tscn")]
 @onready var current_stage = $Main_Menu
 
 
