@@ -6,7 +6,7 @@
 // which doesn't carry over to Box2D. Here a shoulder motor drives the swing,
 // and between swings the motor brakes and holds the arm hanging in the water,
 // with the paw just clearing the riverbed. The fish has to slip past while
-// the arm is up.
+// the arm is up, so the swing pauses briefly at the top to give it a window.
 //
 // Telegraph: half a second before each swing the arm draws back and the bear
 // growls, so the player can read the rhythm. The paw throws spray as it slaps
@@ -34,6 +34,8 @@ const SHOULDER_TORQUE = 1e9;
 const SWING_HANDOVER = 0.15;
 /** Hold controller gain: motor speed (rad/s) per radian away from the rest angle. */
 const HOLD_GAIN = 8;
+/** How long (s) the arm stays raised at the top of each swing: the fish's window to slip under. */
+const TOP_HANG = 0.4;
 /** Wind-up before each swing: how long, and how far the arm draws back. */
 const WINDUP_TIME = 0.55;
 const WINDUP_ANGLE = 0.4;
@@ -88,6 +90,7 @@ export class Bear implements Entity {
   private cooldown: number;
   private swinging = false;
   private windingUp = false;
+  private topHang = 0;
   /** Shoulder angle the arm returns to; grows by a full turn with every swing. */
   private restAngle = 0;
   private pawWasUnder = true;
@@ -165,6 +168,12 @@ export class Bear implements Entity {
   physicsUpdate(dt: number): void {
     const angle = this.shoulder.angle;
     if (this.swinging) {
+      const top = this.restAngle - Math.PI;
+      if (this.topHang > 0 && angle >= top) {
+        this.topHang -= dt;
+        this.holdAt(top);
+        return;
+      }
       if (angle < this.restAngle - SWING_HANDOVER) {
         this.shoulder.setMotor(true, SWING_SPEED, SHOULDER_TORQUE);
         return;
@@ -174,18 +183,22 @@ export class Bear implements Entity {
     }
 
     // Hold the arm at its rest angle (drawn back while winding up).
-    const target = this.restAngle - (this.windingUp ? WINDUP_ANGLE : 0);
-    const speed = clamp((target - angle) * HOLD_GAIN, -SWING_SPEED, SWING_SPEED);
-    this.shoulder.setMotor(true, speed, SHOULDER_TORQUE);
+    this.holdAt(this.restAngle - (this.windingUp ? WINDUP_ANGLE : 0));
 
     this.cooldown -= dt;
     if (!this.windingUp && this.cooldown <= WINDUP_TIME) this.startWindup();
     if (this.cooldown <= 0) {
       this.windingUp = false;
       this.swinging = true;
+      this.topHang = TOP_HANG;
       this.restAngle += Math.PI * 2;
       if (this.fishDistance() < NOTICE_RANGE) synth.whoosh(0.5, 0.1);
     }
+  }
+
+  private holdAt(target: number): void {
+    const speed = clamp((target - this.shoulder.angle) * HOLD_GAIN, -SWING_SPEED, SWING_SPEED);
+    this.shoulder.setMotor(true, speed, SHOULDER_TORQUE);
   }
 
   private startWindup(): void {
