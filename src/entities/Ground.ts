@@ -1,6 +1,7 @@
 // Static terrain from a polygon outline in world pixels. Concave outlines are
 // fine (shapes.ts splits them into convex pieces). Drawn once into a Graphics
-// object: a fill, speckles, a darker outline, and a decorated top edge.
+// object (a fill, speckles, a darker outline, and a decorated top edge) that
+// is then baked into textures.
 
 import * as Phaser from 'phaser';
 import { DEPTH, LAYER_1, LAYER_2 } from '../config';
@@ -122,6 +123,9 @@ export function addGround(scene: GameScene, opts: GroundOptions): PhysBody | nul
       decorateEdge(g, edge, ax, ay, bx, by, len, rand);
     }
   }
+  // Pebbles, grass blades and the outline reach a little past the polygon.
+  const pad = 24;
+  scene.bakeLater(g, { left: minX - pad, top: minY - pad, right: maxX + pad, bottom: maxY + pad });
   return body;
 }
 

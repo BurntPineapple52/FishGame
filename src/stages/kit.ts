@@ -265,8 +265,13 @@ export function addTreeline(
   const [smin, smax] = opts.spacing ?? [90, 260];
   let seed = opts.seed ?? 7;
   const r = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const area = { left: Infinity, right: -Infinity, top: Infinity, bottom: opts.groundY + 20 };
   for (let x = opts.x0 + r() * smax; x < opts.x1; x += smin + r() * (smax - smin)) {
     const h = 140 + r() * 220;
+    // Either tree shape fits in 0.45h either side and 1.1h above the ground.
+    area.left = Math.min(area.left, x - h * 0.45);
+    area.right = Math.max(area.right, x + h * 0.45);
+    area.top = Math.min(area.top, opts.groundY - h * 1.1);
     const trunkW = 12 + r() * 10;
     g.fillStyle(0x5a3d26, 1);
     g.fillRect(x - trunkW / 2, opts.groundY - h * 0.5, trunkW, h * 0.5 + 20);
@@ -291,6 +296,7 @@ export function addTreeline(
       g.fillCircle(x - rad * 0.3, cy - rad * 0.35, rad * 0.45);
     }
   }
+  scene.bakeLater(g, area);
 }
 
 /** Leaves drifting down across the screen. */

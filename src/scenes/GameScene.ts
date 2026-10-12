@@ -8,11 +8,12 @@
 import * as Phaser from 'phaser';
 import { audio } from '../audio/Audio';
 import { synth } from '../audio/synth';
-import { COLORS, MAX_STEPS_PER_FRAME, PHYSICS_DT } from '../config';
+import { COLORS, MAX_STEPS_PER_FRAME, PHYSICS_DT, VIEW_HEIGHT, VIEW_WIDTH } from '../config';
 import type { Entity } from '../entities/Entity';
 import { Fish, type FishOptions } from '../entities/Fish';
 import type { Water } from '../entities/Water';
-import { FishCamera } from '../fx/FishCamera';
+import { bake } from '../fx/bake';
+import { FishCamera, type Bounds } from '../fx/FishCamera';
 import { Fx } from '../fx/Particles';
 import { input } from '../input';
 import { PhysicsWorld, type PhysBody } from '../physics/PhysicsWorld';
@@ -53,6 +54,10 @@ export interface StageResult {
 }
 
 const RESTART_HOLD = 0.6;
+/** Baked scenery covers the camera bounds as seen at this zoom (stages go down to 0.8)... */
+const BAKE_MIN_ZOOM = 0.5;
+/** ...plus room for screen shake and tilt. */
+const BAKE_MARGIN = 64;
 const DEATH_DELAY = 1.6;
 
 const EPITAPHS: Record<string, string[]> = {
@@ -88,6 +93,7 @@ export class GameScene extends Phaser.Scene {
 
   private entities: Entity[] = [];
   private views: BodyView[] = [];
+  private toBake: { g: Phaser.GameObjects.Graphics; area: Bounds }[] = [];
   private accumulator = 0;
   private debugGfx!: Phaser.GameObjects.Graphics;
   private fpsText: Phaser.GameObjects.Text | null = null;
@@ -138,7 +144,9 @@ export class GameScene extends Phaser.Scene {
 
     this.fx = new Fx(this);
     this.camera = new FishCamera(cam);
+    this.toBake = [];
     this.stage.build(this);
+    this.bakeScenery();
     this.camera.snap();
 
     const music = session.undead && !this.stage.isTitle ? { key: 'thriller', volume: 0.8 } : this.stage.music;
@@ -168,9 +176,46 @@ export class GameScene extends Phaser.Scene {
    * The container is destroyed when the body is.
    */
   attach(body: PhysBody, depth: number, children: Phaser.GameObjects.GameObject[]): Phaser.GameObjects.Container {
-    const obj = this.add.container(body.x, body.y, children).setRotation(body.rot).setDepth(depth);
+    // An explicit blend mode lets consecutive containers share one draw call.
+    // Without it each container inherits the blend of whatever drew before it
+    // (e.g. additive sunbeams) and ends the batch to switch back to normal.
+    const obj = this.add
+      .container(body.x, body.y, children)
+      .setRotation(body.rot)
+      .setDepth(depth)
+      .setBlendMode(Phaser.BlendModes.NORMAL);
     this.views.push({ body, obj });
     return obj;
+  }
+
+  /**
+   * Static Graphics covering `area` (world px) to be drawn into textures once
+   * the stage is built, instead of re-drawn every frame.
+   */
+  bakeLater(g: Phaser.GameObjects.Graphics, area: Bounds): void {
+    this.toBake.push({ g, area });
+  }
+
+  /** Bake what bakeLater collected, skipping anything the camera can never show. */
+  private bakeScenery(): void {
+    const b = this.camera.bounds;
+    for (const { g, area } of this.toBake) {
+      if (!b) {
+        bake(this, g, area);
+        continue;
+      }
+      const halfW = VIEW_WIDTH / BAKE_MIN_ZOOM / 2;
+      const halfH = VIEW_HEIGHT / BAKE_MIN_ZOOM / 2;
+      const cx = (b.left + b.right) / 2;
+      const cy = (b.top + b.bottom) / 2;
+      bake(this, g, {
+        left: Math.max(area.left, Math.min(b.left, cx - halfW) - BAKE_MARGIN),
+        right: Math.min(area.right, Math.max(b.right, cx + halfW) + BAKE_MARGIN),
+        top: Math.max(area.top, Math.min(b.top, cy - halfH) - BAKE_MARGIN),
+        bottom: Math.min(area.bottom, Math.max(b.bottom, cy + halfH) + BAKE_MARGIN),
+      });
+    }
+    this.toBake = [];
   }
 
   /** Create the player, at the last checkpoint if there is one, and follow it. */

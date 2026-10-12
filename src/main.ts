@@ -31,6 +31,9 @@ void loadFont().then(() => {
     width: VIEW_WIDTH,
     height: VIEW_HEIGHT,
     backgroundColor: COLORS.black,
+    // Each texture count per batch is a separate shader to compile (see
+    // BootScene.warmShaders); 8 keeps that list short for a few more draw calls.
+    render: { maxTextures: 8 },
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,

@@ -307,14 +307,15 @@ export class PhysicsWorld {
       pb.prevX = pb.x;
       pb.prevY = pb.y;
       pb.prevRot = pb.rot;
-      if (pb.type !== 'dynamic') continue;
+      // A sleeping body has come to rest under its constant force; applying it
+      // again would wake it every step, so things like weed beds never sleep.
+      // Contacts, impulses and velocity changes still wake it.
+      if (pb.type !== 'dynamic' || !pb.body.isAwake()) continue;
 
       // Godot damps velocity before integrating forces: v *= 1 - dt * damp.
-      if (pb.body.isAwake()) {
-        const lin = Math.max(0, 1 - dt * (DEFAULT_LINEAR_DAMP + pb.linearDamp));
-        const ang = Math.max(0, 1 - dt * (DEFAULT_ANGULAR_DAMP + pb.angularDamp));
-        pb.scaleVelocity(lin, ang);
-      }
+      const lin = Math.max(0, 1 - dt * (DEFAULT_LINEAR_DAMP + pb.linearDamp));
+      const ang = Math.max(0, 1 - dt * (DEFAULT_ANGULAR_DAMP + pb.angularDamp));
+      pb.scaleVelocity(lin, ang);
       pb.applyForce(pb.constantForce.x, pb.constantForce.y);
     }
 

@@ -13,6 +13,8 @@ const SEGMENT_HEIGHT = 36;
 const IMPULSE_STRENGTH = 200;
 const NUDGE_INTERVAL = 0.2;
 const NUDGE_RANDOM = 0.2;
+/** Strands further than this outside the view stop swaying, so the physics can put them to sleep. */
+const SWAY_MARGIN = 500;
 
 export interface RivergrassOptions {
   /** Root of the strand (the bottom). */
@@ -28,9 +30,18 @@ export class Rivergrass implements Entity {
   /** Godot Timer default wait_time is 1 s for the first nudge. */
   private timer = 1;
   private nudgePending = false;
+  private readonly x: number;
+  private readonly bottom: number;
+  private readonly top: number;
 
-  constructor(scene: GameScene, opts: RivergrassOptions) {
+  constructor(
+    private scene: GameScene,
+    opts: RivergrassOptions,
+  ) {
     const length = opts.length ?? 4;
+    this.x = opts.x;
+    this.bottom = opts.y;
+    this.top = opts.y - SEGMENT_HEIGHT * length;
     let last = scene.phys.createBody({ type: 'static', x: opts.x, y: opts.y }, [{ type: 'rect', w: 2, h: 2 }]);
 
     for (let n = 0; n < length; n++) {
@@ -62,7 +73,17 @@ export class Rivergrass implements Entity {
     this.timer -= dt;
     if (this.timer <= 0) {
       this.timer += NUDGE_INTERVAL + randRange(0, NUDGE_RANDOM);
-      this.nudgePending = true;
+      this.nudgePending = this.nearView();
     }
+  }
+
+  private nearView(): boolean {
+    const v = this.scene.cameras.main.worldView;
+    return (
+      this.x > v.x - SWAY_MARGIN &&
+      this.x < v.right + SWAY_MARGIN &&
+      this.bottom > v.y - SWAY_MARGIN &&
+      this.top < v.bottom + SWAY_MARGIN
+    );
   }
 }

@@ -84,6 +84,33 @@ export class BootScene extends Phaser.Scene {
       const param = new URLSearchParams(location.search).get('stage');
       if (param !== null) stage = Math.max(0, Math.min(STAGES.length - 1, Number(param) || 0));
     }
-    this.scene.start('game', { stage } satisfies GameSceneData);
+    this.warmShaders();
+    // Start once the warm-up frame has been drawn.
+    this.game.events.once(Phaser.Core.Events.POST_RENDER, () => this.scene.start('game', { stage } satisfies GameSceneData));
+  }
+
+  /**
+   * WebGL batches compile a shader variant per number of distinct textures in
+   * the batch, the first time that count comes up. Each compile freezes the
+   * game for up to a few hundred ms (worst on integrated GPUs), so draw one
+   * nearly invisible frame here that uses every count, rather than hitching
+   * mid-stage when a hit or the eagle first brings in more textures.
+   */
+  private warmShaders(): void {
+    const renderer = this.game.renderer;
+    if (!(renderer instanceof Phaser.Renderer.WebGL.WebGLRenderer)) return;
+    const keys = this.textures.getTextureKeys();
+    const objects: Phaser.GameObjects.GameObject[] = [];
+    // A Graphics between groups ends the batch, so each group is its own batch.
+    const breakBatch = () => objects.push(this.add.graphics().fillStyle(0, 0.01).fillRect(0, 0, 1, 1));
+    for (let count = 1; count <= Math.min(renderer.maxTextures, keys.length); count++) {
+      for (let i = 0; i < count; i++) objects.push(this.add.image(0, 0, keys[i]).setAlpha(0.001));
+      breakBatch();
+    }
+    for (let count = 1; count <= 3; count++) {
+      for (let i = 0; i < count; i++) objects.push(this.add.tileSprite(0, 0, 4, 4, keys[i]).setAlpha(0.001));
+      breakBatch();
+    }
+    this.game.events.once(Phaser.Core.Events.POST_RENDER, () => objects.forEach((o) => o.destroy()));
   }
 }
