@@ -2,7 +2,7 @@
 // The fish drops onto a ledge under the F L O P keycaps. Flop off the right
 // edge into the water and the current carries you to the next stage.
 
-import { LAYER_2 } from '../config';
+import { LAYER_2, VIEW_WIDTH } from '../config';
 import { Keycap } from '../entities/Keycap';
 import { Rivergrass } from '../entities/Rivergrass';
 import { addSprites, addStaticRect, addZone } from '../entities/Terrain';
@@ -84,9 +84,11 @@ export const mainMenu: StageDef = {
       },
     });
 
-    // Swept off to the right: pan after the fish, then on to the first stretch.
+    // Nearing the right edge of the screen: pan after the fish, then on to the first stretch.
+    // The zone starts just inside the visible edge and spans the full height.
+    const edgeX = CAMERA_CENTER.x + VIEW_WIDTH / 2 - 70;
     let leaving = false;
-    addZone(scene, { x: 1733, y: 930, w: 822, h: 760 }, fishOnly, () => {
+    addZone(scene, { x: edgeX + 400, y: 400, w: 800, h: 1800 }, fishOnly, () => {
       if (leaving) return;
       leaving = true;
       cam.override = { x: CAMERA_CENTER.x + 900, y: CAMERA_CENTER.y + 350, zoom: 1.1 };

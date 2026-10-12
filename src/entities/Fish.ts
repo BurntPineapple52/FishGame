@@ -22,9 +22,9 @@ import { angleDifference, clamp, pick, toWorld } from '../util/xform';
 import type { Entity } from './Entity';
 
 const HEAD_TORQUE = 530_000;
-const HEAD_THRUST = 50_000;
+const HEAD_THRUST = 65_000;
 const TAIL_TORQUE = 600_000;
-const FLOP_THRUST = 2_800;
+const FLOP_THRUST = 3_600;
 
 const PART_MASS = 5;
 const PART_ANGULAR_DAMP = 25;
@@ -35,10 +35,17 @@ const UNDEAD_HP = 60;
 /** Below this fraction of HP the sprites blend from zombified stage 1 to stage 2. */
 const SWITCH_FRACTION = 0.5;
 const INVULN_MS = 450;
+/** An old salmon at the end of its run: every source of damage hurts this much more. */
+const FRAGILITY = 1.5;
+
 
 const IMPACT_MIN_SPEED = 260;
 const BREACH_SPEED = 520;
 const BIG_AIR_SPEED = 950;
+/** Bumping a rock, log or the ground faster than this bruises the fish. */
+const BRUISE_MIN_SPEED = 380;
+const BRUISE_MIN_DAMAGE = 4;
+const BRUISE_MAX_DAMAGE = 18;
 
 type PartName = 'head' | 'body' | 'tail';
 
@@ -311,6 +318,14 @@ export class Fish implements Entity {
       this.scene.fx.dust(x, y + 8, 6 + Math.round(strength * 10));
     }
     this.scene.shake(strength * 0.25);
+
+    // The fish is fragile: hard knocks against the scenery hurt.
+    if (speed > BRUISE_MIN_SPEED && this.controllable && !this.scene.stage.isTitle) {
+      if (other.is('rock') || other.is('log') || other.is('ground')) {
+        const bruise = clamp((speed - BRUISE_MIN_SPEED) / 700, 0, 1);
+        this.takeDamage(BRUISE_MIN_DAMAGE + bruise * (BRUISE_MAX_DAMAGE - BRUISE_MIN_DAMAGE), 'bruise');
+      }
+    }
   }
 
   /** Leaving the water fast: spray, and a slow-mo beat for really big leaps. */
@@ -355,7 +370,7 @@ export class Fish implements Entity {
     }
     this.wasDrying = true;
     bus.emit(EV.drying, 1);
-    this.hp -= rate * dt;
+    this.hp -= rate * FRAGILITY * dt;
     this.updateDecay();
     bus.emit(EV.damaged, { hp: this.hp, max: this.maxHp, amount: 0 });
     this.gaspTimer -= dt;
@@ -387,6 +402,7 @@ export class Fish implements Entity {
 
   takeDamage(damage: number, cause = 'default'): void {
     if (this.invulnerable || this.dead || this.scene.finished) return;
+    damage *= FRAGILITY;
     this.invulnerable = true;
     this.scene.time.delayedCall(INVULN_MS, () => (this.invulnerable = false));
     this.hp -= damage;

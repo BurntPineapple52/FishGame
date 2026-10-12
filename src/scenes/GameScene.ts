@@ -60,6 +60,7 @@ const EPITAPHS: Record<string, string[]> = {
   eagle: ["Eagle's takeout order.", 'Air mail, one way.', 'Talons: 1, Salmon: 0.'],
   dry: ['Turned into jerky.', 'Sun-dried salmon.', 'Forgot to breathe water.'],
   log: ['Flattened by driftwood.', 'Log: 1, Fish: 0.'],
+  bruise: ['Bruised like an old peach.', 'Too frail for this river.', 'One bump too many.'],
   default: ['Sleeps with the fishes. Wait.', 'Gone belly-up.', 'Swam its last.'],
 };
 
