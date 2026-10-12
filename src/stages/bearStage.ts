@@ -3,13 +3,15 @@
 
 import { COLORS, LAYER_1, LAYER_2 } from '../config';
 import { Bear } from '../entities/Bear';
-import { Fish } from '../entities/Fish';
+import { Checkpoint, Goal } from '../entities/Checkpoint';
 import { LogSpawner } from '../entities/Log';
+import { Fly, Roe } from '../entities/Pickups';
 import { Rivergrass } from '../entities/Rivergrass';
 import { createRock } from '../entities/Rock';
 import { addColorRect, addStaticRect } from '../entities/Terrain';
 import { Water } from '../entities/Water';
 import type { Xform } from '../util/xform';
+import { addClouds, addHills, addReveal, addSky, addSun, addTreeline, PALETTES } from './kit';
 import type { StageDef } from './types';
 
 const DEPTH = { background: 0, environment: 10, fish: 20, water: 30, ground: 40 };
@@ -58,11 +60,33 @@ const INCLINES: { body: Xform; shapeY: number }[] = [
   { body: { x: 6580, y: 819, sx: 1.55, sy: 2 }, shapeY: -1.16043 },
 ];
 
+/** Surface of the second incline, the shallows around the bear. */
+const SHALLOWS_Y = 321;
+
 export const bearStage: StageDef = {
-  name: 'Bear',
+  id: 'bear',
+  name: 'Bear Crossing',
+  chapter: 'Chapter 3',
+  story: [
+    'The river narrows into the shallows.',
+    'Every salmon knows this place. Every bear does too.',
+    'Wait for the swipe. Then go.',
+  ],
+  music: { key: 'fish_theme', rate: 1.05 },
+  ambience: { key: 'rushing_water', volume: 0.35 },
   xBounds: [-200, 7600],
+  par: 120,
+  roeCount: 3,
+  drying: 5,
 
   build(scene) {
+    const p = PALETTES.noon;
+    addSky(scene, p);
+    addSun(scene, p);
+    addHills(scene, { color: p.hillsFar, horizonY: 70, viewY: 304, scroll: 0.15, height: 220, width: 7600, seed: 4 });
+    addHills(scene, { color: p.hillsNear, horizonY: 70, viewY: 304, scroll: 0.35, height: 130, width: 7600, seed: 8 });
+    addClouds(scene, { count: 10, width: 7600, viewY: 304 });
+    addTreeline(scene, { x0: -100, x1: 7700, groundY: 65, seed: 21 });
     for (const [texture, x, y] of BACKGROUND) scene.add.image(x, y, texture).setDepth(DEPTH.background);
 
     createRock(scene, { x: 2829, y: 948, depth: DEPTH.environment });
@@ -72,7 +96,7 @@ export const bearStage: StageDef = {
       scene.addEntity(new Rivergrass(scene, { x, y, length, depth: DEPTH.environment }));
     }
 
-    const fish = scene.addEntity(new Fish(scene, { x: 685, y: -574, depth: DEPTH.fish }));
+    scene.spawnFish({ x: 685, y: -574, depth: DEPTH.fish });
 
     scene.addEntity(
       new Water(scene, {
@@ -83,6 +107,8 @@ export const bearStage: StageDef = {
         depth: 1400,
         current: { speed: 4500, dir: [-1, 0] },
         renderDepth: DEPTH.water,
+        rays: true,
+        floaters: 8,
       }),
     );
 
@@ -94,6 +120,8 @@ export const bearStage: StageDef = {
     addColorRect(scene, edge, [614, 1985, 8357, 2231], COLORS.black, DEPTH.ground);
     addColorRect(scene, edge, [636, 1805, 8367, 2001], COLORS.ground, DEPTH.ground);
     addColorRect(scene, edge, [636, 1625, 8367, 1821], COLORS.ground, DEPTH.ground);
+    // Right wall past the goal.
+    addStaticRect(scene, { x: 7700, y: 0 }, { x: 0, y: 0, w: 200, h: 3000 }, { layer: LAYER_2, mask: LAYER_2 });
 
     scene.addEntity(
       new LogSpawner(scene, {
@@ -110,13 +138,17 @@ export const bearStage: StageDef = {
       addColorRect(scene, body, [-868, -249, 864, 242], COLORS.ground, DEPTH.ground);
     }
 
-    const cam = scene.cameras.main;
-    cam.setBounds(
-      CAMERA_BOUNDS.left,
-      CAMERA_BOUNDS.top,
-      CAMERA_BOUNDS.right - CAMERA_BOUNDS.left,
-      CAMERA_BOUNDS.bottom - CAMERA_BOUNDS.top,
-    );
-    cam.startFollow(fish.cameraTarget, false);
+    // Progress, pickups and secrets.
+    scene.addEntity(new Checkpoint(scene, { x: 2350, y: 1135, spawnY: 700, order: 1 }));
+    scene.addEntity(new Checkpoint(scene, { x: 5650, y: SHALLOWS_Y, spawnY: 235, order: 2 }));
+    for (const x of [1250, 1950, 3350, 4700, 6000, 7050]) scene.addEntity(new Fly(scene, x, 92));
+    Roe.create(scene, 2600, 1070, 0);
+    Roe.create(scene, 3060, 1080, 1);
+    Roe.create(scene, 6640, 270, 2);
+    scene.addEntity(new Goal(scene, { x: 7350, top: -20, bottom: SHALLOWS_Y, markerY: 230 }));
+
+    addReveal(scene, { triggerX: 5250, x: 6480, y: 120, zoom: 0.8, seconds: 1.8, banner: 'THE BEAR' });
+
+    scene.camera.bounds = { ...CAMERA_BOUNDS };
   },
 };

@@ -22,7 +22,7 @@ export interface RockOptions {
 
 export function createRock(scene: GameScene, opts: RockOptions): void {
   const body = scene.phys.createBody(
-    { x: opts.x, y: opts.y, rot: opts.rot, mass: 180, friction: opts.friction ?? 0.57 },
+    { x: opts.x, y: opts.y, rot: opts.rot, mass: 180, friction: opts.friction ?? 0.57, groups: ['rock'] },
     [{ type: 'poly', points: transformPoints(ROCK_POLYGON, 0, 0, ROCK_SCALE) }],
   );
   scene.attach(body, opts.depth, [scene.add.image(0, 0, 'rock_2').setScale(ROCK_SCALE)]);

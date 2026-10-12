@@ -7,12 +7,20 @@
 // and between swings the motor brakes and holds the arm hanging in the water,
 // with the paw just clearing the riverbed. The fish has to slip past while
 // the arm is up.
+//
+// Telegraph: half a second before each swing the arm draws back and the bear
+// growls, so the player can read the rhythm. The paw throws spray as it slaps
+// back into the water.
 
+import type * as Phaser from 'phaser';
+import { audio } from '../audio/Audio';
+import { synth } from '../audio/synth';
 import { LAYER_1, LAYER_2 } from '../config';
 import type { PhysBody, PinJoint } from '../physics/PhysicsWorld';
 import { transformPoints, type Pt } from '../physics/shapes';
 import type { GameScene } from '../scenes/GameScene';
-import { clamp, compose, toWorld, type Xform } from '../util/xform';
+import { session } from '../session';
+import { clamp, compose, pick, toWorld, type Xform } from '../util/xform';
 import type { Entity } from './Entity';
 import { Fish } from './Fish';
 
@@ -26,6 +34,11 @@ const SHOULDER_TORQUE = 1e9;
 const SWING_HANDOVER = 0.15;
 /** Hold controller gain: motor speed (rad/s) per radian away from the rest angle. */
 const HOLD_GAIN = 8;
+/** Wind-up before each swing: how long, and how far the arm draws back. */
+const WINDUP_TIME = 0.55;
+const WINDUP_ANGLE = 0.4;
+/** Only growl and shake when the fish is this close (px). */
+const NOTICE_RANGE = 1300;
 
 // BearPaw.gd
 const SMACK_FORCE = 20_000;
@@ -61,18 +74,34 @@ export interface BearOptions {
   x: number;
   y: number;
   depth: number;
+  /** Multiplier on the pause between swings (lower = angrier bear). */
+  cooldownScale?: number;
+  /** Seconds before the first swing. */
+  firstDelay?: number;
 }
 
 export class Bear implements Entity {
   private readonly shoulder: PinJoint;
-  private cooldown = FIRST_ATTACK_DELAY;
+  private readonly paw: PhysBody;
+  private readonly legs: Phaser.GameObjects.Image;
+  private readonly cooldownTime: number;
+  private cooldown: number;
   private swinging = false;
+  private windingUp = false;
   /** Shoulder angle the arm returns to; grows by a full turn with every swing. */
   private restAngle = 0;
+  private pawWasUnder = true;
+  private breath = 0;
 
-  constructor(scene: GameScene, opts: BearOptions) {
+  constructor(
+    private scene: GameScene,
+    readonly opts: BearOptions,
+  ) {
     const root: Xform = { x: opts.x, y: opts.y };
-    scene.add.image(opts.x - 13, opts.y - 54, 'bear_legs').setScale(-1.219, 1.348).setDepth(opts.depth);
+    const scale = session.undead ? 0.6 : 1;
+    this.cooldownTime = ATTACK_COOLDOWN * (opts.cooldownScale ?? 1) * scale;
+    this.cooldown = opts.firstDelay ?? FIRST_ATTACK_DELAY;
+    this.legs = scene.add.image(opts.x - 13, opts.y - 54, 'bear_legs').setScale(-1.219, 1.348).setDepth(opts.depth);
 
     // The arm hangs from a static shoulder block (BearArm). Godot spawned it
     // raised (rotation π) and let gravity drop it; we start it where it settles.
@@ -93,6 +122,7 @@ export class Bear implements Entity {
     const paw = scene.phys.createBody({ ...pawXf, ...armCollision, mass: 80, bounce: 1, groups: ['smacker'] }, [
       { type: 'poly', points: PAW_POLYGON },
     ]);
+    this.paw = paw;
 
     // Paw first so the arm sprites draw over it, as in the Godot tree.
     scene.attach(paw, opts.depth, [scene.add.image(0, 0, 'bearclaw_paw').setFlipX(true)]);
@@ -110,17 +140,26 @@ export class Bear implements Entity {
 
     const smack = (other: PhysBody) => {
       if (other.owner instanceof Fish) {
-        other.owner.smack(
+        const fish = other.owner;
+        fish.smack(
           other,
           SMACK_FORCE * SMACK_DIRECTION[0],
           SMACK_FORCE * SMACK_DIRECTION[1],
           SMACK_TORQUE,
           SMACK_DAMAGE,
+          'bear',
         );
+        scene.fx.text(fish.x, fish.y - 60, pick(['WHACK!', 'SWAT!', 'THWAP!']), { color: '#ffd25a', size: 40 });
+        scene.slowMotion(0.35, 450);
       }
     };
     arm.onEnter = smack;
     paw.onEnter = smack;
+  }
+
+  private fishDistance(): number {
+    const f = this.scene.fish;
+    return f ? Math.hypot(f.x - this.opts.x, f.y - this.opts.y) : Infinity;
   }
 
   physicsUpdate(dt: number): void {
@@ -131,17 +170,57 @@ export class Bear implements Entity {
         return;
       }
       this.swinging = false;
-      this.cooldown = ATTACK_COOLDOWN;
+      this.cooldown = this.cooldownTime;
     }
 
-    // Hold the arm at its rest angle.
-    const speed = clamp((this.restAngle - angle) * HOLD_GAIN, -SWING_SPEED, SWING_SPEED);
+    // Hold the arm at its rest angle (drawn back while winding up).
+    const target = this.restAngle - (this.windingUp ? WINDUP_ANGLE : 0);
+    const speed = clamp((target - angle) * HOLD_GAIN, -SWING_SPEED, SWING_SPEED);
     this.shoulder.setMotor(true, speed, SHOULDER_TORQUE);
 
     this.cooldown -= dt;
+    if (!this.windingUp && this.cooldown <= WINDUP_TIME) this.startWindup();
     if (this.cooldown <= 0) {
+      this.windingUp = false;
       this.swinging = true;
       this.restAngle += Math.PI * 2;
+      if (this.fishDistance() < NOTICE_RANGE) synth.whoosh(0.5, 0.1);
     }
+  }
+
+  private startWindup(): void {
+    this.windingUp = true;
+    const near = this.fishDistance() < NOTICE_RANGE;
+    if (near) {
+      synth.growl();
+      this.scene.shake(0.12);
+    }
+    // Rear up a little.
+    this.scene.tweens.add({ targets: this.legs, scaleY: 1.348 * 1.05, y: this.legs.y - 8, duration: 200, yoyo: true, hold: 250 });
+  }
+
+  update(dt: number): void {
+    if (dt <= 0) return;
+    // Idle breathing.
+    this.breath += dt;
+    this.legs.setScale(-1.219 * (1 + Math.sin(this.breath * 2.2) * 0.008), this.legs.scaleY);
+
+    // Paw slapping into the water: spray, surface kick and a thump.
+    const water = this.scene.waterAt(this.paw.x);
+    if (!water) return;
+    const under = this.paw.y > water.surfaceAt(this.paw.x);
+    if (under && !this.pawWasUnder) {
+      const dist = this.fishDistance();
+      this.scene.fx.splash(this.paw.x, water.surfaceAt(this.paw.x), 1);
+      this.scene.fx.splash(this.paw.x + 40, water.surfaceAt(this.paw.x), 0.7);
+      water.disturb(this.paw.x, 25);
+      if (dist < NOTICE_RANGE) {
+        audio.sfx('water_swish', { volume: 0.7, rate: 0.6 });
+        this.scene.shake(clamp(1 - dist / NOTICE_RANGE, 0, 1) * 0.35);
+      }
+    } else if (!under && this.pawWasUnder) {
+      this.scene.fx.splash(this.paw.x, water.surfaceAt(this.paw.x), 0.6);
+    }
+    this.pawWasUnder = under;
   }
 }

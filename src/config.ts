@@ -31,3 +31,31 @@ export const COLORS = {
   water: 0x072c59,
   waterAlpha: 0.698,
 };
+
+/** Draw order shared by the stages built with the level helpers. */
+export const DEPTH = {
+  sky: -100,
+  hills: -90,
+  clouds: -80,
+  background: 0,
+  rays: 5,
+  environment: 10,
+  fish: 20,
+  fx: 25,
+  water: 30,
+  waterFx: 35,
+  ground: 40,
+  foreground: 50,
+  overlay: 60,
+};
+
+/** UI font, loaded from Google Fonts in index.html (falls back to a system font). */
+export const FONT = '"Fredoka", "Trebuchet MS", "Segoe UI", sans-serif';
+
+export const UI = {
+  cream: '#fff6e0',
+  gold: '#ffd25a',
+  salmon: '#ff7a5c',
+  ink: '#1b2a3a',
+  dim: '#8fa3b8',
+};

@@ -7,6 +7,10 @@ import type { PhysBody } from '../physics/PhysicsWorld';
 import type { Pt } from '../physics/shapes';
 import type { GameScene } from '../scenes/GameScene';
 import type { Entity } from './Entity';
+import { Fish } from './Fish';
+
+const LOG_HIT_SPEED = 650;
+const LOG_DAMAGE = 12;
 
 const LOG_POLYGON: Pt[] = [
   [153, -29], [158, -12], [158, 24], [155, 34], [147, 37], [104, 38], [97, 37], [89, 42],
@@ -29,7 +33,7 @@ export interface LogOptions {
 
 export class Log implements Entity {
   removed = false;
-  private readonly body: PhysBody;
+  readonly body: PhysBody;
   private readonly waterHeight: number;
   private readonly floatForce: number;
   private readonly drag: number;
@@ -44,10 +48,17 @@ export class Log implements Entity {
     this.drag = opts.drag ?? 0.08;
     this.angularDrag = opts.angularDrag ?? 0.05;
     this.body = scene.phys.createBody(
-      { x: opts.x, y: opts.y, mass: 55, groups: ['buoyant', 'physics'] },
+      { x: opts.x, y: opts.y, mass: 55, groups: ['buoyant', 'physics', 'log'], owner: this },
       [{ type: 'poly', points: LOG_POLYGON }],
     );
     scene.attach(this.body, opts.depth, [scene.add.image(0, 0, 'log_4')]);
+
+    // A log ramming the fish hard enough hurts.
+    this.body.onEnter = (other) => {
+      if (!(other.owner instanceof Fish)) return;
+      const rel = Math.hypot(this.body.vx - other.vx, this.body.vy - other.vy);
+      if (rel > LOG_HIT_SPEED) other.owner.takeDamage(LOG_DAMAGE, 'log');
+    };
   }
 
   physicsUpdate(): void {
