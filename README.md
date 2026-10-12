@@ -1,7 +1,7 @@
 # FLOP: The Last Run
 It's about fish
 
-You are Sockeye, an old salmon making the last swim of your life, upstream
+You  are Sockeye, an old salmon making the last swim of your life, upstream
 from the sea to the gravel where you hatched. Seven stretches of river stand in
 the way: driftwood, a bear, an eagle, waterfalls and a drought. As you get
 hurt, your body shows the same decay a real spawning salmon goes through.
