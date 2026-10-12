@@ -17,6 +17,7 @@ import { LAYER_1, LAYER_2, PHYSICS_DT } from '../config';
 import { input } from '../input';
 import type { PhysBody } from '../physics/PhysicsWorld';
 import type { GameScene } from '../scenes/GameScene';
+import { Gore, Scars } from '../fx/Wounds';
 import { bus, EV, session } from '../session';
 import { angleDifference, clamp, pick, toWorld } from '../util/xform';
 import type { Entity } from './Entity';
@@ -46,6 +47,8 @@ const BIG_AIR_SPEED = 950;
 const BRUISE_MIN_SPEED = 380;
 const BRUISE_MIN_DAMAGE = 4;
 const BRUISE_MAX_DAMAGE = 18;
+/** Every this much damage tears a chunk off the fish. */
+const CHUNK_DAMAGE = 12;
 
 type PartName = 'head' | 'body' | 'tail';
 
@@ -104,6 +107,10 @@ interface Part {
   /** Zombified sprite drawn over the base, faded in as HP drops. */
   overlay: Phaser.GameObjects.Image;
   flash: Phaser.GameObjects.Image;
+  /** Bites torn out of this part; all its textures go through these. */
+  scars: Scars;
+  /** Base and overlay, for tearing chunks off. */
+  layers: Phaser.GameObjects.Image[];
   /** Velocity before the latest physics step, for impact strength. */
   preVx: number;
   preVy: number;
@@ -137,6 +144,9 @@ export class Fish implements Entity {
   readonly head: Part;
   readonly tail: Part;
   readonly body: Part;
+  private readonly gore: Gore;
+  /** Damage dealt since the last chunk came off. */
+  private tearDamage = 0;
 
   constructor(
     private scene: GameScene,
@@ -162,11 +172,12 @@ export class Fish implements Entity {
         [{ type: 'rect', w: 48, h: 20, x: def.shapeX }],
       );
       const t = def.textures;
-      const base = scene.add.image(def.spriteX, 0, t.base);
-      const overlay = scene.add.image(def.spriteX, 0, t.zombie1).setAlpha(0);
-      const flash = scene.add.image(def.spriteX, 0, t.flash).setAlpha(0);
+      const scars = new Scars(scene);
+      const base = scene.add.image(def.spriteX, 0, scars.tex(t.base));
+      const overlay = scene.add.image(def.spriteX, 0, scars.tex(t.zombie1)).setAlpha(0);
+      const flash = scene.add.image(def.spriteX, 0, scars.tex(t.flash)).setAlpha(0);
       const view = scene.attach(phys, opts.depth, [base, overlay, flash]);
-      const part: Part = { def, phys, view, base, overlay, flash, preVx: 0, preVy: 0 };
+      const part: Part = { def, phys, view, base, overlay, flash, scars, layers: [base, overlay], preVx: 0, preVy: 0 };
       phys.onEnter = (other) => this.onContact(part, other);
       return part;
     };
@@ -174,6 +185,7 @@ export class Fish implements Entity {
     this.head = makePart(PARTS.head);
     this.tail = makePart(PARTS.tail);
     this.body = makePart(PARTS.body);
+    this.gore = new Gore(scene, opts.depth);
 
     const limit: [number, number] = [-JOINT_LIMIT, JOINT_LIMIT];
     const neck = toWorld(xf, PARTS.head.x, 0);
@@ -185,8 +197,8 @@ export class Fish implements Entity {
       // Undead Run starts fully decayed.
       this.switched = true;
       for (const p of this.parts) {
-        p.base.setTexture(p.def.textures.zombie1);
-        p.overlay.setTexture(p.def.textures.zombie2).setAlpha(0.8);
+        p.base.setTexture(p.scars.tex(p.def.textures.zombie1));
+        p.overlay.setTexture(p.scars.tex(p.def.textures.zombie2)).setAlpha(0.8);
       }
     }
   }
@@ -296,7 +308,7 @@ export class Fish implements Entity {
   }
 
   private onContact(part: Part, other: PhysBody): void {
-    if (other.sensor || other.owner === this) return;
+    if (other.sensor || other.owner === this || other.is('gore')) return;
     const speed = Math.hypot(part.preVx - other.vx, part.preVy - other.vy);
     if (speed < IMPACT_MIN_SPEED) return;
     const now = this.scene.time.now;
@@ -323,7 +335,7 @@ export class Fish implements Entity {
     if (speed > BRUISE_MIN_SPEED && this.controllable && !this.scene.stage.isTitle) {
       if (other.is('rock') || other.is('log') || other.is('ground')) {
         const bruise = clamp((speed - BRUISE_MIN_SPEED) / 700, 0, 1);
-        this.takeDamage(BRUISE_MIN_DAMAGE + bruise * (BRUISE_MAX_DAMAGE - BRUISE_MIN_DAMAGE), 'bruise');
+        this.takeDamage(BRUISE_MIN_DAMAGE + bruise * (BRUISE_MAX_DAMAGE - BRUISE_MIN_DAMAGE), 'bruise', part.phys);
       }
     }
   }
@@ -390,7 +402,7 @@ export class Fish implements Entity {
     part.applyImpulse(fx, fy);
     // Godot's apply_torque lasts one physics step.
     part.applyTorqueImpulse(torque * PHYSICS_DT);
-    if (damage) this.takeDamage(damage, cause);
+    if (damage) this.takeDamage(damage, cause, part);
   }
 
   heal(amount: number): void {
@@ -400,7 +412,8 @@ export class Fish implements Entity {
     bus.emit(EV.healed, { hp: this.hp, max: this.maxHp, amount });
   }
 
-  takeDamage(damage: number, cause = 'default'): void {
+  /** `at` is the part that got hit, if known; chunks come off there first. */
+  takeDamage(damage: number, cause = 'default', at?: PhysBody): void {
     if (this.invulnerable || this.dead || this.scene.finished) return;
     damage *= FRAGILITY;
     this.invulnerable = true;
@@ -418,6 +431,7 @@ export class Fish implements Entity {
     this.scene.fx.glow(this.x, this.y, 4, 0xff4040);
     this.scene.fx.text(this.x, this.y - 40, `-${Math.round(damage)}`, { color: '#ff6b5a', size: 30 });
     synth.thud(0.4);
+    this.tearChunks(damage, at);
 
     const flashes = this.parts.map((p) => p.flash);
     const intensity = clamp(damage / 50 + 0.3, 0, 1);
@@ -433,20 +447,36 @@ export class Fish implements Entity {
     if (this.hp <= 0) this.scene.killFish(cause);
   }
 
+  /** A chunk comes off for every CHUNK_DAMAGE dealt, at least one per real hit. */
+  private tearChunks(damage: number, at?: PhysBody): void {
+    this.tearDamage += damage;
+    let n = Math.floor(this.tearDamage / CHUNK_DAMAGE);
+    if (n === 0 && damage >= CHUNK_DAMAGE / 2) n = 1;
+    this.tearDamage = Math.max(0, this.tearDamage - n * CHUNK_DAMAGE);
+    const hit = this.parts.find((p) => p.phys === at);
+    for (let i = 0; i < Math.min(n, 3); i++) {
+      // The struck part first, then anywhere that still has something to lose.
+      const order = [...(hit && i === 0 ? [hit] : []), ...this.parts.sort(() => Math.random() - 0.5)];
+      if (order.some((p) => this.gore.tear(p))) {
+        this.scene.fx.shards(this.x, this.y, 4, 0x8c2a33);
+      }
+    }
+  }
+
   /** Blend toward the zombified sprites as HP drops. */
   private updateDecay(): void {
     const threshold = this.maxHp * SWITCH_FRACTION;
     if (!this.switched && this.hp < threshold) {
       this.switched = true;
       for (const p of this.parts) {
-        p.base.setTexture(p.def.textures.zombie1);
-        p.overlay.setTexture(p.def.textures.zombie2);
+        p.base.setTexture(p.scars.tex(p.def.textures.zombie1));
+        p.overlay.setTexture(p.scars.tex(p.def.textures.zombie2));
       }
     } else if (this.switched && !session.undead && this.hp >= threshold) {
       this.switched = false;
       for (const p of this.parts) {
-        p.base.setTexture(p.def.textures.base);
-        p.overlay.setTexture(p.def.textures.zombie1);
+        p.base.setTexture(p.scars.tex(p.def.textures.base));
+        p.overlay.setTexture(p.scars.tex(p.def.textures.zombie1));
       }
     }
     // Overlay alpha goes 0..1 over full..half HP, then again over half..zero HP.
@@ -461,7 +491,7 @@ export class Fish implements Entity {
     this.dead = true;
     this.controllable = false;
     this.hp = 0;
-    this.head.base.setTexture(pick(SMASHED_HEADS));
+    this.head.base.setTexture(this.head.scars.tex(pick(SMASHED_HEADS)));
     this.head.overlay.setAlpha(0);
     for (const p of this.parts) {
       p.flash.setAlpha(0.6);
