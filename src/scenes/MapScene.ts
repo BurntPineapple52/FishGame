@@ -1,5 +1,6 @@
 // Level select: a hand-drawn-looking river map winding upstream from the
-// first stretch (bottom left) to the spawning grounds (top right).
+// first stretch (bottom left) to the spawning grounds (top right). Every
+// stage can be picked, whatever the save's progress.
 
 import * as Phaser from 'phaser';
 import { audio } from '../audio/Audio';
@@ -35,12 +36,13 @@ export class MapScene extends Phaser.Scene {
   }
 
   private get maxIndex(): number {
-    return Math.min(save.data.unlocked, STAGES.length - 1);
+    return STAGES.length - 1;
   }
 
   create(): void {
     this.leaving = false;
-    this.index = Math.max(1, Math.min(session.stageIndex || this.maxIndex, this.maxIndex));
+    const furthest = Math.min(save.data.unlocked, this.maxIndex);
+    this.index = Math.max(1, Math.min(session.stageIndex || furthest, this.maxIndex));
     this.cameras.main.setBackgroundColor(0x6aa86a);
     this.cameras.main.fadeIn(400, 0, 0, 0);
     audio.playMusic({ key: 'fish_theme', rate: 0.95 });
@@ -119,15 +121,14 @@ export class MapScene extends Phaser.Scene {
     STAGES.forEach((stage, i) => {
       if (i === 0) return;
       const [x, y] = NODES[i - 1];
-      const unlocked = i <= this.maxIndex;
       const rec = save.record(stage.id, session.undead);
       const c = this.add.container(x, y);
       const g = this.add.graphics();
       g.fillStyle(0x0b1622, 0.4).fillCircle(3, 5, 26);
-      g.fillStyle(unlocked ? 0xfff6e0 : 0x55606a, 1).fillCircle(0, 0, 24);
-      g.lineStyle(5, rec.completed ? 0xffd25a : unlocked ? 0x1b2a3a : 0x3a444c, 1).strokeCircle(0, 0, 24);
+      g.fillStyle(0xfff6e0, 1).fillCircle(0, 0, 24);
+      g.lineStyle(5, rec.completed ? 0xffd25a : 0x1b2a3a, 1).strokeCircle(0, 0, 24);
       const label = this.add
-        .text(0, 0, unlocked ? `${i}` : '?', { fontFamily: FONT, fontSize: '24px', fontStyle: 'bold', color: unlocked ? UI.ink : '#9aa4ad' })
+        .text(0, 0, `${i}`, { fontFamily: FONT, fontSize: '24px', fontStyle: 'bold', color: UI.ink })
         .setOrigin(0.5);
       c.add([g, label]);
       if (rec.completed) {
@@ -136,7 +137,6 @@ export class MapScene extends Phaser.Scene {
       }
       c.setSize(60, 60).setInteractive({ useHandCursor: true });
       c.on(Phaser.Input.Events.POINTER_DOWN, () => {
-        if (!unlocked) return;
         if (this.index === i) this.start();
         else this.select(i);
       });

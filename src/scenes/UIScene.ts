@@ -460,7 +460,14 @@ export class UIScene extends Phaser.Scene {
     const prompt = this.add.text(W / 2, H - 70, 'Flop off the ledge to begin', textStyle(26)).setOrigin(0.5);
     const menuHint = this.add.text(W / 2, H - 34, 'Enter / Esc: Menu', textStyle(18, UI.dim)).setOrigin(0.5);
     this.titleUndead = this.add.text(W / 2, 250, '☠ UNDEAD RUN ☠', textStyle(24, '#9dff7a')).setOrigin(0.5);
-    this.titleLayer.add([this.titleSub, prompt, menuHint, this.titleUndead]);
+    const levels = this.add
+      .text(W - 24, 24, 'Level Select  [M]', textStyle(22, UI.gold))
+      .setOrigin(1, 0)
+      .setInteractive({ useHandCursor: true });
+    levels.on(Phaser.Input.Events.POINTER_OVER, () => levels.setColor(UI.cream));
+    levels.on(Phaser.Input.Events.POINTER_OUT, () => levels.setColor(UI.gold));
+    levels.on(Phaser.Input.Events.POINTER_DOWN, () => this.openLevelSelect());
+    this.titleLayer.add([this.titleSub, prompt, menuHint, this.titleUndead, levels]);
     this.tweens.add({ targets: prompt, alpha: { from: 1, to: 0.45 }, duration: 900, yoyo: true, repeat: -1 });
     this.tweens.add({ targets: this.titleSub, scale: { from: 1, to: 1.04 }, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   }
@@ -524,7 +531,7 @@ export class UIScene extends Phaser.Scene {
           disabled: () => !session.checkpoint,
         },
         { label: 'Restart Stretch', action: () => this.leavePause(() => this.game_.restartStage()) },
-        { label: 'River Map', action: () => this.leavePause(() => this.openMap()) },
+        { label: 'Level Select', action: () => this.leavePause(() => this.openMap()) },
         { label: 'Settings', action: () => this.showSettings(() => this.showPauseMenu()) },
         { label: 'Quit to Title', action: () => this.leavePause(() => this.game_.goToStage(0)) },
       ],
@@ -560,6 +567,15 @@ export class UIScene extends Phaser.Scene {
     this.scene.bringToTop('ui');
   }
 
+  /** From the title screen: iris out to the river map, where any stage can be picked. */
+  private openLevelSelect(): void {
+    const game = this.game_;
+    if (this.mode !== 'play' || !this.gameRunning || !game.stage.isTitle || game.transitioning) return;
+    synth.confirm();
+    game.transitioning = true;
+    this.irisClose(W / 2, H / 2, () => this.openMap());
+  }
+
   private openTitleMenu(): void {
     this.mode = 'titleMenu';
     const game = this.game_;
@@ -581,7 +597,7 @@ export class UIScene extends Phaser.Scene {
       [
         { label: () => `Continue  (${STAGES[lastUnlocked].name})`, action: () => go(lastUnlocked), disabled: () => !save.hasProgress() },
         { label: 'New Journey', action: () => go(1) },
-        { label: 'River Map', action: () => { close(); game.transitioning = true; this.irisClose(W / 2, H / 2, () => this.openMap()); } },
+        { label: 'Level Select', action: () => { close(); this.openLevelSelect(); } },
         {
           label: () => (save.data.undeadUnlocked ? `Undead Run: ${session.undead ? 'ON' : 'OFF'}` : 'Undead Run: ???'),
           action: () => {
@@ -809,6 +825,7 @@ export class UIScene extends Phaser.Scene {
         break;
       case 'play':
         if (game?.stage?.isTitle && running && input.consumePressed('confirm')) this.openTitleMenu();
+        if (input.consumePressed('levels')) this.openLevelSelect();
         break;
     }
   }

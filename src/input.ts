@@ -18,7 +18,8 @@ export type Action =
   | 'left'
   | 'right'
   | 'debug'
-  | 'skip';
+  | 'skip'
+  | 'levels';
 
 const BINDINGS: Record<Action, { codes: string[]; keys: string[] }> = {
   f: { codes: ['KeyF'], keys: ['f'] },
@@ -34,6 +35,7 @@ const BINDINGS: Record<Action, { codes: string[]; keys: string[] }> = {
   right: { codes: ['ArrowRight', 'KeyD'], keys: ['arrowright'] },
   debug: { codes: ['Backquote'], keys: ['`'] },
   skip: { codes: ['BracketRight'], keys: [']'] },
+  levels: { codes: ['KeyM'], keys: ['m'] },
 };
 
 const ACTIONS = Object.keys(BINDINGS) as Action[];

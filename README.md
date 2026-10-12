@@ -41,8 +41,9 @@ Each stretch has a par time and three hidden **golden roe**. The results card
 awards a star for finishing, one for beating par and one for finding every
 roe. **Flies** hover just above the water: leap out to eat one and heal.
 Staying out of water too long dries you out. Progress, best times, roe and
-settings save to `localStorage`. The **River Map** (from the title or pause
-menu) replays any unlocked stretch. Finishing the game unlocks **Undead Run**:
+settings save to `localStorage`. **Level Select** (M or the button on the
+title screen, or the title/pause menu) opens the river map, where any stretch
+can be played. Finishing the game unlocks **Undead Run**:
 you start fully decayed with 60 HP and no drying, the predators are faster,
 and Thriller plays.
 
